@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.fmmall.dao.AreaMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.fmmall.entity.Area">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="visible" jdbcType="TINYINT" property="visible" />
+    <result column="displayorder" jdbcType="INTEGER" property="displayorder" />
+    <result column="level" jdbcType="TINYINT" property="level" />
+  </resultMap>
+  <resultMap id="AreaVoMap" type="com.qfedu.fmmall.entity.AreaVo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="visible" jdbcType="TINYINT" property="visible" />
+    <result column="displayorder" jdbcType="INTEGER" property="displayorder" />
+    <result column="level" jdbcType="TINYINT" property="level" />
+  </resultMap>
+  <resultMap id="AreaVoMap2" type="com.qfedu.fmmall.entity.AreaVo">
+    <id column="id1" jdbcType="INTEGER" property="id" />
+    <result column="pid1" jdbcType="INTEGER" property="pid" />
+    <result column="name1" jdbcType="VARCHAR" property="name" />
+    <result column="visible1" jdbcType="TINYINT" property="visible" />
+    <result column="displayorder1" jdbcType="INTEGER" property="displayorder" />
+    <result column="level1" jdbcType="TINYINT" property="level" />
+    <collection property="areas" ofType="com.qfedu.fmmall.entity.AreaVo">
+       <id column="id2" jdbcType="INTEGER" property="id" />
+       <result column="pid2" jdbcType="INTEGER" property="pid" />
+       <result column="name2" jdbcType="VARCHAR" property="name" />
+       <result column="visible2" jdbcType="TINYINT" property="visible" />
+       <result column="displayorder2" jdbcType="INTEGER" property="displayorder" />
+       <result column="level2" jdbcType="TINYINT" property="level" />
+       <collection property="areas" ofType="com.qfedu.fmmall.entity.AreaVo">
+         <id column="id3" jdbcType="INTEGER" property="id" />
+         <result column="pid3" jdbcType="INTEGER" property="pid" />
+         <result column="name3" jdbcType="VARCHAR" property="name" />
+         <result column="visible3" jdbcType="TINYINT" property="visible" />
+         <result column="displayorder3" jdbcType="INTEGER" property="displayorder" />
+         <result column="level3" jdbcType="TINYINT" property="level" />
+       </collection>
+    </collection>
+  </resultMap>
+    <select id="selectAllAreas" resultMap="AreaVoMap2">
+      select  c1.id           'id1',
+        c1.pid          'pid1',
+        c1.name         'name1',
+        c1.visible      'visible1',
+        c1.displayorder 'displayorder1',
+        c1.level        'level1',
+        c2.id           'id2',
+        c2.pid          'pid2',
+        c2.name         'name2',
+        c2.visible      'visible2',
+        c2.displayorder 'displayorder2',
+        c2.level        'level2',
+        c3.id           'id3',
+        c3.pid          'pid3',
+        c3.name         'name3',
+        c3.visible      'visible3',
+        c3.displayorder 'displayorder3',
+        c3.level        'level3'
+      from area c1 inner join area c2
+      on  c2.pid = c1.id
+      inner join area c3 on
+      c3.pid = c2.id
+      where c1.`level`=1
+    </select>
+  <select id="selectAllAreas2" resultMap="AreaVoMap">
+    select id,
+           name,
+           level,
+           pid,
+           displayorder,
+           visible
+    from area
+    where pid = #{pid}
+  </select>
+  <select id="selectFirstLevelAreas" resultMap="BaseResultMap">
+    select id
+      name,
+      level,
+      pid,
+      displayorder,
+      visible
+    from area
+    where level = 1
+  </select>
+
+</mapper>
