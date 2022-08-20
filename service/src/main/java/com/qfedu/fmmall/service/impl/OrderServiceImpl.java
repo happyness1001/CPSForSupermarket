@@ -1,9 +1,6 @@
 package com.qfedu.fmmall.service.impl;
 
-import com.qfedu.fmmall.dao.OrderItemMapper;
-import com.qfedu.fmmall.dao.OrdersMapper;
-import com.qfedu.fmmall.dao.ProductSkuMapper;
-import com.qfedu.fmmall.dao.ShoppingCartMapper;
+import com.qfedu.fmmall.dao.*;
 import com.qfedu.fmmall.entity.*;
 import com.qfedu.fmmall.service.OrderService;
 import com.qfedu.fmmall.utils.PageHelper;
@@ -32,6 +29,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderItemMapper orderItemMapper;
     @Autowired
     private ProductSkuMapper productSkuMapper;
+
+    @Autowired
+    private AreaMapper areaMapper;
 
     private Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
@@ -171,6 +171,22 @@ public class OrderServiceImpl implements OrderService {
         PageHelper<OrdersVO> pageHelper = new PageHelper<>(count, pageCount, ordersVOS);;
         return new ResultVO(ResStatus.OK,"SUCCESS",pageHelper);
     }
+
+
+    public ResultVO listAreas(){
+        List<AreaVo> areaVos = areaMapper.selectAllAreas();
+        ResultVO resultVO = new ResultVO(ResStatus.OK, "success", areaVos);
+        return resultVO;
+    }
+
+    @Override
+    public ResultVO getAreaById(Integer pid) {
+        List<AreaVo> areaVos = areaMapper.selectAllAreas2(pid);
+        ResultVO resultVO = new ResultVO(ResStatus.OK, "success", areaVos);
+        return resultVO;
+    }
+
+    ;
 
 
 }

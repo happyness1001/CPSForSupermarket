@@ -81,4 +81,17 @@ public class OrderController {
         return resultVO;
     }
 
+    @GetMapping("/area-list")
+    @ApiOperation("地址查询接口")
+    public ResultVO listArea(){
+        return orderService.listAreas();
+    }
+
+    @GetMapping("/area/{pid}")
+    @ApiOperation("根据pid查询所有子地址")
+    public ResultVO getAreaById(@PathVariable("pid") Integer pid){
+        ResultVO resultVO = orderService.getAreaById(pid);
+        return resultVO;
+    }
+
 }

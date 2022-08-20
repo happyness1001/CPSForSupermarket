@@ -28,4 +28,7 @@ public class CategoryVO {
     //实现首页分类商品推荐
     private List<ProductVO> products;
 
+    public List<CategoryVO> getCategories() {
+        return categories;
+    }
 }

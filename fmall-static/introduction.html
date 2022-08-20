@@ -367,7 +367,7 @@
 							</div>
 							<li>
 								<div class="clearfix tb-btn tb-btn-buy theme-login">
-									<a id="LikBuy" title="点此按钮到下一步确认购买信息" href="#">立即购买</a>
+									<a id="LikBuy" title="点此按钮到下一步确认购买信息" href="order-add.html?cids=9">立即购买</a>
 								</div>
 							</li>
 							<li>
@@ -813,7 +813,7 @@
 						<div class="footer">
 							<div class="footer-hd">
 								<p>
-									<a href="#">锋迷商城</a>
+									<a href="#">集采商城</a>
 									<b>|</b>
 									<a href="#">商城首页</a>
 									<b>|</b>
@@ -824,11 +824,11 @@
 							</div>
 							<div class="footer-bd">
 								<p>
-									<a href="#">关于千锋</a>
+									<a href="#">关于网站</a>
 									<a href="#">合作伙伴</a>
 									<a href="#">联系我们</a>
 									<a href="#">网站地图</a>
-									<em>©qfedu.com 版权所有</em>
+									<em> 版权所有</em>
 								</p>
 							</div>
 						</div>
@@ -1035,6 +1035,7 @@
 				},
 				created:function(){
 					//获取到url传递的商品id
+					console.log("测试测试")
 					this.productId = getUrlParam("pid");
 					this.currentSkuIndex = getUrlParam("sid")!=null ? getUrlParam("sid"):0;
 					this.num = getUrlParam("num")!=null ? getUrlParam("num"):1;

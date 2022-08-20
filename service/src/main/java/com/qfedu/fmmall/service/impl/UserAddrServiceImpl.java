@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,6 +19,7 @@ public class UserAddrServiceImpl implements UserAddrService {
 
     @Autowired
     private UserAddrMapper userAddrMapper;
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public ResultVO listAddrsByUid(int userId) {
@@ -29,5 +31,18 @@ public class UserAddrServiceImpl implements UserAddrService {
         List<UserAddr> userAddrs = userAddrMapper.selectByExample(example);
         ResultVO resultVO = new ResultVO(ResStatus.OK, "success", userAddrs);
         return resultVO;
+    }
+
+    @Override
+    public ResultVO addNewAddress(UserAddr userAddr) {
+        Date dateTime = new Date();
+        userAddr.setCreateTime(dateTime);
+        userAddr.setUpdateTime(dateTime);
+        int i = userAddrMapper.insert(userAddr);
+        if(i>0){
+            return new ResultVO(ResStatus.OK,"success",null);
+        }else{
+            return new ResultVO(ResStatus.NO,"fail",null);
+        }
     }
 }

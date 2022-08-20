@@ -20,14 +20,15 @@
 		<div id="container">
 		<!--顶部导航条 -->
 		<div class="am-container header">
-			<ul class="message-l">
-				<div class="topMessage">
-					<div class="menu-hd">
-						<a href="#" target="_top" class="h">亲，请登录</a>
-						<a href="#" target="_top">免费注册</a>
-					</div>
+			<div class="topMessage">
+				<div v-if="isLogin" class="menu-hd">
+					{{username}},欢迎您！
 				</div>
-			</ul>
+				<div v-else class="menu-hd">
+					<a href="#" target="_top" class="h">亲，请登录</a>
+					<a href="#" target="_top">免费注册</a>
+				</div>
+			</div>
 			<ul class="message-r">
 					<div class="topMessage home">
 						<div class="menu-hd"><a href="index.html" target="_top" class="h">商城首页</a></div>
@@ -300,9 +301,11 @@
 			var vm = new Vue({
 				el:"#container",
 				data:{
+					isLogin:false,
 					shopcarts:[],
 					token:null,
 					opts:[],
+					username:"",
 					totalPrice:0.00
 				},
 				watch:{
@@ -321,8 +324,12 @@
 						window.location.href = encodeURI(loginUrl);
 					}else{
 						//请求当前用户的购物车记录
+						console.log("已登录")
 						this.token = token;
 						var userId = getCookieValue("userId");
+						this.username = getCookieValue("username");
+						this.isLogin="true"
+						console.log("登陆人：",this.username);
 						var url = baseUrl+"shopcart/list";
 						axios({
 							url:url,

@@ -18,4 +18,7 @@ public interface OrderService {
 
     public ResultVO listOrders(String userId,String status,int pageNum, int limit);
 
+    public ResultVO listAreas();
+
+    public ResultVO getAreaById(Integer pid);
 }
