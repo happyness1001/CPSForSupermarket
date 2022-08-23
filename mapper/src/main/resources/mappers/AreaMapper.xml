@@ -10,7 +10,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="visible" jdbcType="TINYINT" property="visible" />
     <result column="displayorder" jdbcType="INTEGER" property="displayorder" />
-    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="area_code" jdbcType="INTEGER" property="area_code" />
   </resultMap>
   <resultMap id="AreaVoMap" type="com.qfedu.fmmall.entity.AreaVo">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -18,7 +18,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="visible" jdbcType="TINYINT" property="visible" />
     <result column="displayorder" jdbcType="INTEGER" property="displayorder" />
-    <result column="level" jdbcType="TINYINT" property="level" />
+    <result column="area_code" jdbcType="INTEGER" property="area_code" />
   </resultMap>
   <resultMap id="AreaVoMap2" type="com.qfedu.fmmall.entity.AreaVo">
     <id column="id1" jdbcType="INTEGER" property="id" />
@@ -26,21 +26,21 @@
     <result column="name1" jdbcType="VARCHAR" property="name" />
     <result column="visible1" jdbcType="TINYINT" property="visible" />
     <result column="displayorder1" jdbcType="INTEGER" property="displayorder" />
-    <result column="level1" jdbcType="TINYINT" property="level" />
+    <result column="area_code1" jdbcType="INTEGER" property="area_code" />
     <collection property="areas" ofType="com.qfedu.fmmall.entity.AreaVo">
        <id column="id2" jdbcType="INTEGER" property="id" />
        <result column="pid2" jdbcType="INTEGER" property="pid" />
        <result column="name2" jdbcType="VARCHAR" property="name" />
        <result column="visible2" jdbcType="TINYINT" property="visible" />
        <result column="displayorder2" jdbcType="INTEGER" property="displayorder" />
-       <result column="level2" jdbcType="TINYINT" property="level" />
+       <result column="area_code2" jdbcType="INTEGER" property="area_code" />
        <collection property="areas" ofType="com.qfedu.fmmall.entity.AreaVo">
          <id column="id3" jdbcType="INTEGER" property="id" />
          <result column="pid3" jdbcType="INTEGER" property="pid" />
          <result column="name3" jdbcType="VARCHAR" property="name" />
          <result column="visible3" jdbcType="TINYINT" property="visible" />
          <result column="displayorder3" jdbcType="INTEGER" property="displayorder" />
-         <result column="level3" jdbcType="TINYINT" property="level" />
+         <result column="area_code3" jdbcType="INTEGER" property="area_code" />
        </collection>
     </collection>
   </resultMap>
@@ -50,44 +50,44 @@
         c1.name         'name1',
         c1.visible      'visible1',
         c1.displayorder 'displayorder1',
-        c1.level        'level1',
+        c1.area_code    'area_code1',
         c2.id           'id2',
         c2.pid          'pid2',
         c2.name         'name2',
         c2.visible      'visible2',
         c2.displayorder 'displayorder2',
-        c2.level        'level2',
+        c2.area_code    'area_code2',
         c3.id           'id3',
         c3.pid          'pid3',
         c3.name         'name3',
         c3.visible      'visible3',
         c3.displayorder 'displayorder3',
-        c3.level        'level3'
-      from area c1 inner join area c2
+        c3.area_code    'area_code3'
+      from area_code c1 inner join area_code c2
       on  c2.pid = c1.id
-      inner join area c3 on
+      inner join area_code c3 on
       c3.pid = c2.id
-      where c1.`level`=1
+      where c1.`area_code`=0
     </select>
   <select id="selectAllAreas2" resultMap="AreaVoMap">
     select id,
            name,
-           level,
+           area_code,
            pid,
            displayorder,
            visible
-    from area
+    from area_code
     where pid = #{pid}
   </select>
-  <select id="selectFirstLevelAreas" resultMap="BaseResultMap">
-    select id
-      name,
-      level,
-      pid,
-      displayorder,
-      visible
-    from area
-    where level = 1
+  <select id="selectFirstLevelAreas" resultMap="AreaVoMap">
+    select id,
+           name,
+           area_code,
+           pid,
+           displayorder,
+           visible
+    from area_code
+    where pid = 0
   </select>
 
 </mapper>

@@ -34,5 +34,19 @@ public class UserAddrController {
         return resultVO;
     }
 
+    @ApiOperation("删除地址接口")
+    @DeleteMapping("/deleteAddr")
+    public ResultVO deleteAddress(@RequestHeader("token") String token,@RequestParam Integer addrId){
+        ResultVO resultVO = userAddrService.deleteAddress(addrId);
+        return resultVO;
+    }
+
+    @ApiOperation("修改地址接口")
+    @PutMapping("/updateAddr")
+    public ResultVO updateAddress(@RequestHeader("token") String token,@RequestBody UserAddr userAddr){
+        ResultVO resultVO = userAddrService.updateAddress(userAddr);
+        return resultVO;
+    }
+
 
 }

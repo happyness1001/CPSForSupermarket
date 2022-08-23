@@ -9,13 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface AreaMapper extends GeneralDAO<Area> {
-    //1.连接查询
-    public List<AreaVo> selectAllAreas();
+
+    public List<AreaVo> selectFirstLevelAreas();
 
     //2.子查询：根据pid查询子分类
     public List<AreaVo> selectAllAreas2(int pid);
 
-    //3.查询一级类别
-
-    public List<Area> selectFirstLevelAreas();
 }

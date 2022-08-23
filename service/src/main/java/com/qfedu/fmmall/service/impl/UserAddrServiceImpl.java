@@ -38,11 +38,38 @@ public class UserAddrServiceImpl implements UserAddrService {
         Date dateTime = new Date();
         userAddr.setCreateTime(dateTime);
         userAddr.setUpdateTime(dateTime);
+        userAddr.setStatus(1);
         int i = userAddrMapper.insert(userAddr);
         if(i>0){
             return new ResultVO(ResStatus.OK,"success",null);
         }else{
             return new ResultVO(ResStatus.NO,"fail",null);
         }
+    }
+
+    @Override
+    public ResultVO deleteAddress(Integer addrId) {
+        Example example = new Example(UserAddr.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("addrId",addrId);
+        userAddrMapper.deleteByExample(example);
+        ResultVO resultVO = new ResultVO(ResStatus.OK, "success",null);
+        return resultVO;
+    }
+
+    @Override
+    public ResultVO updateAddress(UserAddr userAddr) {
+        UserAddr userAddrs = userAddrMapper.selectByPrimaryKey(userAddr.getAddrId());
+        Date dateTime = new Date();
+        userAddrs.setUpdateTime(dateTime);
+        userAddrs.setReceiverMobile(userAddr.getReceiverMobile());
+        userAddrs.setReceiverName(userAddr.getReceiverName());
+        userAddrs.setProvince(userAddr.getProvince());
+        userAddrs.setCity(userAddr.getCity());
+        userAddrs.setArea(userAddr.getArea());
+        userAddrs.setAddr(userAddr.getAddr());
+        userAddrMapper.updateByPrimaryKey(userAddrs);
+        ResultVO resultVO = new ResultVO(ResStatus.OK, "success",null);
+        return resultVO;
     }
 }

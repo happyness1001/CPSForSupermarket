@@ -22,8 +22,8 @@ public class AreaVo {
      2:二级分类
      3:三级小分类
      */
-    @Column(name = "level")
-    private Integer level;
+    @Column(name = "area_code")
+    private Integer area_code;
 
     /**
      * 父层级id 父id 上一级依赖的id，1级分类则为0，二级三级分别依赖上一级
@@ -46,7 +46,7 @@ public class AreaVo {
         return "AreaVo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", level=" + level +
+                ", area_code=" + area_code +
                 ", pid=" + pid +
                 ", displayorder=" + displayorder +
                 ", visible=" + visible +
@@ -74,12 +74,12 @@ public class AreaVo {
         return visible;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    public Integer getArea_code() {
+        return area_code;
     }
 
-    public Integer getLevel() {
-        return level;
+    public void setArea_code(Integer area_code) {
+        this.area_code = area_code;
     }
 
     public void setDisplayorder(Integer displayorder) {

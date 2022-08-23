@@ -8,4 +8,8 @@ public interface UserAddrService {
     public ResultVO listAddrsByUid(int userId);
 
     public ResultVO addNewAddress(UserAddr userAddr);
+
+    public ResultVO deleteAddress(Integer addrId);
+
+    public ResultVO updateAddress(UserAddr userAddr);
 }

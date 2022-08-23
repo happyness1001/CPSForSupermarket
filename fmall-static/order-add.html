@@ -343,25 +343,24 @@
 			counties:[],
 			isNewAddress:"false",
 			newaddress:{
+				"addr":"",
+				"area":"",
+				"city":"",
+				"province":"",
 				"receiverMobile": "",
 				"receiverName": "",
-				"province":"",
-				"city":"",
-				"county":"",
-				"detailedAddress":"",
+				"userId":"",
 
 			}
 		},
 		created:function(){
 			this.cartIds = getUrlParam("cids");
-			console.log(this.cartIds);
 
 			//1.根据当前用户id查询收货地址信息
 			var userId = getCookieValue("userId");
 			var token = getCookieValue("token");
 			this.username = getCookieValue("username");
 			this.isLogin = true;
-			console.log(userId);
 			var url1 = baseUrl+"useraddr/list";
 			axios({
 				url:url1,
@@ -409,14 +408,8 @@
 					}
 				}
 			});
-			var url3 = baseUrl+"order/area-list";
-			axios.get(url3).then((res)=>{
-				console.log(res.data.data);
-				this.categories = res.data.data;
-			});
 			var url4 = baseUrl+"order/area-list";
 			axios.get(url4).then((res)=>{
-				console.log("省级地区",res.data.data);
 				this.provinces = res.data.data;
 			});
 		},
@@ -446,26 +439,52 @@
 				var user = lable.value;
 				var lable2 = document.getElementById("user-phone");
 				var phone = lable2.value;
-				console.log("姓名为",user);
-				console.log("电话",phone);
-				console.log("省份为",province);
-				console.log("城市为",city);
-				console.log("县城为",county);
-				console.log("详细地址",detailAddress);
 				this.newaddress.receiverName = user;
 				this.newaddress.receiverMobile = phone;
 				this.newaddress.province = province;
 				this.newaddress.city = city;
-				this.newaddress.county = county;
-				this.newaddress.detailedAddress = detailAddress;
+				this.newaddress.area = county;
+				this.newaddress.addr = detailAddress;
+				this.newaddress.userId = getCookieValue("userId");
+				var token = getCookieValue("token");
+				//添加购物车
+				var url5 = baseUrl+"useraddr/add-address"
+				axios({
+					url:url5,
+					method:"post",
+					headers:{
+						token:token
+					},
+					data: this.newaddress
+				}).then((res)=>{
+					//处理添加购物车的回调
+					if(res.data.code == 10000){
+						//添加购物车成功！
+						layer.msg("添加地址成功！");
+					}else if(res.data.code == 10001){
+						//添加购物车失败！
+						layer.msg("添加地址失败！");
+					}else{
+						var str = "";
+						if(res.data.code == 20001){
+							str = "请先登录！";
+						}else if(res.data.code == 20002){
+							str = "登录过期，请重新登录！";
+						}
+						var loginUrl = "login.html?"+params;
+
+						//跳转到登录页面
+						window.location.href= encodeURI(loginUrl);
+					}
+
+				});
+				location.reload([true]);
 
 
 			},
 			showOrHide:function (){
-		        console.log("ccc1");
 				var divs = document.getElementById("div1");
 				var index = divs.style.display;
-				console.log("ccc1",index);
 		        if(divs.style.display == ""){
 					divs.style.display = "none";
 		        }else{
@@ -476,13 +495,11 @@
 				var myselect=document.getElementById("provinceId");
 				var index=myselect.selectedIndex;
 				var provinceId = myselect.options[index].value;
-				console.log("省级地区代码");
 				var url2 = baseUrl+"order/area/"+provinceId;
 				axios({
 					url:url2,
 					method:"get"
 				}).then((res)=>{
-					console.log("市级地区",res.data.data);
 					this.cities = res.data.data;
 
 				});
@@ -497,7 +514,6 @@
 					url:url3,
 					method:"get"
 				}).then((res)=>{
-					console.log("县级地区",res.data.data);
 					this.counties = res.data.data;
 
 				});
@@ -517,7 +533,6 @@
 					"totalAmount": this.totalPrice,
 					"userId": getCookieValue("userId")
 				};
-				console.log("订单",order);
 				//2.提交订单
 				var url3 = baseUrl + "order/add";
 				axios({

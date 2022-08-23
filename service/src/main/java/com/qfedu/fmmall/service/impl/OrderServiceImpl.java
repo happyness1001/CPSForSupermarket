@@ -174,7 +174,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     public ResultVO listAreas(){
-        List<AreaVo> areaVos = areaMapper.selectAllAreas();
+        List<AreaVo> areaVos = areaMapper.selectFirstLevelAreas();
         ResultVO resultVO = new ResultVO(ResStatus.OK, "success", areaVos);
         return resultVO;
     }
