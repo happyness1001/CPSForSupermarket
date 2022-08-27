@@ -67,6 +67,27 @@ public class OrderController {
         return resultVO;
     }
 
+    @ApiOperation("取消订单接口")
+    @PutMapping("/cancelOrder/{oid}")
+    public ResultVO cancelOrder(@PathVariable("oid") String orderId,@RequestHeader("token")String token){
+        ResultVO resultVO = orderService.closeOrder(orderId);
+        return resultVO;
+    }
+
+    @ApiOperation("确认收货状态接口")
+    @PutMapping("/confirmReceipt/{oid}")
+    public ResultVO updateStatus(@PathVariable("oid") String orderId ,@RequestHeader("token")String token){
+        ResultVO resultVO = orderService.confirmReceipt(orderId);
+        return resultVO;
+    }
+
+    @ApiOperation("删除订单接口")
+    @PutMapping("/deleteOrder/{oid}")
+    public ResultVO deleteOrder(@PathVariable("oid") String orderId,@RequestHeader("token")String token){
+        ResultVO resultVO = orderService.deleteOrder(orderId);
+        return resultVO;
+    }
+
     @GetMapping("/list")
     @ApiOperation("订单查询接口")
     @ApiImplicitParams({

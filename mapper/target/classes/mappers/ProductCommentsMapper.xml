@@ -55,4 +55,19 @@
     limit #{start},#{limit}
   </select>
 
+  <select id="selectCommontsByUserId" resultMap="ProductCommentsVOMap">
+    select u.username,  u.nickname, u.user_img,
+           c.comm_id, c.product_id, c.product_name,
+           c.order_item_id, c.user_id, c.is_anonymous,
+           c.comm_type, c.comm_level, c.comm_content,
+           c.comm_imgs, c.sepc_name, c.reply_status,
+           c.reply_content, c.reply_time, c.is_show
+    from product_comments c
+           INNER JOIN users u
+                      ON u.user_id = c.user_id
+    WHERE c.user_id =#{userId}
+    and c.is_show !=0
+      limit #{start},#{limit}
+  </select>
+
 </mapper>

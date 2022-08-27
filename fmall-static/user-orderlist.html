@@ -69,20 +69,20 @@
 								<td>{{order.createTime}}</td>
 								<td>
 									<template v-if="order.status == '1'">
-										<button class="btn btn-success btn-xs">去支付</button>
-										<button class="btn btn-danger btn-xs">取消订单</button>
+										<button class="btn btn-success btn-xs" @click="doSubmit(order)">去支付</button>
+										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>
 									</template>
 									<template v-if="order.status == '2'">
-										<button class="btn btn-danger btn-xs">取消订单</button>
+										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>
 									</template>
 									<template v-if="order.status == '3'">
-										<button class="btn btn-success btn-xs">确认收货</button>
+										<button class="btn btn-success btn-xs" @click="confirmReceipt(order.orderId)">确认收货</button>
 									</template>
 									<template v-if="order.status == '4'">
 										<button class="btn btn-success btn-xs" @click="gotoComment" :data-index="index">去评价</button>
 									</template>
 									<template v-if="order.status == '5' || order.status == '6'">
-										<button class="btn btn-success btn-xs">删除</button>
+										<button class="btn btn-success btn-xs" @click="deleteOrder(order.orderId)">删除</button>
 									</template>
 								</td>
 							</tr>
@@ -198,6 +198,19 @@
 							if(res.data.code == 10000){
 								this.orders = res.data.data.list;
 								this.count = res.data.data.count;
+							}else if(res.data.code == 10001){
+								layer.msg("订单取消失败！");
+							}else{
+								var str = "";
+								if(res.data.code == 20001){
+									str = "请先登录！";
+								}else if(res.data.code == 20002){
+									str = "登录过期，请重新登录！";
+								}
+								var loginUrl = "login.html?"+params;
+
+								//跳转到登录页面
+								window.location.href= encodeURI(loginUrl);
 							}
 						});
 					},
@@ -206,6 +219,70 @@
 						var order = this.orders[index];
 						localStorage.setItem("order",JSON.stringify(order));
 						window.location.href = "user-commentadd.html";
+					},
+					doSubmit: function (obj) {
+						var orderInfo = obj; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://...."}
+						console.log("订单详情",obj)
+						orderInfo.totalPrice = obj.totalPrice; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://....",totalPrice:18.8}
+						localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+						window.location.href = "order-pay.html";
+					},
+					cancelOrder:function (orderId){
+						var token = getCookieValue("token");
+						var url1 = baseUrl+"order/cancelOrder/"+orderId;
+						axios({
+							url:url1,
+							method:"put",
+							headers:{
+								token:this.token
+							}
+
+						}).then((res)=>{
+							console.log(res.data.data);
+							if(res.data.code == 10000){
+								alert("订单取消成功");
+								location.reload([true]);
+							}
+						});
+
+					},
+					confirmReceipt: function(orderId) {
+						var token = getCookieValue("token");
+						var url1 = baseUrl+"order/confirmReceipt/"+orderId;
+						axios({
+							url:url1,
+							method:"put",
+							headers:{
+								token:this.token
+							}
+
+						}).then((res)=>{
+							console.log(res.data.data);
+							if(res.data.code == 10000){
+								alert("收货成功");
+								location.reload([true]);
+							}
+						});
+
+					},
+					deleteOrder:function (orderId){
+						var token = getCookieValue("token");
+						var url1 = baseUrl+"order/deleteOrder/"+orderId;
+						axios({
+							url:url1,
+							method:"put",
+							headers:{
+								token:this.token
+							}
+
+						}).then((res)=>{
+							console.log(res.data.data);
+							if(res.data.code == 10000){
+								alert("订单删除成功");
+								location.reload([true]);
+							}
+						});
+
 					}
 				}
 				

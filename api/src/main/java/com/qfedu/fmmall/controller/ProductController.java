@@ -83,5 +83,12 @@ public class ProductController {
         return productService.listBrands(keyword);
     }
 
+    @ApiOperation("删除评论接口")
+    @PutMapping("/deleteComment/{commId}")
+    public ResultVO deleteOrder(@PathVariable("commId") String commId,@RequestHeader("token")String token){
+        ResultVO resultVO = productCommontsService.deleteComment(commId);
+        return resultVO;
+    }
+
 }
 

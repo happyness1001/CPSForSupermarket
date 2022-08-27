@@ -19,4 +19,6 @@ public interface ProductCommontsService {
      * @return
      */
     public ResultVO getCommentsCountByProductId(String productId);
+
+    public ResultVO deleteComment(String commId);
 }

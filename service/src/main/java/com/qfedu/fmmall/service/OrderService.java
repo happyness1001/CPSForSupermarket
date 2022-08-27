@@ -14,11 +14,15 @@ public interface OrderService {
 
     public ResultVO getOrderById(String orderId);
 
-    public void closeOrder(String orderId);
+    public ResultVO closeOrder(String orderId);
 
     public ResultVO listOrders(String userId,String status,int pageNum, int limit);
 
     public ResultVO listAreas();
 
     public ResultVO getAreaById(Integer pid);
+
+    public ResultVO deleteOrder(String orderId);
+
+    public ResultVO confirmReceipt(String orderId);
 }

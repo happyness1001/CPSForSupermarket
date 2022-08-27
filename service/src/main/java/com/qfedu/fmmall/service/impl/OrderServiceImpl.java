@@ -124,15 +124,24 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public void closeOrder(String orderId) {
+    public ResultVO closeOrder(String orderId) {
         synchronized (this) {
             //  1.修改当前订单：status=6 已关闭  close_type=1 超时未支付
             Orders cancleOrder = new Orders();
             cancleOrder.setOrderId(orderId);
             cancleOrder.setStatus("6");  //已关闭
-            cancleOrder.setCloseType(1); //关闭类型：超时未支付
-            ordersMapper.updateByPrimaryKeySelective(cancleOrder);
-
+            Orders orders = ordersMapper.selectByPrimaryKey(orderId);
+            if(orders.getStatus()=="1"){
+                cancleOrder.setCloseType(1); //关闭类型：超时未支付
+            }else {
+                cancleOrder.setCloseType(4); //关闭类型：超时未支付
+            }
+            Date date = new Date();
+            cancleOrder.setCancelTime(date);
+            int i = ordersMapper.updateByPrimaryKeySelective(cancleOrder);
+            if(i == 0){
+                return new ResultVO(ResStatus.NO,"FAILED","");
+            }
             //  2.还原库存：先根据当前订单编号查询商品快照（skuid  buy_count）--->修改product_sku
             Example example1 = new Example(OrderItem.class);
             Example.Criteria criteria1 = example1.createCriteria();
@@ -146,6 +155,7 @@ public class OrderServiceImpl implements OrderService {
                 productSku.setStock(productSku.getStock() + orderItem.getBuyCounts());
                 productSkuMapper.updateByPrimaryKey(productSku);
             }
+            return new ResultVO(ResStatus.OK,"SUCCESS","");
         }
     }
 
@@ -162,6 +172,7 @@ public class OrderServiceImpl implements OrderService {
         if(status != null && !"".equals(status)){
             criteria.andLike("status",status);
         }
+        criteria.andNotEqualTo("deleteStatus",1);
         int count = ordersMapper.selectCountByExample(example);
 
         //3.计算总页数
@@ -186,7 +197,31 @@ public class OrderServiceImpl implements OrderService {
         return resultVO;
     }
 
-    ;
+    @Override
+    public ResultVO deleteOrder(String orderId) {
+        Orders orders = new Orders();
+        orders.setOrderId(orderId);
+        orders.setDeleteStatus(1);
+        int i = ordersMapper.updateByPrimaryKeySelective(orders);
+        if(i==1){
+            return new ResultVO(ResStatus.OK,"sucesss","");
+        }
+        return new ResultVO(ResStatus.NO,"FAILED","");
+    }
+
+    @Override
+    public ResultVO confirmReceipt(String orderId) {
+        Orders orders = new Orders();
+        orders.setOrderId(orderId);
+        orders.setStatus("4");
+        int i = ordersMapper.updateByPrimaryKeySelective(orders);
+        if(i==1){
+            return new ResultVO(ResStatus.OK,"sucesss","");
+        }
+        return new ResultVO(ResStatus.NO,"FAILED","");
+
+    }
+
 
 
 }

@@ -3,6 +3,7 @@ package com.qfedu.fmmall.service.impl;
 import com.qfedu.fmmall.dao.ProductCommentsMapper;
 import com.qfedu.fmmall.entity.ProductComments;
 import com.qfedu.fmmall.entity.ProductCommentsVO;
+import com.qfedu.fmmall.entity.Users;
 import com.qfedu.fmmall.service.ProductCommontsService;
 import com.qfedu.fmmall.utils.PageHelper;
 import com.qfedu.fmmall.vo.ResStatus;
@@ -81,5 +82,34 @@ public class ProductCommontsServiceImpl implements ProductCommontsService {
         return success;
     }
 
+    @Override
+    public ResultVO deleteComment(String commId) {
+        ProductComments comments = productCommentsMapper.selectByPrimaryKey(commId);
+        comments.setIsShow(0);
+        int i = productCommentsMapper.updateByPrimaryKeySelective(comments);
+        if(i==1){
+            return new ResultVO(ResStatus.OK,"sucesss","");
+        }
+        return new ResultVO(ResStatus.NO,"FAILED","");
+    }
+
+
+    public  ResultVO getCommentByUser(Integer userId, int pageNum, int limit) {
+        Example example = new Example(ProductComments.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId",userId);
+        criteria.andNotEqualTo("isShow",0);
+        int count = productCommentsMapper.selectCountByExample(example);
+
+        //2.计算总页数（必须确定每页显示多少条  pageSize = limit）
+        int pageCount = count%limit==0? count/limit : count/limit+1;
+
+        //3.查询当前页的数据（因为评论中需要用户信息，因此需要连表查询---自定义）
+        int start = (pageNum-1)*limit;
+        List<ProductCommentsVO> list = productCommentsMapper.selectCommontsByUserId(userId, start, limit);
+
+        ResultVO resultVO = new ResultVO(ResStatus.OK, "success", new PageHelper<ProductCommentsVO>(count,pageCount,list));
+        return resultVO;
+    }
 
 }

@@ -1,10 +1,13 @@
 package com.qfedu.fmmall.service.impl;
 
 import com.qfedu.fmmall.dao.UsersMapper;
+import com.qfedu.fmmall.entity.ProductComments;
+import com.qfedu.fmmall.entity.ProductCommentsVO;
 import com.qfedu.fmmall.entity.Users;
 import com.qfedu.fmmall.service.UserService;
 import com.qfedu.fmmall.utils.Base64Utils;
 import com.qfedu.fmmall.utils.MD5Utils;
+import com.qfedu.fmmall.utils.PageHelper;
 import com.qfedu.fmmall.vo.ResStatus;
 import com.qfedu.fmmall.vo.ResultVO;
 import io.jsonwebtoken.JwtBuilder;
@@ -14,17 +17,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UsersMapper usersMapper;
+
+    @Autowired
+    private ProductCommontsServiceImpl productCommontsService;
+
+
 
     @Transactional
     public ResultVO userResgit(String name, String pwd) {
@@ -89,5 +101,70 @@ public class UserServiceImpl implements UserService {
                 return new ResultVO(ResStatus.NO,"登录失败，密码错误！",null);
             }
         }
+    }
+
+    @Override
+    public ResultVO updateUser(Users user) {
+        Users users = usersMapper.selectByPrimaryKey(user.getUserId());
+        if(user.getPassword()!=""||user.getPassword()!=null){
+            String md5Pwd = MD5Utils.md5(user.getPassword());
+            users.setPassword(md5Pwd);
+        }
+        users.setUserImg(user.getUserImg());
+        users.setNickname(user.getNickname());
+        users.setRealname(user.getRealname());
+        users.setUserBirth(user.getUserBirth());
+        users.setUserEmail(user.getUserEmail());
+        users.setUserSex(user.getUserSex());
+        users.setUserMobile(user.getUserMobile());
+        int i = usersMapper.updateByPrimaryKeySelective(users);
+        if(i==1){
+            return new ResultVO(ResStatus.OK,"sucesss","");
+        }
+        return new ResultVO(ResStatus.NO,"FAILED","");
+    }
+
+    @Override
+    public ResultVO getUserById(Integer userId) {
+       Users users = usersMapper.selectByPrimaryKey(userId);
+        return new ResultVO(ResStatus.OK,"sucesss",users);
+    }
+
+    @Override
+    public ResultVO saveOrUpdateImageFile(int id, MultipartFile image) throws IOException {
+        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\fmall-static\\static\\img";
+        String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+        suffix = suffix.toLowerCase();
+        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
+            String fileName = String.valueOf(id)+suffix;
+            File targetFile = new File(path, fileName);
+            if(!targetFile.getParentFile().exists()){    //注意，判断父级路径是否存在
+                targetFile.getParentFile().mkdirs();
+            }
+            long size = 0;
+            //保存
+            try {
+                image.transferTo(targetFile);
+                size = image.getSize();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Users users = usersMapper.selectByPrimaryKey(id);
+            users.setUserImg("img/"+fileName);
+            int i = usersMapper.updateByPrimaryKeySelective(users);
+            if(i==1){
+                return new ResultVO(ResStatus.OK,"sucesss","");
+            }
+            return new ResultVO(ResStatus.NO,"FAILED","");
+        }else{
+            return new ResultVO(ResStatus.NO,"图片格式错误","");
+        }
+
+    }
+
+    @Override
+    public ResultVO getCommentById(Integer userId,int pageNum,int limit) {
+
+        return productCommontsService.getCommentByUser(userId,pageNum,limit);
     }
 }
