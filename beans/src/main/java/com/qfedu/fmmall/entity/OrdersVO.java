@@ -35,6 +35,7 @@ public class OrdersVO {
     private Date deliveryTime;
     private Date flishTime;
     private Date cancelTime;
+    private Date dueTime;
     private Integer closeType;
     private List<OrderItem> orderItems;
 }

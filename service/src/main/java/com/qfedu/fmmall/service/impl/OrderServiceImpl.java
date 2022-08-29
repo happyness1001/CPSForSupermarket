@@ -16,6 +16,8 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -68,6 +70,22 @@ public class OrderServiceImpl implements OrderService {
             order.setUntitled(untitled);
             order.setCreateTime(new Date());
             order.setStatus("1");
+            Date date = new Date();
+            if(order.getDueTime().before(date)){
+                Calendar ca = Calendar.getInstance();
+                ca.setTime(date);
+                int year = ca.get(Calendar.YEAR);
+                int month = ca.get(Calendar.MONTH) + 1;
+                if(month==12){
+                    ca.set(Calendar.YEAR,year+1);
+                    ca.set(Calendar.MONTH,0);
+                }else {
+                    ca.set(Calendar.MONTH,month);
+                }
+                ca.set(Calendar.DAY_OF_MONTH,10);
+                date = ca.getTime();
+                order.setDueTime(date);
+            }
             //生成订单编号
             String orderId = UUID.randomUUID().toString().replace("-", "");
             order.setOrderId(orderId);
@@ -222,6 +240,16 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    @Override
+    public ResultVO changeTime(String orderId, Orders orders) {
+        Orders order = ordersMapper.selectByPrimaryKey(orderId);
+        order.setDueTime(orders.getDueTime());
+        int i = ordersMapper.updateByPrimaryKeySelective(order);
+        if(i==1){
+            return new ResultVO(ResStatus.OK,"sucesss","");
+        }
+        return new ResultVO(ResStatus.NO,"FAILED","");
+    }
 
 
 }

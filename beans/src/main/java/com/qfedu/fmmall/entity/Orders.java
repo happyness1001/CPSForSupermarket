@@ -1,5 +1,7 @@
 package com.qfedu.fmmall.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
@@ -133,8 +135,25 @@ public class Orders {
     /**
      * 订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易
      */
+
+    /**
+     * 订单交割时间
+     */
+    @Column(name = "due_time")
+    private Date dueTime;
+
+
+
     @Column(name = "close_type")
     private Integer closeType;
+
+    public Date getDueTime() {
+        return dueTime;
+    }
+
+    public void setDueTime(Date dueTime) {
+        this.dueTime = dueTime;
+    }
 
     /**
      * 获取订单ID 同时也是订单编号

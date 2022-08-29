@@ -4,6 +4,7 @@ import com.qfedu.fmmall.entity.Orders;
 import com.qfedu.fmmall.vo.ResultVO;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Map;
 
 public interface OrderService {
@@ -25,4 +26,6 @@ public interface OrderService {
     public ResultVO deleteOrder(String orderId);
 
     public ResultVO confirmReceipt(String orderId);
+
+    public ResultVO changeTime(String orderId, Orders orders);
 }

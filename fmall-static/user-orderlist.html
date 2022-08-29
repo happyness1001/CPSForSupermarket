@@ -41,6 +41,12 @@
 			</div>
 			
 			<div class="box-container-bottom" style="margin-bottom: 15px;"></div>
+			<div class="logistics" id="div1" style="overflow: hidden;display: none;">
+				<h5>更改交割时间</h5>
+				<input id="myDate" type="datetime-local" :placeholder="请选择日期" size="15"/>
+				<div class="am-btn am-btn-danger" @click="saveTime()">保存</div>
+				<div class="am-btn am-btn-danger" @click="showOrHide()">取消</div>
+			</div>
 			
 			<div class="m-logistics">
 				<div class="s-bar"><i class="s-icon"></i></div>
@@ -51,7 +57,8 @@
 							<td>序号</td>
 							<td>订单商品</td>
 							<td>订单状态</td>
-							<td>时间</td>
+							<td>下单时间</td>
+							<td>交割时间</td>
 							<td>操作</td>
 						</tr>
 						<template v-for="order,index in orders">
@@ -67,13 +74,16 @@
 									<span v-else-if="order.status == '6'">已关闭</span>
 								</td>
 								<td>{{order.createTime}}</td>
+								<td>{{order.dueTime}}</td>
 								<td>
 									<template v-if="order.status == '1'">
 										<button class="btn btn-success btn-xs" @click="doSubmit(order)">去支付</button>
 										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>
+										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>
 									</template>
 									<template v-if="order.status == '2'">
 										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>
+										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>
 									</template>
 									<template v-if="order.status == '3'">
 										<button class="btn btn-success btn-xs" @click="confirmReceipt(order.orderId)">确认收货</button>
@@ -122,7 +132,11 @@
 					userId:"",
 					orders:[],
 					count:0,
-					status:null
+					status:null,
+					time:"",
+					orderId:"",
+					duetime:"",
+					order:"",
 				},
 				created:function(){
 					this.token = getCookieValue("token");
@@ -244,6 +258,54 @@
 								location.reload([true]);
 							}
 						});
+
+					},
+					showOrHide: function () {
+						var divs = document.getElementById("div1");
+						divs.style.display = "none";
+					},
+					changeTime:function (order){
+						this.time = order.dueTime;
+						this.orderId = order.orderId;
+						this.order = order;
+						var divs = document.getElementById("div1");
+						divs.style.display = "";
+
+					},
+					saveTime:function (){
+						var x = document.getElementById("myDate").value;
+						if(x == ""||x==null){
+							alert("请选择交割时间");
+							return;
+						}
+						var time = new Date(x);
+						var now = new Date();
+						if(time<=now){
+							alert("请选择正确的交割时间");
+							return;
+						}
+						var token = getCookieValue("token");
+						var url1 = baseUrl+"order/changeTime/"+this.orderId;
+						this.duetime = new Date(x);
+						this.order.dueTime = this.duetime
+						alert(this.order.dueTime);
+						axios({
+							url:url1,
+							method:"put",
+							headers:{
+								token:token
+							},
+							data:this.order
+
+
+						}).then((res)=>{
+							if(res.data.code == 10000){
+								alert("时间修改成功");
+								location.reload([true]);
+							}
+						});
+						var divs = document.getElementById("div1");
+						divs.style.display = "none";
 
 					},
 					confirmReceipt: function(orderId) {

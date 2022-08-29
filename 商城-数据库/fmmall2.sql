@@ -210,6 +210,7 @@ CREATE TABLE `orders`  (
   `flish_time` datetime(0) NULL DEFAULT NULL COMMENT '完成时间',
   `cancel_time` datetime(0) NULL DEFAULT NULL COMMENT '取消时间',
   `close_type` int(11) NULL DEFAULT NULL COMMENT '订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易',
+  `due_time` datetime NULL DEFAULT NULL COMMENT '订单交割时间',
   PRIMARY KEY (`order_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '订单 ' ROW_FORMAT = Compact;
 
@@ -542,6 +543,7 @@ CREATE TABLE `users`  (
   `user_birth` date NULL DEFAULT NULL COMMENT '生日 生日',
   `user_regtime` datetime(0) NOT NULL COMMENT '注册时间 创建时间',
   `user_modtime` datetime(0) NOT NULL COMMENT '更新时间 更新时间',
+  `security_deposit` decimal(10, 0) NULL DEFAULT NULL COMMENT '保证金',
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户 ' ROW_FORMAT = Compact;
 

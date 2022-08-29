@@ -1,5 +1,6 @@
 package com.qfedu.fmmall.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -72,6 +73,21 @@ public class Users {
      */
     @Column(name = "user_modtime")
     private Date userModtime;
+
+    /**
+     * 保证金
+     */
+    @Column(name = "security_deposit")
+    private BigDecimal securityDeposit;
+
+    public BigDecimal getSecurityDeposit() {
+        return securityDeposit;
+    }
+
+
+    public void setSecurityDeposit(BigDecimal securityDeposit) {
+        this.securityDeposit = securityDeposit;
+    }
 
     /**
      * 获取主键id 用户id

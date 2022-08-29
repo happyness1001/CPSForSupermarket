@@ -154,6 +154,10 @@
 				<div class="clear"></div>
 			</div>
 			<div class="logistics">
+				<h3>选择交割时间</h3>
+				<input id="myDate" type="datetime-local" :placeholder="请选择日期"/>
+			</div>
+			<div class="logistics">
 				<h3>选择支付方式</h3>
 				<ul class="pay-list">
 					<li style="width: 100px; height: 40px; padding: 3px;" :class="{'selected':payType==1}" @click="changePayType(1)">
@@ -329,6 +333,7 @@
 		el:"#container",
 		data:{
 			isLogin: "false",
+			isOk:"false",
 			username:"",
 			cartIds:"",
 			addrs:[],
@@ -521,6 +526,18 @@
 			doSubmit: function () {
 				//将订单信息提交到：添加订单接口
 				//1.准备订单数据
+				var x = document.getElementById("myDate").value;
+				if(x == ""||x==null){
+					var time = new Date();
+				}else{
+					var time = new Date(x);
+					var now = new Date();
+					if(time<=now){
+						alert("请选择正确的交割时间");
+						return;
+					}
+				}
+
 				var address = this.addrs[this.addrIndex].province + " " + this.addrs[this.addrIndex].city + " "
 						+ this.addrs[this.addrIndex].area + " " + this.addrs[this.addrIndex].addr;
 				var order = {
@@ -531,7 +548,8 @@
 					"receiverMobile": this.addrs[this.addrIndex].receiverMobile,
 					"receiverName": this.addrs[this.addrIndex].receiverName,
 					"totalAmount": this.totalPrice,
-					"userId": getCookieValue("userId")
+					"userId": getCookieValue("userId"),
+					"dueTime":time
 				};
 				//2.提交订单
 				var url3 = baseUrl + "order/add";

@@ -24,6 +24,7 @@
     <result column="flish_time" jdbcType="TIMESTAMP" property="flishTime" />
     <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
     <result column="close_type" jdbcType="INTEGER" property="closeType" />
+    <result column="due_time" jdbcType="TIMESTAMP" property="dueTime" />
   </resultMap>
 
 <!--
@@ -112,6 +113,7 @@
     <result column="flish_time" jdbcType="TIMESTAMP" property="flishTime" />
     <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
     <result column="close_type" jdbcType="INTEGER" property="closeType" />
+    <result column="due_time" jdbcType="TIMESTAMP" property="dueTime" />
     <collection property="orderItems" column="order_id" select="com.qfedu.fmmall.dao.OrderItemMapper.listOrderItemsByOrderId"/>
   </resultMap>
   <select id="selectOrders" resultMap="OrdersVOMap">
@@ -119,7 +121,7 @@
     order_id,user_id,untitled,receiver_name, receiver_mobile,receiver_address,
     total_amount, actual_amount,pay_type,order_remark,status,delivery_type,
     delivery_flow_id,order_freight,delete_status,create_time,
-    update_time,pay_time,delivery_time, flish_time,cancel_time,close_type
+    update_time,pay_time,delivery_time, flish_time,cancel_time,close_type,due_time
     from orders
     where user_id=#{userId}
     <if test="status != null">
