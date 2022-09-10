@@ -1,6 +1,7 @@
 package com.qfedu.fmmall.service;
 
 import com.qfedu.fmmall.entity.ShoppingCart;
+import com.qfedu.fmmall.entity.ShoppingCartVO;
 import com.qfedu.fmmall.vo.ResultVO;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface ShoppingCartService {
 
     public ResultVO listShoppingCartsByCids(String cids);
 
+    public List<Integer> getLastestCart(String userId,Integer num);
+
+    public ResultVO deleteShoppingCart(Integer cartId);
 }

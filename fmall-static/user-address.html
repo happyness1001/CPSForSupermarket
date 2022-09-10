@@ -208,9 +208,6 @@
 		},
 		methods: {
 			newAddress:function (){
-				var divs = document.getElementById("div1");
-				var index = divs.style.display;
-				divs.style.display = "none";
 				var myselect = document.getElementById("provinceId");
 				var index = myselect.selectedIndex;
 				var province = myselect.options[index].text;
@@ -226,6 +223,18 @@
 				var user = lable.value;
 				var lable2 = document.getElementById("user-phone");
 				var phone = lable2.value;
+				var reg =/^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
+				if(user==""||city=="请选择"||county=="请选择"||detailAddress==""||province=="选择省份"){
+					alert("请输入完整的信息");
+					return;
+				}
+				if(!reg.test(phone||phone=="")){
+					alert("请输入正确的手机号码！");
+					return ;
+				}
+				var divs = document.getElementById("div1");
+				var index = divs.style.display;
+				divs.style.display = "none";
 				this.newaddress.receiverName = user;
 				this.newaddress.receiverMobile = phone;
 				this.newaddress.province = province;
@@ -331,9 +340,6 @@
 				location.reload([true]);
 			},
 			saveAddress:function (){
-				var divs = document.getElementById("div2");
-				var index = divs.style.display;
-				divs.style.display = "none";
 				var myselect = document.getElementById("provinceId2");
 				var index = myselect.selectedIndex;
 				var province = myselect.options[index].text;
@@ -349,6 +355,18 @@
 				var user = lable.value;
 				var lable2 = document.getElementById("user-phone2");
 				var phone = lable2.value;
+				var reg =/^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
+				if(user==""||city=="请选择"||county=="请选择"||detailAddress==""||province=="选择省份"){
+					alert("请输入完整的信息");
+					return;
+				}
+				if(!reg.test(phone||phone=="")){
+					alert("请输入正确的手机号码！");
+					return ;
+				}
+				var divs = document.getElementById("div2");
+				var index = divs.style.display;
+				divs.style.display = "none";
 				var data ={
 					    "addr": detailAddress,
 						"addrId": this.addrId,

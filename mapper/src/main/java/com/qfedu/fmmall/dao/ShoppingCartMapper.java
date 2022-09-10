@@ -19,4 +19,6 @@ public interface ShoppingCartMapper extends GeneralDAO<ShoppingCart> {
     //1,8
     public List<ShoppingCartVO> selectShopcartByCids(List<Integer> cids);
 
+    public List<Integer> getLastestCart(String userId,Integer num);
+
 }

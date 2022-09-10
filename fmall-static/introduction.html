@@ -367,7 +367,7 @@
 							</div>
 							<li>
 								<div class="clearfix tb-btn tb-btn-buy theme-login">
-									<a id="LikBuy" title="点此按钮到下一步确认购买信息" href="order-add.html?cids=9">立即购买</a>
+									<a id="LikBuy" title="点此按钮到下一步确认购买信息" @click="buyNow">立即购买</a>
 								</div>
 							</li>
 							<li>
@@ -1023,7 +1023,7 @@
 					skuProps:{}	,		 //相当于一个map，用于存放当前套餐的属性
 					productParams:{},
 					productCommonts:[],
-					
+					cartId:"",
 					pageNum:1,
 					limit:3,
 					pageCount:0,
@@ -1035,7 +1035,6 @@
 				},
 				created:function(){
 					//获取到url传递的商品id
-					console.log("测试测试")
 					this.productId = getUrlParam("pid");
 					this.currentSkuIndex = getUrlParam("sid")!=null ? getUrlParam("sid"):0;
 					this.num = getUrlParam("num")!=null ? getUrlParam("num"):1;
@@ -1152,7 +1151,61 @@
 							this.num = parseInt(this.num)+ 1;
 						}
 					},
-					
+					buyNow:function (){
+						//套参属性转换成字符串
+						var propStr = "";
+						for(var key in this.chooseSkuProps){
+							propStr+= key+":"+  this.chooseSkuProps[key] +";";
+						}
+						//从cookie获取userId
+						var uid = getCookieValue("userId");
+						//购物车信息
+						var cart = {
+							"cartNum": this.num,
+							"productId": this.productId,
+							"productPrice": this.productSkus[this.currentSkuIndex].sellPrice,
+							"skuId": this.productSkus[this.currentSkuIndex].skuId,
+							"skuProps":propStr ,
+							"userId": uid
+						};
+						//从cookie中获取token
+						var token = getCookieValue("token");
+						//添加购物车
+						var url5 = baseUrl+"shopcart/add"
+						axios({
+							url:url5,
+							method:"post",
+							headers:{
+								token:token
+							},
+							data: cart
+						}).then((res)=>{
+
+							//处理添加购物车的回调
+							if(res.data.code == 10000){
+								//添加购物车成功！
+								window.location.href="order-add.html?cids="+res.data.data;
+							}else if(res.data.code == 10001){
+								//添加购物车失败！
+								layer.msg("添加购物车失败！");
+							}else{
+								var str = "";
+								if(res.data.code == 20001){
+									str = "请先登录！";
+								}else if(res.data.code == 20002){
+									str = "登录过期，请重新登录！";
+								}
+								var params = "tips="+str+"&returnUrl=introduction.html&pid="
+										+this.productId+"&sid="+this.currentSkuIndex+"&num="+this.num;
+
+								var loginUrl = "login.html?"+params;
+
+								//跳转到登录页面
+								window.location.href= encodeURI(loginUrl);
+							}
+						});
+
+					},
 					addShopCart:function(){
 						//套参属性转换成字符串
 						var propStr = "";
@@ -1182,7 +1235,7 @@
 							},
 							data: cart
 						}).then((res)=>{
-							console.log(res);
+							console.log(res.data.data);
 							//处理添加购物车的回调
 							if(res.data.code == 10000){
 								//添加购物车成功！

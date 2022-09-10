@@ -37,10 +37,10 @@
 				<div class="menu-hd"><a href="index.html" target="_top" class="h">商城首页</a></div>
 			</div>
 			<div class="topMessage my-shangcheng">
-				<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+				<div class="menu-hd MyShangcheng"><a href="user-center.html" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
 			</div>
 			<div class="topMessage mini-cart">
-				<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
+				<div class="menu-hd"><a id="mc-menu-hd" href="shopcart.html" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
 			</div>
 			<div class="topMessage favorite">
 				<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
@@ -144,7 +144,7 @@
 										<div class="new-addr-btn">
 											<a href="javascript:void(0);" class="hidden">设为默认</a> <span class="new-addr-bar hidden">|</span>
 											<a href="javascript:void(0);">编辑</a> <span class="new-addr-bar">|</span>
-											<a href="javascript:void(0);">删除</a>
+											<a @click="deleteAddr(index)" >删除</a>
 										</div>
 									</li>
 								</template>
@@ -346,7 +346,7 @@
 			provinces:[],
 			cities:[],
 			counties:[],
-			isNewAddress:"false",
+			goods:"",
 			newaddress:{
 				"addr":"",
 				"area":"",
@@ -360,7 +360,6 @@
 		},
 		created:function(){
 			this.cartIds = getUrlParam("cids");
-
 			//1.根据当前用户id查询收货地址信息
 			var userId = getCookieValue("userId");
 			var token = getCookieValue("token");
@@ -408,6 +407,7 @@
 				}else if(res.data.code == 10000){
 					//请求成功
 					this.shopCarts = res.data.data;
+					console.log(this.shopCarts);
 					for(var i=0; i<this.shopCarts.length; i++){
 						this.totalPrice = this.totalPrice + this.shopCarts[i].cartNum*this.shopCarts[i].sellPrice;
 					}
@@ -425,10 +425,40 @@
 			changePayType: function (m) {
 				this.payType = m;
 			},
+			deleteAddr:function (index){
+				console.log(this.addrs[index].addrId);
+				var token = getCookieValue("token");
+				var url5 = baseUrl+"useraddr/deleteAddr"
+				axios({
+					url:url5,
+					method:"delete",
+					headers:{
+						token:token
+					},
+					params:{
+						addrId:this.addrs[index].addrId
+					}
+				}).then((res)=>{
+					if(res.data.code == 10000){
+						alert("地址删除成功")
+					}else if(res.data.code == 10001){
+						layer.msg("删除地址失败！");
+					}else{
+						var str = "";
+						if(res.data.code == 20001){
+							str = "请先登录！";
+						}else if(res.data.code == 20002){
+							str = "登录过期，请重新登录！";
+						}
+						var loginUrl = "login.html?"+params;
+						//跳转到登录页面
+						window.location.href= encodeURI(loginUrl);
+					}
+
+				});
+				location.reload([true]);
+			},
 			newAddress:function (){
-				var divs = document.getElementById("div1");
-				var index = divs.style.display;
-				divs.style.display = "none";
 				var myselect = document.getElementById("provinceId");
 				var index = myselect.selectedIndex;
 				var province = myselect.options[index].text;
@@ -444,6 +474,19 @@
 				var user = lable.value;
 				var lable2 = document.getElementById("user-phone");
 				var phone = lable2.value;
+				var reg =/^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
+				if(user==""||city=="请选择"||county=="请选择"||detailAddress==""||province=="选择省份"){
+					alert("请输入完整的信息");
+					return;
+				}
+				if(!reg.test(phone)||phone==""){
+					alert("请输入正确的手机号码！");
+					return ;
+				}
+
+				var divs = document.getElementById("div1");
+				var index = divs.style.display;
+				divs.style.display = "none";
 				this.newaddress.receiverName = user;
 				this.newaddress.receiverMobile = phone;
 				this.newaddress.province = province;
@@ -452,7 +495,6 @@
 				this.newaddress.addr = detailAddress;
 				this.newaddress.userId = getCookieValue("userId");
 				var token = getCookieValue("token");
-				//添加购物车
 				var url5 = baseUrl+"useraddr/add-address"
 				axios({
 					url:url5,
@@ -462,12 +504,9 @@
 					},
 					data: this.newaddress
 				}).then((res)=>{
-					//处理添加购物车的回调
 					if(res.data.code == 10000){
-						//添加购物车成功！
 						layer.msg("添加地址成功！");
 					}else if(res.data.code == 10001){
-						//添加购物车失败！
 						layer.msg("添加地址失败！");
 					}else{
 						var str = "";

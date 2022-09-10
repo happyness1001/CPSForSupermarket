@@ -94,7 +94,7 @@ public class ProductCommontsServiceImpl implements ProductCommontsService {
     }
 
 
-    public  ResultVO getCommentByUser(Integer userId, int pageNum, int limit) {
+    public  ResultVO getCommentByUser(String userId, int pageNum, int limit) {
         Example example = new Example(ProductComments.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userId",userId);

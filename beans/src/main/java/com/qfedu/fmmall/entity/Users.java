@@ -10,7 +10,7 @@ public class Users {
      */
     @Id
     @Column(name = "user_id")
-    private Integer userId;
+    private String userId;
 
     /**
      * 用户名 用户名
@@ -94,7 +94,7 @@ public class Users {
      *
      * @return user_id - 主键id 用户id
      */
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -103,7 +103,7 @@ public class Users {
      *
      * @param userId 主键id 用户id
      */
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

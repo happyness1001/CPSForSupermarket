@@ -1,6 +1,7 @@
 package com.qfedu.fmmall.service.impl;
 
 import com.qfedu.fmmall.dao.UserAddrMapper;
+import com.qfedu.fmmall.entity.GoodsCategory;
 import com.qfedu.fmmall.entity.UserAddr;
 import com.qfedu.fmmall.service.UserAddrService;
 import com.qfedu.fmmall.vo.ResStatus;
@@ -19,6 +20,8 @@ public class UserAddrServiceImpl implements UserAddrService {
 
     @Autowired
     private UserAddrMapper userAddrMapper;
+
+
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     @Transactional(propagation = Propagation.SUPPORTS)

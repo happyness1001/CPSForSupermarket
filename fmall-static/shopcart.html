@@ -66,8 +66,8 @@
 				<div class="search-bar pr">
 					<a name="index_none_header_sysc" href="#"></a>
 					<form>
-						<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-						<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+						<input id="searchInput" v-model="keyword" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+						<input id="ai-topsearch" class="submit am-btn" value="搜索"  type="button" @click="searchCart">
 					</form>
 				</div>
 			</div>
@@ -112,13 +112,13 @@
 								<ul class="item-content clearfix">
 									<li class="td td-chk">
 										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170769542747" v-model="opts" :value="index" type="checkbox">
+											<input class="check" id="J_CheckBox_170769542747" v-model="opts" :value="index" type="checkbox" name="product">
 											<label for="J_CheckBox_170769542747"></label>
 										</div>
 									</li>
 									<li class="td td-item">
 										<div class="item-pic">
-											<a href="#" target="_blank" :data-title="sc.productName" class="J_MakePoint" data-point="tbcart.8.12">
+											<a :href="'introduction.html?pid='+sc.productId" target="_blank" :data-title="sc.productName" class="J_MakePoint" data-point="tbcart.8.12">
 												<img :src="'static/pimgs/'+sc.productImg" height="70"  class="itempic J_ItemImg"></a>
 										</div>
 										<div class="item-info">
@@ -150,7 +150,7 @@
 											<div class="item-amount ">
 												<div class="sl">
 													<input class="min am-btn" name="" type="button" value="-" :data-id="index" @click="changeNum" data-oper="-"/>
-													<input class="text_box" name="" type="text" :value="sc.cartNum" style="width:30px;" />
+													<input class="text_box" name="" :id="index" type="text" :value="sc.cartNum" style="width:30px;"  @change="changePrice(index,sc.cartNum)"/>
 													<input class="add am-btn" name="" type="button" value="+" :data-id="index" @click="changeNum"  data-oper="+" />
 												</div>
 											</div>
@@ -164,7 +164,7 @@
 									<li class="td td-op">
 										<div class="td-inner">
 											<!--<a title="移入收藏夹" class="btn-fav" href="#"> 移入收藏夹</a>-->
-											<a href="javascript:;" data-point-url="#" class="delete">删除</a>
+											<a  data-point-url="#" class="delete" @click="deleteCart(sc.cartId)">删除</a>
 										</div>
 									</li>
 								</ul>
@@ -177,13 +177,13 @@
 				<div class="float-bar-wrapper">
 					<div id="J_SelectAll2" class="select-all J_SelectAll">
 						<div class="cart-checkbox">
-							<input class="check-all check" id="J_SelectAllCbx2" name="select-all" value="true" type="checkbox">
+							<input class="check-all check" id="J_SelectAllCbx2" name="select-all" value="true" type="checkbox"  @click="selectAll">
 							<label for="J_SelectAllCbx2"></label>
 						</div>
 						<span>全选</span>
 					</div>
 					<div class="operations">
-						<a href="#" hidefocus="true" class="deleteAll">删除</a>
+						<a  hidefocus="true" class="deleteAll" @click="deleteCart">删除</a>
 						<a href="#" hidefocus="true" class="J_BatchFav">移入收藏夹</a>
 					</div>
 					<div class="float-bar-right">
@@ -209,7 +209,7 @@
 				<div class="footer">
 					<div class="footer-hd">
 						<p>
-							<a href="#">锋迷商城</a>
+							<a href="#">集采商城</a>
 							<b>|</b>
 							<a href="#">商城首页</a>
 							<b>|</b>
@@ -220,11 +220,11 @@
 					</div>
 					<div class="footer-bd">
 						<p>
-							<a href="#">关于千锋</a>
+							<a href="#">关于网站</a>
 							<a href="#">合作伙伴</a>
 							<a href="#">联系我们</a>
 							<a href="#">网站地图</a>
-							<em>©qfedu.com 版权所有</em>
+							<em> 版权所有</em>
 						</p>
 					</div>
 				</div>
@@ -301,12 +301,15 @@
 			var vm = new Vue({
 				el:"#container",
 				data:{
+					keyword:"",
 					isLogin:false,
 					shopcarts:[],
 					token:null,
 					opts:[],
 					username:"",
-					totalPrice:0.00
+					totalPrice:0.00,
+					search:[],
+					oldcart:[],
 				},
 				watch:{
 					opts:function(){
@@ -349,6 +352,7 @@
 							}else if(res.data.code==10000){
 								//请求成功
 								this.shopcarts = res.data.data;
+								this.oldcart = this.shopcarts;
 							}else if(res.data.code==10001){
 								//请求失败
 								
@@ -382,10 +386,106 @@
 								this.totalPrice = 0;
 								for(var i=0; i<this.opts.length; i++){
 									var index = this.opts[i]; //index就是选择的购物车记录的索引
-									this.totalPrice = this.totalPrice + this.shopcarts[index].cartNum * this.shopcarts[index].sellPrice; 
+									this.totalPrice = this.totalPrice + this.shopcarts[index].cartNum * this.shopcarts[index].sellPrice;
 								}
 							}
 						});
+					},
+					changePrice:function (object,num){
+						var data = document.getElementById(object).value;
+						this.shopcarts[object].cartNum = data;
+						for(var i =0;i<vm.opts.length;i++){
+							if(vm.opts[i]==object){
+								if(data>=num){
+									this.totalPrice = this.totalPrice + this.shopcarts[object].sellPrice*(data-num);
+								}else{
+									this.totalPrice = this.totalPrice - this.shopcarts[object].sellPrice*(num-data);
+								}
+							}
+						}
+					},
+					searchCart:function (){
+						this.shopcarts = this.oldcart;
+						this.keyword = document.getElementById("searchInput").value;
+						this.search = [];
+						console.log(this.shopcarts);
+						for(var i =0;i<this.shopcarts.length;i++){
+							if(this.shopcarts[i].productName.includes(this.keyword)){
+								this.search.push(this.shopcarts[i]);
+							}
+						}
+						this.shopcarts = this.search;
+						console.log(this.shopcarts);
+					},
+					selectAll:function (){
+						var checked = document.getElementById("J_SelectAllCbx2").checked;
+						console.log(checked);
+						var checkson = document.getElementsByName("product");
+						if(checked){
+							this.totalPrice = 0;
+							for(var i = 0; i < checkson.length ;i++){
+								checkson[i].checked = true;
+								this.totalPrice = this.totalPrice + this.shopcarts[i].cartNum * this.shopcarts[i].sellPrice
+								this.opts[i] = i;
+							}
+						}else{
+							for(var i = 0; i < checkson.length ;i++){
+								checkson[i].checked = false;
+								this.totalPrice=0;
+								this.opts = [];
+							}
+						}
+					},
+					deleteCart:function (Id) {
+						if(this.opts.length==0){
+							var url = baseUrl + "shopcart/deleteCart";
+							axios({
+								url: url,
+								method: "delete",
+								headers: {
+									token: this.token
+								},
+								params: {
+									cartId: Id
+								}
+							}).then((res) => {
+								console.log(res);
+								if (res.data.code = 10000) {
+									alert("删除成功！");
+									location.reload([true]);
+
+								} else {
+									layer.msg("删除失败！");
+								}
+							});
+						}else{
+							for(var i=0;i<this.opts.length; i++){
+								var index = this.opts[i];
+								var cartId = this.shopcarts[index].cartId;
+								var url = baseUrl + "shopcart/deleteCart";
+								axios({
+									url: url,
+									method: "delete",
+									headers: {
+										token: this.token
+									},
+									params: {
+										cartId: cartId
+									}
+								}).then((res) => {
+									console.log(res);
+									if (res.data.code = 10000) {
+										location.reload([true]);
+
+									} else {
+										layer.msg("删除失败！");
+									}
+								});
+
+							}
+						}
+
+
 					},
 					gotoOrderAdd:function(){
 						if(this.opts.length ==0){
@@ -395,6 +495,7 @@
 							var cids="";
 							for(var i=0;i<this.opts.length; i++){
 								var index = this.opts[i];
+								console.log(index);
 								var cartId = this.shopcarts[index].cartId;
 								if(i < this.opts.length-1){
 									cids = cids + cartId + ",";

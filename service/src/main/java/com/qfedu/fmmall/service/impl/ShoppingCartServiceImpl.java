@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Example;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -26,7 +25,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         cart.setCartTime(sdf.format(new Date()));
         int i = shoppingCartMapper.insert(cart);
         if(i>0){
-            return new ResultVO(ResStatus.OK,"success",null);
+            String userId = cart.getUserId();
+            List<Integer> cartId = shoppingCartMapper.getLastestCart(userId,1);
+            return new ResultVO(ResStatus.OK,"success",cartId.get(0));
         }else{
             return new ResultVO(ResStatus.NO,"fail",null);
         }
@@ -61,5 +62,23 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ResultVO resultVO = new ResultVO(ResStatus.OK, "success", list);
         return resultVO;
     }
+
+    @Override
+    public List<Integer> getLastestCart(String userId,Integer num) {
+        return shoppingCartMapper.getLastestCart(userId,num);
+    }
+
+    @Override
+    public ResultVO deleteShoppingCart(Integer cartId) {
+
+        int i = shoppingCartMapper.deleteByPrimaryKey(cartId);
+        if(i>0){
+            return new ResultVO(ResStatus.OK,"delete success",null);
+        }else{
+            return new ResultVO(ResStatus.NO,"delete fail",null);
+        }
+    }
+
+
 }
 

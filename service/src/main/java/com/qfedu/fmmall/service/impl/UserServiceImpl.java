@@ -1,28 +1,22 @@
 package com.qfedu.fmmall.service.impl;
 
+import com.qfedu.fmmall.dao.OrderItemMapper;
+import com.qfedu.fmmall.dao.OrdersMapper;
 import com.qfedu.fmmall.dao.UsersMapper;
-import com.qfedu.fmmall.entity.ProductComments;
-import com.qfedu.fmmall.entity.ProductCommentsVO;
-import com.qfedu.fmmall.entity.Users;
+import com.qfedu.fmmall.entity.*;
 import com.qfedu.fmmall.service.UserService;
-import com.qfedu.fmmall.utils.Base64Utils;
 import com.qfedu.fmmall.utils.MD5Utils;
-import com.qfedu.fmmall.utils.PageHelper;
 import com.qfedu.fmmall.vo.ResStatus;
 import com.qfedu.fmmall.vo.ResultVO;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -36,6 +30,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ProductCommontsServiceImpl productCommontsService;
 
+    @Autowired
+    private OrderItemMapper orderItemMapper;
+
+    @Autowired
+    private OrdersMapper ordersMapper;
 
 
     @Transactional
@@ -114,6 +113,7 @@ public class UserServiceImpl implements UserService {
         users.setNickname(user.getNickname());
         users.setRealname(user.getRealname());
         users.setUserBirth(user.getUserBirth());
+        System.out.println(users.getUserBirth());
         users.setUserEmail(user.getUserEmail());
         users.setUserSex(user.getUserSex());
         users.setUserMobile(user.getUserMobile());
@@ -125,13 +125,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultVO getUserById(Integer userId) {
+    public ResultVO getUserById(String userId) {
        Users users = usersMapper.selectByPrimaryKey(userId);
         return new ResultVO(ResStatus.OK,"sucesss",users);
     }
 
     @Override
-    public ResultVO saveOrUpdateImageFile(int id, MultipartFile image) throws IOException {
+    public ResultVO saveOrUpdateImageFile(String id, MultipartFile image) throws IOException {
         String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\fmall-static\\static\\img";
         String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
         suffix = suffix.toLowerCase();
@@ -163,8 +163,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultVO getCommentById(Integer userId,int pageNum,int limit) {
+    public ResultVO getCommentById(String userId, int pageNum, int limit) {
 
         return productCommontsService.getCommentByUser(userId,pageNum,limit);
+    }
+
+    @Override
+    public ResultVO getHistoryProduct(String userId) {
+        List<OrderItem> orderItems = new ArrayList<>();
+        Example example = new Example(Orders.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId", userId);
+        List<Orders> orders = ordersMapper.selectByExample(example);
+        List<String> skuIds = new ArrayList<>();
+        for(Orders orders1 : orders){
+            Example example1 = new Example(Orders.class);
+            Example.Criteria criteria1 = example1.createCriteria();
+            criteria1.andEqualTo("orderId", orders1.getOrderId());
+            List<OrderItem> orderItems1 = orderItemMapper.selectByExample(example1);
+            for(OrderItem orderItem : orderItems1){
+                if(!skuIds.contains(orderItem.getSkuId())){
+                    orderItems.add(orderItem);
+                    skuIds.add(orderItem.getSkuId());
+                }
+            }
+        }
+        return new ResultVO(ResStatus.OK,"sucesss",orderItems);
     }
 }

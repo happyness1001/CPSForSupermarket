@@ -1,24 +1,19 @@
 package com.qfedu.fmmall.controller;
 
-import com.qfedu.fmmall.entity.UserAddr;
 import com.qfedu.fmmall.entity.Users;
 import com.qfedu.fmmall.service.UserService;
-import com.qfedu.fmmall.utils.Base64Utils;
 import com.qfedu.fmmall.vo.ResStatus;
 import com.qfedu.fmmall.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @RestController
@@ -29,6 +24,8 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+
     private Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @ApiOperation("用户登录接口")
@@ -73,7 +70,7 @@ public class UserController {
     @ApiOperation("更换头像接口")
 //    @Transactional
     @PutMapping("/changeAvatar/{id}")
-    public ResultVO update(@RequestHeader("token") @PathVariable("id") int id, @RequestBody MultipartFile image) throws IOException {
+    public ResultVO update(@RequestHeader("token") @PathVariable("id") String id, @RequestBody MultipartFile image) throws IOException {
         ResultVO resultVO = userService.saveOrUpdateImageFile(id, image);
         return resultVO;
     }
@@ -81,7 +78,7 @@ public class UserController {
 
     @ApiOperation("查询用户信息接口")
     @GetMapping("/getUser/{userId}")
-    public ResultVO getUser(@RequestHeader("token") String token,@PathVariable("userId") Integer userId){
+    public ResultVO getUser(@RequestHeader("token") String token,@PathVariable("userId") String userId){
         ResultVO resultVO = userService.getUserById(userId);
         return resultVO;
     }
@@ -92,8 +89,15 @@ public class UserController {
             @ApiImplicitParam(dataType = "int",name = "pageNum", value = "当前页码",required = true),
             @ApiImplicitParam(dataType = "int",name = "limit", value = "每页显示条数",required = true)
     })
-    public ResultVO getComment(@RequestHeader("token") String token,@PathVariable("userId") Integer userId,int pageNum,int limit){
+    public ResultVO getComment(@RequestHeader("token") String token,@PathVariable("userId") String userId,int pageNum,int limit){
         ResultVO resultVO = userService.getCommentById(userId,pageNum,limit);
+        return resultVO;
+    }
+
+    @ApiOperation("查询用户历史购买记录接口")
+    @GetMapping("/getUserHistory/{userId}")
+    public ResultVO getHistoryProduct(@RequestHeader("token") String token,@PathVariable("userId") String userId){
+        ResultVO resultVO = userService.getHistoryProduct(userId);
         return resultVO;
     }
 

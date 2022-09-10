@@ -35,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private AreaMapper areaMapper;
 
+
     private Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     /**
@@ -71,6 +72,7 @@ public class OrderServiceImpl implements OrderService {
             order.setCreateTime(new Date());
             order.setStatus("1");
             Date date = new Date();
+            //设置交割时间
             if(order.getDueTime().before(date)){
                 Calendar ca = Calendar.getInstance();
                 ca.setTime(date);

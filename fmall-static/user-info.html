@@ -74,8 +74,8 @@
 						<div class="am-form-group"><label for="userSex" class="am-form-label">性别</label>
 							<div class="am-form-content"><input type="text" id="userSex" :value="user.userSex" maxlength="12"></div>
 						</div>
-						<div class="am-form-group"><label for="userBrith" class="am-form-label">出生日期</label>
-							<div class="am-form-content"><input type="text" id="userBrith" :value="user.userBrith" maxlength="12"></div>
+						<div class="am-form-group"><label class="am-form-label">出生日期</label>
+							<div class="am-form-content"><input id="myDate" type="date" :placeholder="请选择日期" maxlength="12"/></div>
 						</div>
 						<div class="am-form-group"><label for="userMobile" class="am-form-label">电话</label>
 							<div class="am-form-content"><input type="text" id="userMobile" :value="user.userMobile" maxlength="12"></div>
@@ -220,14 +220,47 @@
 				this.information.nickname = document.getElementById("nickname").value;
 				this.information.realname = document.getElementById("realname").value;
 				this.information.userSex = document.getElementById("userSex").value;
-				this.information.userBirth = document.getElementById("userBrith").value;
+				var x = document.getElementById("myDate").value;
+				this.information.userBirth = new Date(x);
 				this.information.userMobile = document.getElementById("userMobile").value;
-				this.information.userEmail = document.getElementById("userMobile").value;
+				this.information.userEmail = document.getElementById("userEmail").value;
+				var reg =/^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
+				if(this.information.username==""||this.information.nickname==""||this.information.realname==""){
+					alert("请输入完整的信息");
+					return;
+				}
+				console.log(this.information.userSex);
+				if(!(this.information.userSex=="男"||this.information.userSex=="女")){
+					alert("性别输入错误！");
+					return ;
+				}
+				if(x == ""||x==null){
+					alert("请输入正确的出生日期！");
+					return ;
+				}
+				var now = new Date();
+				if(this.information.userBirth >=now){
+					alert("请选择正确的出生日期");
+					return;
+				}
+				if(!reg.test(this.information.userMobile)||this.information.userMobile==""){
+					alert("请输入正确的手机号码！");
+					return ;
+				}
+				var reg=/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+				//文本框不为空，并且验证邮箱正则成功，给出正确提示
+				if(this.information.userEmail == "" || this.information.userEmail.search(reg)==-1)
+				{
+					alert("请输入正确的电子邮件！");
+					return ;
+				}
+
 				this.information.userId = getCookieValue("userId");
 				console.log("个人信息",this.information)
 				var token = getCookieValue("token");
 				var divs = document.getElementById("div1");
 				divs.style.display = "none";
+				alert(this.information.userBirth);
 				var url5 = baseUrl+"user/updateUser"
 				axios({
 					url:url5,
@@ -239,7 +272,6 @@
 				}).then((res)=>{
 					if(res.data.code == 10000){
 						layer.msg("修改信息成功！");
-						alert("hh")
 					}else if(res.data.code == 10001){
 						layer.msg("修改信息失败！");
 					}else{
