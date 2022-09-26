@@ -69,19 +69,19 @@
 											<em class="s-name">({{username}})</em></div>
 									</div>
 								</div>
-								<iframe name="mainFrame" width="100%" height="600" src="user-orderlist.html" scrolling="no" frameborder="0"></iframe>
+								<iframe id="bi_iframe" name="mainFrame" width="120%" height="600" src="user-orderlist.html" scrolling="auto" frameborder="0" @load="adjustIframe();"></iframe>
 							</div>
 						</div>
-						<div class="wrap-right">
-							<div class="day-list">
-								<div class="s-bar">
-									<a href="/#" class="i-history-trigger s-icon"></a>小日历
-								</div>
-								<div class="s-care s-care-noweather">
-									<div class="s-date"><em></em> <span></span> <span></span></div>
-								</div>
-							</div>
-						</div>
+<!--						<div class="wrap-right">-->
+<!--							<div class="day-list">-->
+<!--								<div class="s-bar">-->
+<!--									<a href="/#" class="i-history-trigger s-icon"></a>小日历-->
+<!--								</div>-->
+<!--								<div class="s-care s-care-noweather">-->
+<!--									<div class="s-date"><em></em> <span></span> <span></span></div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
 					</div>
 				<div class="footer">
 					<div class="footer-hd">
@@ -111,7 +111,7 @@
 					<ul>
 						<li class="person active"><span style="font-weight: bold;"><a href="/index.html">用户中心</a></span></li>
 						<li class="person">
-							<a href="/#">个人资料</a>
+							<a >个人资料</a>
 							<ul>
 								<li>
 									<a href="user-info.html" target="mainFrame">我的信息</a>
@@ -122,13 +122,16 @@
 							</ul>
 						</li>
 						<li class="person">
-							<a href="/#">我的交易</a>
+							<a >我的交易</a>
 							<ul>
 								<li>
 									<a href="user-orderlist.html"  target="mainFrame">订单管理</a>
 								</li>
 								<li>
 									<a href="user-comment.html"  target="mainFrame">我的评价</a>
+								</li>
+								<li>
+									<a href="reconciliation.html"  target="mainFrame">支付进度</a>
 								</li>
 							</ul>
 						</li>
@@ -143,6 +146,13 @@
 		<script type="text/javascript" src="static/js/axios.min.js" ></script>
 		<script type="text/javascript" src="static/js/cookie_utils.js" ></script>
 		<script type="text/javascript" src="static/js/base.js" ></script>
+		<script type="text/javascript">
+			function adjustIframe(){
+				var ifm= document.getElementById("bi_iframe");
+				ifm.height=document.documentElement.clientHeight;
+				ifm.width=document.documentElement.clientWidth;
+			}
+		</script>
 		<script type="text/javascript">
 			var vm = new Vue({
 				el:"#div1",
@@ -176,24 +186,6 @@
 							}
 						});
 					}
-					// var userId = getCookieValue("userId");
-					// var url2 = baseUrl+"user/getUser/"+userId;
-					// axios({
-					// 	url:url2,
-					// 	method:"get",
-					// 	headers:{
-					// 		token:token
-					// 	}
-					// 					// 		//跳转登录
-					// 	}else if(res.data.code == 10000){
-					// 		console.log( res.data.data);
-					// 		this.userImg = res.data.data.userImg;
-				}).then((res)=>{
-					// 	if(res.data.code == 20001 || res.data.code == 20002){
-					// 		alert(this.userImg);
-					// 	}
-					// });
-					
 				}
 			});
 		</script>

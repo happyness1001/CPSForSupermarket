@@ -3,6 +3,7 @@ package com.qfedu.fmmall.controller;
 import com.github.wxpay.sdk.WXPay;
 import com.qfedu.fmmall.config.MyPayConfig;
 import com.qfedu.fmmall.entity.Orders;
+import com.qfedu.fmmall.entity.ReturnGoods;
 import com.qfedu.fmmall.service.OrderService;
 import com.qfedu.fmmall.vo.ResStatus;
 import com.qfedu.fmmall.vo.ResultVO;
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,11 +41,11 @@ public class OrderController {
                 data.put("body",orderInfo.get("productNames"));  //商品描述
                 data.put("out_trade_no",orderId);               //使用当前用户订单的编号作为当前支付交易的交易号
                 data.put("fee_type","CNY");                     //支付币种
-                //data.put("total_fee",order.getActualAmount()*100+"");          //支付金额
+//                data.put("total_fee",order.getActualAmount()*100+"");          //支付金额
                 data.put("total_fee","1");
                 data.put("trade_type","NATIVE");                //交易类型
-                data.put("notify_url","http://47.118.45.73:8080/pay/callback");           //设置支付完成时的回调方法接口
-
+                data.put("notify_url","http://localhost:8080/pay/callback");           //设置支付完成时的回调方法接口
+//                data.put("notify_url","http://47.118.45.73:8080/pay/callback");
                 //发送请求，获取响应
                 //微信支付：申请支付连接
                 WXPay wxPay = new WXPay(new MyPayConfig());
@@ -120,6 +122,49 @@ public class OrderController {
     @ApiOperation("根据pid查询所有子地址")
     public ResultVO getAreaById(@PathVariable("pid") Integer pid){
         ResultVO resultVO = orderService.getAreaById(pid);
+        return resultVO;
+    }
+
+
+
+    @PostMapping("/payMoney")
+    public ResultVO payMoney(@RequestBody Orders order){
+        ResultVO resultVO = null;
+        try {
+            Map<String, String> orderInfo = orderService.addOrder2("cids", order);
+            if(orderInfo!=null){
+                String orderId = orderInfo.get("orderId");
+                //设置当前订单信息
+                HashMap<String,String> data = new HashMap<>();
+                data.put("body",orderInfo.get("productNames"));  //商品描述
+                data.put("out_trade_no",orderId);               //使用当前用户订单的编号作为当前支付交易的交易号
+                data.put("fee_type","CNY");                     //支付币种
+//                data.put("total_fee",order.getActualAmount()*100+"");          //支付金额
+                data.put("total_fee","1");
+                data.put("trade_type","NATIVE");                //交易类型
+                data.put("notify_url","http://47.118.45.73:8080/pay/callback");           //设置支付完成时的回调方法接口
+
+                //发送请求，获取响应
+                //微信支付：申请支付连接
+                WXPay wxPay = new WXPay(new MyPayConfig());
+                Map<String, String> resp = wxPay.unifiedOrder(data);
+                orderInfo.put("payUrl",resp.get("code_url"));
+                //orderInfo中包含：订单编号，购买的商品名称，支付链接
+                resultVO = new ResultVO(ResStatus.OK,"提交订单成功！",orderInfo);
+            }else{
+                resultVO = new ResultVO(ResStatus.NO,"提交订单失败！",null);
+            }
+        } catch (SQLException e) {
+            resultVO = new ResultVO(ResStatus.NO,"提交订单失败！",null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultVO;
+    }
+
+    @PostMapping("/returnGoods")
+    public ResultVO returnGoods(@RequestHeader("token")String token, @RequestBody ReturnGoods returnGoods){
+        ResultVO resultVO = orderService.returnGoods(returnGoods);
         return resultVO;
     }
 

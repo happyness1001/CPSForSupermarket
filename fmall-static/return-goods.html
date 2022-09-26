@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0072)pay.html?selectedItemSpecIds=cake-1004-spec-1 -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 ,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="static/css/amazeui.css" rel="stylesheet" type="text/css">
+	<link href="static/css/admin.css" rel="stylesheet" type="text/css">
+	<link href="static/css/demo.css" rel="stylesheet" type="text/css">
+	<link href="static/css/personal.css" rel="stylesheet" type="text/css">
+	<link href="static/css/systyle.css" rel="stylesheet" type="text/css">
+	<link href="static/css/cartstyle.css" rel="stylesheet" type="text/css">
+	<link href="static/css/jsstyle.css" rel="stylesheet" type="text/css">
+	<link href="static/css/lee.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="static/css/bootstrap.css" />
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<script type="text/javascript" src="static/js/jquery-3.4.1.min.js" ></script>
+	<script type="text/javascript" src="static/js/bootstrap.js" ></script>
+</head>
+
+<body>
+<div id="container">
+	<div class="concent" style="margin-top: 35px;">
+		<div class="paycont">
+			<div class="user-info">
+				<div class="am-u-md-12" >
+					<div class="am-cf am-padding">
+						<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">填写物流信息</strong></div>
+					</div>
+					<form class="am-form am-form-horizontal">
+						<div class="am-form-group"><label for="company" class="am-form-label">物流公司</label>
+							<div class="am-form-content"><input type="text" id="company" :value="information.company" maxlength="12"></div>
+						</div>
+						<div class="am-form-group"><label for="shipmentId" class="am-form-label">物流单号</label>
+							<div class="am-form-content"><input type="text" id="shipmentId" :value="information.shipmentId" maxlength="12"></div>
+						</div>
+						<div class="am-form-group"><label for="orderId" class="am-form-label">订单ID</label>
+							<div class="am-form-content"><input type="text" id="orderId" :value="information.orderId" maxlength="12"></div>
+						</div>
+						<div class="am-form-group"><label for="contact" class="am-form-label">联系人</label>
+							<div class="am-form-content"><input type="text" id="contact" :value="information.contact" maxlength="12"></div>
+						</div>
+						<div class="am-form-group"><label for="phone" class="am-form-label">联系电话</label>
+							<div class="am-form-content"><input type="text" id="phone" :value="information.phone" maxlength="12"></div>
+						</div>
+						<div class="am-form-group"><label for="explain" class="am-form-label">退货说明</label>
+							<div class="am-form-content"><input type="text" id="explain" :value="information.content"></div>
+						</div>
+						<div class="am-form-group theme-poptit">
+							<div class="am-u-sm-9 am-u-sm-push-3">
+								<div class="am-btn am-btn-default" @click="submit()">提交</div>
+<!--								<div class="am-btn am-btn-success" @click="saveInformation()">保存</div>-->
+								<div class="am-btn am-btn-success" @click="backward()">取消</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="clear"></div>
+
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="static/js/utils.js" ></script>
+<script type="text/javascript" src="static/js/cookie_utils.js" ></script>
+<script type="text/javascript" src="static/js/vue.js" ></script>
+<script type="text/javascript" src="static/js/axios.min.js" ></script>
+<script type="text/javascript" src="static/js/base.js" ></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/blueimp-md5/2.18.0/js/md5.js"></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:"#container",
+		data:{
+			information:{
+				"company": "",
+				"shipmentId": "",
+				"orderId": "",
+				"contact": "",
+				"phone": "",
+				"content": "",
+			}
+		},
+		created:function(){
+			this.information.orderId = getUrlParam("orderId");
+		},
+		methods: {
+			backward : function (){
+				window.location.href = "user-orderlist.html";
+			},
+			submit:function (){
+				this.information.company = document.getElementById("company").value;
+				this.information.shipmentId = document.getElementById("shipmentId").value;
+				this.information.contact = document.getElementById("contact").value;
+				this.information.phone = document.getElementById("phone").value;
+				this.information.content = document.getElementById("explain").value;
+				var reg =/^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
+				if(this.information.company==""||this.information.shipmentId==""||this.information.contact==""||this.information.content==""){
+					alert("请输入完整有效的信息！");
+					return;
+				}
+				if(!reg.test(this.information.phone)||this.information.phone==""){
+					alert("请输入正确的手机号码！");
+					return ;
+				}
+				var url3 = baseUrl + "order/returnGoods";
+				axios({
+					url: url3,
+					method: "post",
+					headers: {
+						token: getCookieValue("token")
+					},
+					data: this.information
+				}).then((res) => {
+					if (res.data.code == 10000) {
+						alert("提交成功！");
+						window.location.href = "user-orderlist.html";
+					} else if (res.data.code == 20001 || res.data.code == 20002) {
+						window.location.href = "login.html";
+					} else {
+						alert(res.data.msg);
+					}
+				});
+			}
+				// var reg=/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+				// //文本框不为空，并且验证邮箱正则成功，给出正确提示
+				// if(this.information.userEmail == "" || this.information.userEmail.search(reg)==-1)
+				// {
+				// 	alert("请输入正确的电子邮件！");
+				// 	return ;
+				// }
+
+
+			},
+	});
+
+</script>
+</body>
+
+</html>

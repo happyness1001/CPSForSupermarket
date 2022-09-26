@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.fmmall.dao.ReturnGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.fmmall.entity.ReturnGoods">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="return_id" jdbcType="VARCHAR" property="returnId" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="shipment_id" jdbcType="VARCHAR" property="shipmentId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+  </resultMap>
+</mapper>

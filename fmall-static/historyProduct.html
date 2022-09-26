@@ -11,7 +11,7 @@
 	<link href="static/css/demo.css" rel="stylesheet" type="text/css" />
 	<link href="static/css/cartstyle.css" rel="stylesheet" type="text/css" />
 	<link href="static/css/optstyle.css" rel="stylesheet" type="text/css" />
-
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 	<script type="text/javascript" src="static/js/jquery.js"></script>
 
 </head>
@@ -62,7 +62,6 @@
 		<div class="logoBig">
 			<li><img src="static/images/logobig.png" /></li>
 		</div>
-
 		<div class="search-bar pr">
 			<a name="index_none_header_sysc" href="#"></a>
 			<form>
@@ -73,9 +72,14 @@
 	</div>
 
 	<div class="clear"></div>
-
 	<!--购物车 -->
 	<div class="concent">
+		<input id="timesearch"  class="tc-btn createAddr theme-login am-btn am-btn-danger" value="按照时间筛选"  type="button" @click="showOrHide">
+		<div id="div" style="overflow: hidden;;display: none;">
+			<h3>选择开始-结束时间</h3>
+			<input id="myDate" type="datetime-local" :placeholder="请选择日期"/> <input id="myDate2" type="datetime-local" :placeholder="请选择日期"/>
+			<input id="t"  class="submit am-btn" value="提交"  type="button" @click="searchByTime">
+		</div>
 		<div id="cartTable">
 			<div class="cart-table-th">
 				<div class="wp">
@@ -374,6 +378,29 @@
 						alert("添加购物车失败！");
 					}
 				});
+			},
+			showOrHide:function (){
+				var divs = document.getElementById("div");
+				divs.style.display = "";
+			},
+			searchByTime:function (){
+				this.orderItem = this.oldcart;
+				var begin = document.getElementById("myDate").value;
+				var end = document.getElementById("myDate2").value;
+				this.search = [];
+				if(end<begin){
+					alert("请输入正确的起止时间");
+					return;
+				}
+				for(var i =0;i<this.orderItem.length;i++){
+					if(this.orderItem[i].buyTime < end && this.orderItem[i].buyTime>begin){
+						this.search.push(this.orderItem[i]);
+					}
+				}
+				var divs = document.getElementById("div");
+				divs.style.display = "none";
+				this.orderItem = this.search;
+				console.log(this.orderItem);
 			},
 			searchCart:function (){
 				this.orderItem = this.oldcart;

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +35,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private AreaMapper areaMapper;
+
+    @Autowired
+    private ReconciliationMapper reconciliationMapper;
+
+    @Autowired
+    private ReturnGoodsMapper returnGoodsMapper;
 
 
     private Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
@@ -98,6 +105,19 @@ public class OrderServiceImpl implements OrderService {
                 int cnum = Integer.parseInt(sc.getCartNum());
                 String itemId = System.currentTimeMillis()+""+ (new Random().nextInt(89999)+10000);
                 OrderItem orderItem = new OrderItem(itemId, orderId, sc.getProductId(), sc.getProductName(), sc.getProductImg(), sc.getSkuId(), sc.getSkuName(), new BigDecimal(sc.getSellPrice()), cnum, new BigDecimal(sc.getSellPrice() * cnum), new Date(), new Date(), 0);
+                orderItem.setItemId(itemId);
+                orderItem.setOrderId(orderId);
+                orderItem.setProductId(sc.getProductId());
+                orderItem.setProductName(sc.getProductName());
+                orderItem.setProductImg(sc.getProductImg());
+                orderItem.setSkuId(sc.getSkuId());
+                orderItem.setSkuName(sc.getSkuName());
+                orderItem.setProductPrice(new BigDecimal(sc.getSellPrice()));
+                orderItem.setBuyCounts(cnum);
+                orderItem.setTotalAmount(new BigDecimal(sc.getSellPrice() * cnum));
+                orderItem.setBasketDate(new Date());
+                orderItem.setBuyTime(new Date());
+                orderItem.setIsComment(0);
                 orderItemMapper.insert(orderItem);
                 //增加商品销量
             }
@@ -117,12 +137,31 @@ public class OrderServiceImpl implements OrderService {
             for (int cid: cidsList) {
                 shoppingCartMapper.deleteByPrimaryKey(cid);
             }
-            logger.info("add order finished...");
-            map.put("orderId",orderId);
-            map.put("productNames",untitled);
-            return map;
+            Reconciliation reconciliation = new Reconciliation();
+            reconciliation.setRecordId(order.getOrderId());
+            reconciliation.setUserId(order.getUserId());
+            reconciliation.setOrderId(order.getOrderId());
+            reconciliation.setOrderContent(order.getUntitled());
+            reconciliation.setCreateTime(order.getCreateTime());
+            reconciliation.setAmountsPayable(order.getTotalAmount());
+            reconciliation.setIsFinished("0");
+            reconciliation.setAmountPaid(new BigDecimal(0));
+            reconciliation.setDueTime(order.getDueTime());
+            Integer t = reconciliationMapper.insert(reconciliation);
+            if(t<0){
+                return null;
+            }else{
+                logger.info("add order finished...");
+                map.put("orderId",orderId);
+                map.put("productNames",untitled);
+                return map;
+            }
+//            logger.info("add order finished...");
+//            map.put("orderId",orderId);
+//            map.put("productNames",untitled);
+//            return map;
         }else{
-            //表示库存不足
+//            表示库存不足
             return null;
         }
     }
@@ -151,10 +190,15 @@ public class OrderServiceImpl implements OrderService {
             cancleOrder.setOrderId(orderId);
             cancleOrder.setStatus("6");  //已关闭
             Orders orders = ordersMapper.selectByPrimaryKey(orderId);
-            if(orders.getStatus()=="1"){
+            Date time = new Date(System.currentTimeMillis() - 30 * 60 * 1000);
+            if(orders.getCreateTime().before(time)){
                 cancleOrder.setCloseType(1); //关闭类型：超时未支付
+                orders.setStatus("6");
+            }
+            if(orders.getStatus()=="1"){
+                cancleOrder.setCloseType(4); //关闭类型：用户取消支付
             }else {
-                cancleOrder.setCloseType(4); //关闭类型：超时未支付
+                cancleOrder.setCloseType(2); //关闭类型：退款关闭
             }
             Date date = new Date();
             cancleOrder.setCancelTime(date);
@@ -174,6 +218,13 @@ public class OrderServiceImpl implements OrderService {
                 ProductSku productSku = productSkuMapper.selectByPrimaryKey(orderItem.getSkuId());
                 productSku.setStock(productSku.getStock() + orderItem.getBuyCounts());
                 productSkuMapper.updateByPrimaryKey(productSku);
+            }
+            Example example = new Example(Orders.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("orderId",orderId);
+            List<Reconciliation> reconciliation = reconciliationMapper.selectByExample(example);
+            for(Reconciliation reconciliation1 : reconciliation){
+                reconciliationMapper.deleteByPrimaryKey(reconciliation1);
             }
             return new ResultVO(ResStatus.OK,"SUCCESS","");
         }
@@ -234,6 +285,7 @@ public class OrderServiceImpl implements OrderService {
         Orders orders = new Orders();
         orders.setOrderId(orderId);
         orders.setStatus("4");
+//        orders.setCloseType(15);
         int i = ordersMapper.updateByPrimaryKeySelective(orders);
         if(i==1){
             return new ResultVO(ResStatus.OK,"sucesss","");
@@ -252,6 +304,47 @@ public class OrderServiceImpl implements OrderService {
         }
         return new ResultVO(ResStatus.NO,"FAILED","");
     }
+
+    @Override
+    public int updateReconciliation(String orderId, BigDecimal money) {
+        Example example = new Example(Orders.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("orderId",orderId);
+        List<Reconciliation> reconciliation = reconciliationMapper.selectByExample(example);
+        for(Reconciliation reconciliation1 : reconciliation){
+            if(reconciliation1.getAmountsPayable().subtract(reconciliation1.getAmountPaid())==money){
+                reconciliation1.setIsFinished("1");
+            }
+            reconciliation1.setAmountPaid(reconciliation1.getAmountPaid().add(money));
+            reconciliation1.setFinalPayment(new Date());
+            int i = reconciliationMapper.updateByPrimaryKey(reconciliation1);
+        }
+        return 0;
+    }
+
+    @Override
+    public ResultVO returnGoods(ReturnGoods returnGoods) {
+        String returnId = UUID.randomUUID().toString().replace("-", "");
+        returnGoods.setReturnId(returnId);
+        int i = returnGoodsMapper.insert(returnGoods);
+        if(i==1){
+            Orders orders = ordersMapper.selectByPrimaryKey(returnGoods.getOrderId());
+            orders.setStatus("7");
+            ordersMapper.updateByPrimaryKey(orders);
+            return new ResultVO(ResStatus.OK,"sucesss","");
+        }
+        return new ResultVO(ResStatus.NO,"FAILED","");
+    }
+
+    @Transactional
+    public Map<String,String> addOrder2(String cids,Orders order) throws SQLException {
+        Map<String,String> map = new HashMap<>();
+        //生成订单编号
+        map.put("orderId",order.getOrderId());
+        map.put("productNames",order.getUntitled());
+        return map;
+    }
+
 
 
 }

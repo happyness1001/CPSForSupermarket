@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0072)pay.html?selectedItemSpecIds=cake-1004-spec-1 -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 ,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>结算页面</title>
+	<link rel="shortcut icon" href="img/foodie.ico">
+
+	<link href="static/css/amazeui.css" rel="stylesheet" type="text/css">
+	<link href="static/css/demo.css" rel="stylesheet" type="text/css">
+	<link href="static/css/cartstyle.css" rel="stylesheet" type="text/css">
+	<link href="static/css/jsstyle.css" rel="stylesheet" type="text/css">
+	<link href="static/css/lee.css" rel="stylesheet" type="text/css">
+</head>
+
+<body style="overflow: visible;">
+<div id="container">
+
+	<!--顶部导航条 -->
+	<div class="am-container header">
+		<ul class="message-l">
+			<div class="topMessage">
+				<div v-if="isLogin" class="menu-hd">
+					{{username}},欢迎您！
+				</div>
+				<div v-else class="menu-hd">
+					<a href="#" target="_top" class="h">亲，请登录</a>
+					<a href="#" target="_top">免费注册</a>
+				</div>
+			</div>
+		</ul>
+		<ul class="message-r">
+			<div class="topMessage home">
+				<div class="menu-hd"><a href="index.html" target="_top" class="h">商城首页</a></div>
+			</div>
+			<div class="topMessage my-shangcheng">
+				<div class="menu-hd MyShangcheng"><a href="user-center.html" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
+			</div>
+			<div class="topMessage mini-cart">
+				<div class="menu-hd"><a id="mc-menu-hd" href="shopcart.html" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
+			</div>
+			<div class="topMessage favorite">
+				<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
+			</div>
+		</ul>
+
+	</div>
+
+	<!--悬浮搜索框-->
+
+	<div class="nav white">
+		<div class="logo"><img src="static/images/logo.png" /></div>
+		<div class="logoBig">
+			<li><img src="static/images/logobig.png" /></li>
+		</div>
+
+		<div class="search-bar pr">
+			<a name="index_none_header_sysc" href="#"></a>
+			<form>
+				<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+				<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
+			</form>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="concent" style="margin-top: 35px;">
+		<div class="paycont">
+			<div class="logistics">
+				<h3>输入支付金额</h3>
+				<input type="text" id="amount" :value="money" maxlength="12">
+			</div>
+			<div class="logistics">
+				<h3>选择支付方式</h3>
+				<ul class="pay-list">
+					<li style="width: 100px; height: 40px; padding: 3px;" :class="{'selected':payType==1}" @click="changePayType(1)">
+						<img src="static/images/weizhifu.jpg" style="width: 70px; height: 34px;" >
+						<span></span>
+					</li>
+					<li style="width: 100px; height: 40px; padding: 3px;" :class="{'selected':payType==2}" @click="changePayType(2)">
+						<img src="static/images/zhifubao.jpg" style="width: 70px; height: 34px;">
+						<span></span>
+					</li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+			<div class="order-go clearfix">
+				<div class="pay-confirm clearfix">
+					<div id="holyshit269" class="submitOrder">
+						<div class="go-btn-wrap">
+							<a id="J_Go" href="#" tabindex="0" title="点击此按钮，提交订单" class="btn-go" @click="doSubmit">支付订单</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<div class="footer">
+		<div class="footer-hd">
+			<p>
+				<a href="#">集采商城</a>
+				<b>|</b>
+				<a href="#">商城首页</a>
+				<b>|</b>
+				<a href="#">支付宝</a>
+				<b>|</b>
+				<a href="#">物流</a>
+			</p>
+		</div>
+		<div class="footer-bd">
+			<p>
+				<a href="#">关于网站</a>
+				<a href="#">合作伙伴</a>
+				<a href="#">联系我们</a>
+				<a href="#">网站地图</a>
+			</p>
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<script type="text/javascript" src="static/js/utils.js" ></script>
+<script type="text/javascript" src="static/js/cookie_utils.js" ></script>
+<script type="text/javascript" src="static/js/vue.js" ></script>
+<script type="text/javascript" src="static/js/axios.min.js" ></script>
+<script type="text/javascript" src="static/js/base.js" ></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:"#container",
+		data:{
+			isLogin: "false",
+			payType:1,  //1 微信支付   2 支付宝
+			money:"",
+			orderId:"",
+			orderInfo:{},
+			content:{}
+
+		},
+		created:function(){
+			this.orderId = getUrlParam("orderId");
+			this.money = getUrlParam("money");
+			this.content = getUrlParam("content");
+			//1.根据当前用户id查询收货地址信息
+			this.username = getCookieValue("username");
+			this.isLogin = true;
+		},
+		methods: {
+			changePayType: function (m) {
+				this.payType = m;
+			},
+			doSubmit: function () {
+				//将订单信息提交到：添加订单接口
+				//1.准备订单数据
+				var x = document.getElementById("amount").value;
+				if(x>this.money){
+					alert("输入金额过大，请重新输入");
+					return ;
+				}
+				var order = {
+					"payType": this.payType,
+					"totalAmount": x,
+					"userId": getCookieValue("userId"),
+					"orderId":this.orderId,
+					"untitled":this.content
+				};
+				var url3 = baseUrl + "order/payMoney";
+				axios({
+					url: url3,
+					method: "post",
+					data: order
+				}).then((res) => {
+					if (res.data.code == 10000) {
+						//跳转到支付页面显示支付二维码
+						console.log("orderInfo",res.data.data);
+						var orderInfo = res.data.data; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://...."}
+						orderInfo.totalPrice = x; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://....",totalPrice:18.8}
+						console.log(orderInfo);
+						localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+						window.location.href = "order-pay.html";
+					} else if (res.data.code == 20001 || res.data.code == 20002) {
+						window.location.href = "login.html";
+					} else {
+						alert(res.data.msg);
+					}
+				});
+			}
+		}
+	});
+
+</script>
+
+</body>
+
+</html>

@@ -2,6 +2,7 @@ package com.qfedu.fmmall.service.impl;
 
 import com.qfedu.fmmall.dao.OrderItemMapper;
 import com.qfedu.fmmall.dao.OrdersMapper;
+import com.qfedu.fmmall.dao.ReconciliationMapper;
 import com.qfedu.fmmall.dao.UsersMapper;
 import com.qfedu.fmmall.entity.*;
 import com.qfedu.fmmall.service.UserService;
@@ -19,6 +20,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -35,6 +37,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private OrdersMapper ordersMapper;
+
+    @Autowired
+    private ReconciliationMapper reconciliationMapper;
 
 
     @Transactional
@@ -189,5 +194,15 @@ public class UserServiceImpl implements UserService {
             }
         }
         return new ResultVO(ResStatus.OK,"sucesss",orderItems);
+    }
+
+    @Override
+    public ResultVO getReconciliation(String userId) {
+        Reconciliation reconciliation = new Reconciliation();
+        Example example = new Example(Orders.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("userId", userId);
+        List<Reconciliation> reconciliations = reconciliationMapper.selectByExample(example);
+        return new ResultVO(ResStatus.OK,"sucesss",reconciliations);
     }
 }

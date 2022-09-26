@@ -37,6 +37,9 @@
 					<li style="width: 25%;">
 						<a  @click="queryByStatus(6)"><i><img src="static/images/comment.png"></i> <span>已关闭<em class="m-num" style="display: none;">0</em></span></a>
 					</li>
+					<li style="width: 25%;">
+						<a  @click="queryByStatus(7)"><i><img src="static/images/send.png"></i> <span>退换货<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
 				</ul>
 			</div>
 			
@@ -72,6 +75,7 @@
 									<span v-else-if="order.status == '4'">待评价</span>
 									<span v-else-if="order.status == '5'">已完成</span>
 									<span v-else-if="order.status == '6'">已关闭</span>
+									<span v-else-if="order.status == '7'">退换货</span>
 								</td>
 								<td>{{order.createTime}}</td>
 								<td>{{order.dueTime}}</td>
@@ -79,20 +83,26 @@
 									<template v-if="order.status == '1'">
 										<button class="btn btn-success btn-xs" @click="doSubmit(order)">去支付</button>
 										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>
-										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>
+<!--										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>-->
 									</template>
 									<template v-if="order.status == '2'">
 										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>
-										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>
+<!--										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>-->
 									</template>
 									<template v-if="order.status == '3'">
 										<button class="btn btn-success btn-xs" @click="confirmReceipt(order.orderId)">确认收货</button>
 									</template>
 									<template v-if="order.status == '4'">
 										<button class="btn btn-success btn-xs" @click="gotoComment" :data-index="index">去评价</button>
+										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">退换货</button>
 									</template>
 									<template v-if="order.status == '5' || order.status == '6'">
 										<button class="btn btn-success btn-xs" @click="deleteOrder(order.orderId)">删除</button>
+										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">退换货</button>
+									</template>
+									<template v-if="order.status == '7'">
+<!--										<button class="btn btn-success btn-xs" @click="deleteOrder(order.orderId)">删除</button>-->
+<!--										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">退换货</button>-->
 									</template>
 								</td>
 							</tr>
@@ -235,11 +245,26 @@
 						window.location.href = "user-commentadd.html";
 					},
 					doSubmit: function (obj) {
-						var orderInfo = obj; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://...."}
-						console.log("订单详情",obj)
-						orderInfo.totalPrice = obj.totalPrice; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://....",totalPrice:18.8}
-						localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
-						window.location.href = "order-pay.html";
+						var url3 = baseUrl + "order/payMoney";
+						axios({
+							url: url3,
+							method: "post",
+							data: obj
+						}).then((res) => {
+							if (res.data.code == 10000) {
+								//跳转到支付页面显示支付二维码
+								console.log("orderInfo",res.data.data);
+								var orderInfo = res.data.data; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://...."}
+								orderInfo.totalPrice = obj.totalAmount; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://....",totalPrice:18.8}
+								console.log(orderInfo);
+								localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+								window.location.href = "order-pay.html";
+							} else if (res.data.code == 20001 || res.data.code == 20002) {
+								window.location.href = "login.html";
+							} else {
+								alert(res.data.msg);
+							}
+						});
 					},
 					cancelOrder:function (orderId){
 						var token = getCookieValue("token");
@@ -326,6 +351,9 @@
 							}
 						});
 
+					},
+					returnGoods:function (orderId){
+						window.location.href = "return-goods.html?orderId="+orderId;
 					},
 					deleteOrder:function (orderId){
 						var token = getCookieValue("token");

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.fmmall.dao.ReconciliationMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.fmmall.entity.Reconciliation">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="record_id" jdbcType="VARCHAR" property="recordId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_content" jdbcType="VARCHAR" property="orderContent" />
+    <result column="amounts_payable" jdbcType="DECIMAL" property="amountsPayable" />
+    <result column="amount_paid" jdbcType="DECIMAL" property="amountPaid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="final_payment" jdbcType="TIMESTAMP" property="finalPayment" />
+    <result column="is_finished" jdbcType="CHAR" property="isFinished" />
+    <result column="due_time" jdbcType="DATE" property="dueTime" />
+  </resultMap>
+</mapper>

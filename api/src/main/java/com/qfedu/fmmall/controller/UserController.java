@@ -101,4 +101,11 @@ public class UserController {
         return resultVO;
     }
 
+    @ApiOperation("对账查询接口")
+    @GetMapping("/reconciliation/{userId}")
+    public ResultVO getreconciliation(@RequestHeader("token") String token,@PathVariable("userId") String userId){
+        ResultVO resultVO = userService.getReconciliation(userId);
+        return resultVO;
+    }
+
 }

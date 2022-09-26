@@ -12,6 +12,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.Session;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,12 +40,18 @@ public class PayController {
         String s = builder.toString();
         //使用帮助类将xml接口的字符串装换成map
         Map<String, String> map = WXPayUtil.xmlToMap(s);
-
+        for(Map.Entry<String, String> vo : map.entrySet()){
+            vo.getKey();
+            vo.getValue();
+            System.out.println(vo.getKey()+"  "+vo.getValue());
+        }
         if(map!=null && "success".equalsIgnoreCase(map.get("result_code"))){
             //支付成功
             //2.修改订单状态为“待发货/已支付”
             String orderId = map.get("out_trade_no");
+            String money = map.get("total_fee");
             int i = orderService.updateOrderStatus(orderId, "2");
+            int t = orderService.updateReconciliation(orderId,new BigDecimal(money));
             System.out.println("--orderId:"+orderId);
             //3.通过websocket连接，向前端推送消息
             WebSocketServer.sendMsg(orderId,"1");

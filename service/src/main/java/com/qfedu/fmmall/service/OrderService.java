@@ -1,8 +1,10 @@
 package com.qfedu.fmmall.service;
 
 import com.qfedu.fmmall.entity.Orders;
+import com.qfedu.fmmall.entity.ReturnGoods;
 import com.qfedu.fmmall.vo.ResultVO;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Map;
@@ -10,6 +12,8 @@ import java.util.Map;
 public interface OrderService {
 
     public Map<String,String> addOrder(String cids, Orders order) throws SQLException;
+
+    public Map<String,String> addOrder2(String cids, Orders order) throws SQLException;
 
     public int updateOrderStatus(String orderId, String status);
 
@@ -28,4 +32,8 @@ public interface OrderService {
     public ResultVO confirmReceipt(String orderId);
 
     public ResultVO changeTime(String orderId, Orders orders);
+
+    public int updateReconciliation(String orderId, BigDecimal money);
+
+    public ResultVO returnGoods(ReturnGoods returnGoods);
 }

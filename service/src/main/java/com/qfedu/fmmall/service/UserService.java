@@ -23,4 +23,6 @@ public interface UserService {
     public ResultVO getCommentById(String userId, int pageNum, int limit);
 
     public ResultVO getHistoryProduct(String userId);
+
+    public ResultVO getReconciliation(String userId);
 }
