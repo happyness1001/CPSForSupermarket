@@ -1,0 +1,265 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>聊天</title>
+	<link rel="stylesheet" type="text/css" href="./static/css/chat.css">
+</head>
+<body >
+<div class="container" id="container">
+	<div class="leftSide">
+		<!--header-->
+		<div class="header">
+			<div class="userimg">
+				<img :src="'static/'+userImg" class="cover">
+<!--				<img src="./static/img/0.jpg" class="cover">-->
+			</div>
+		</div>
+		<div class="search_chat">
+			<div>
+				<input type="text" placeholder="搜索...">
+			</div>
+		</div>
+		<div class="chatlist">
+			<div class="block active" v-for="user in users" @click="getUser(user)">
+				<div class="imgbx">
+					<img :src="'static/'+user.userImg" class="cover">
+				</div>
+				<div class="details">
+					<div class="listHead">
+						<h4>{{user.nickname}}</h4>
+						<p class="time">{{user.chatMsg.creatTime}}</p>
+					</div>
+					<div class="message_p">
+						<p>{{user.chatMsg.content}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rightSide">
+		<div class="header">
+			<div class="imgText">
+				<div class="userimg">
+					<img :src="'static/'+selected.userImg" class="cover">
+				</div>
+				<h4>{{selected.nickname}}<br><span>在线</span></h4>
+			</div>
+		</div>
+		<div class="chatBox"  id="message"></div>
+		<div class="chatbox_input">
+			<div>
+				<input type="text" width="200px" id="msg">
+				<button onclick="send()">
+					<img src="./static/images/sender.png" width="40" alt="图片">
+				</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript " src="static/js/quick_links.js "></script>
+<script type="text/javascript" src="static/js/cookie_utils.js" ></script>
+<script type="text/javascript" src="static/js/vue.js" ></script>
+<script type="text/javascript" src="static/js/axios.min.js" ></script>
+<script type="text/javascript" src="static/js/base.js" ></script>
+<script type="text/javascript">
+
+	var vm = new Vue({
+		el:"#container",
+		data:{
+			token:"",
+			username:"",
+			userImg:"",
+			websocket:"",
+			users:[],
+			selected:"",
+			toUser:"",
+			msg:[],
+			userImg:"",
+			userId:""
+
+		},
+		created:function() {
+			//从cookie中获取token、username、userImg
+			this.username = getCookieValue("username");
+			var userId = getCookieValue("userId");
+			this.userImg = getCookieValue("userImg");
+			var token = getCookieValue("token");
+			var url1 = baseUrl+"chat/userList/"+userId;
+			axios({
+				url:url1,
+				method:"get",
+				params:{
+					userId:userId
+				},
+			}).then((res)=>{
+				if(res.data.code == 20001 || res.data.code == 20002){
+					//跳转登录
+				}else if(res.data.code == 10000){
+					//请求成功  [{commonType:0},{commonType:1}]
+					this.users = res.data.data;
+					if(this.users.length>=1){
+						this.selected = this.users[0];
+					}
+					for(var i=0; i<this.users.length; i++) {
+						var date = new Date(this.users[i].chatMsg.creatTime);
+						var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+						var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+						// var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+						var time =  hour+":"+minute;
+						this.users[i].chatMsg.creatTime = time;
+					}
+					console.log(this.users);
+				}
+			});
+			var nickname = userId
+			// if(nickname===""){
+			// 	alert("请输入昵称");
+			// 	return;
+			// }
+			//判断当前浏览器是否支持WebSocket
+			if ('WebSocket'in window) {
+				this.websocket = new WebSocket("ws://localhost:8080/websocket/"+nickname);
+			} else {
+				alert('Not support websocket')
+			}
+			//连接发生错误的回调方法
+			this.websocket.onerror = function() {
+				setMessageInnerHTML("error");
+			};
+			//连接成功建立的回调方法
+			this.websocket.onopen = function(event) {
+				// setMessageInnerHTML("Loc MSG: 成功建立连接");
+			}
+			//接收到消息的回调方法
+			this.websocket.onmessage = function(event) {
+				console.log(event.data);
+				setMessageInnerHTML(event.data);
+			}
+			//连接关闭的回调方法
+			this.websocket.onclose = function() {
+				setMessageInnerHTML("Loc MSG:关闭连接");
+			}
+			//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+			window.onbeforeunload = function() {
+				this.websocket.close();
+			}
+		},
+		methods: {
+			getUser: function (user){
+				document.getElementById('message').innerHTML = "";
+				this.selected = user;
+				var userId = getCookieValue("userId");
+				var token = getCookieValue("token");
+				var url1 = baseUrl+"chat/msgHistory";
+				var ChatMsg = {sendId:userId,receiveId:user.userId};
+				axios({
+					url:url1,
+					method:"post",
+					data: ChatMsg
+				}).then((res)=>{
+					if(res.data.code == 10000){
+						//请求成功  [{commonType:0},{commonType:1}]
+						this.msg = res.data.data;
+						console.log("msg",this.msg);
+						for(var i=0; i<this.msg.length; i++) {
+							creatMsg(this.msg[i]);
+						}
+					}
+				});
+			}
+		}
+	});
+	function setMessageInnerHTML(innerHTML) {
+		var div = document.createElement("div");
+
+		//为div创建属性class = "test"
+		var divattr = document.createAttribute("class");
+		divattr.value = "message frnd_message";
+
+		//把属性class = "test"添加到div
+		div.setAttributeNode(divattr);
+		var text = document.createElement("p");
+		var span = document.createElement("span");
+		var date = new Date();
+		var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+		var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+		var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+		span.innerHTML +=  hour+":"+minute+":"+second;
+		text.innerHTML +=innerHTML + '<br/>';
+		text.appendChild(span);
+		div.appendChild(text)
+		// document.getElementById('message').innerHTML += innerHTML + '<br/>';
+		document.getElementById('message').appendChild(div)
+	}
+	//关闭连接
+	function closeWebSocket() {
+		websocket.close();
+	}
+	//发送消息
+	//发送消息
+	function send() {
+		//获取输入的文本信息进行发送
+		var message = document.getElementById('msg').value;
+		document.getElementById('msg').value="";
+		// var toUser = document.getElementById('toUser').value;
+		var toUser = vm.selected.userId;
+		var ChatMsg = {content:message,receiveId:toUser};
+		// if(toUser == ''){
+		// 	//群聊.
+		// 	socketMsg.type = 0;
+		// }else{
+		// 	//单聊.
+		// 	socketMsg.type = 1;
+		// }
+		vm.websocket.send(JSON.stringify(ChatMsg));
+		var div = document.createElement("div");
+
+		//为div创建属性class = "test"
+		var divattr = document.createAttribute("class");
+		divattr.value = "message my_message";
+
+		//把属性class = "test"添加到div
+		div.setAttributeNode(divattr);
+		var text = document.createElement("p");
+		var span = document.createElement("span");
+		var date = new Date();
+		var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+		var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+		var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+		span.innerHTML += hour+":"+minute+":"+second;
+		text.innerHTML +=message + '<br/>';
+		text.appendChild(span);
+		div.appendChild(text)
+		// document.getElementById('message').innerHTML += innerHTML + '<br/>';
+		document.getElementById('message').appendChild(div)
+	}
+	function creatMsg(message){
+		var div = document.createElement("div");
+		//为div创建属性class = "test"
+		var divattr = document.createAttribute("class");
+		if(message.sendId==getCookieValue("userId")){
+			divattr.value = "message my_message";
+		}else {
+			divattr.value = "message frnd_message";
+		}
+		//把属性class = "test"添加到div
+		div.setAttributeNode(divattr);
+		var text = document.createElement("p");
+		var span = document.createElement("span");
+		var date = new Date(message.creatTime);
+		var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+		var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+		var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+		span.innerHTML += hour+":"+minute+":"+second;
+		text.innerHTML +=message.content + '<br/>';
+		text.appendChild(span);
+		div.appendChild(text)
+		document.getElementById('message').appendChild(div)
+	}
+</script>
+</body>
+
+</html>
