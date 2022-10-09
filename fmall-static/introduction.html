@@ -152,7 +152,7 @@
 							<template v-if="productImgs.length>0">
 								<div  class="tb-booth tb-pic tb-s310">
 									<a href="static/images/01.jpg">
-										<img :src="'static/pimgs/'+productImgs[0].url" alt="细节展示放大镜特效" :rel="'static/pimgs/'+productImgs[0].url" class="jqzoom" />
+										<img :src="productImgs[0].url" alt="细节展示放大镜特效" :rel="productImgs[0].url" class="jqzoom" />
 									</a>
 								</div>
 							</template>
@@ -161,7 +161,7 @@
 								<template v-for="img,index in productImgs">
 									<li :class="{'tb-selected':index==0}">
 										<div class="tb-pic tb-s40">
-											<a href="#"><img :src="'static/pimgs/'+img.url" :mid="'static/pimgs/'+img.url" :big="'static/pimgs/'+img.url"></a>
+											<a href="#"><img :src="img.url" :mid="img.url" :big="img.url"></a>
 										</div>
 									</li>
 								</template>

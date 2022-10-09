@@ -4158,3 +4158,102 @@ INSERT INTO `area_code` VALUES (7050, '重庆市', 4, 500100, 0, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- ----------------------------
+-- Table structure for chat_msg
+-- ----------------------------
+DROP TABLE IF EXISTS `chat_msg`;
+CREATE TABLE `chat_msg`  (
+                             `msg_id` bigint NOT NULL AUTO_INCREMENT COMMENT '消息ID',
+                             `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息内容',
+                             `send_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发送者ID',
+                             `receive_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接收者ID',
+                             `creat_time` datetime NULL DEFAULT NULL COMMENT '发送时间',
+                             `readState` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '查看状态 0未看 1已看',
+                             PRIMARY KEY (`msg_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of chat_msg
+-- ----------------------------
+INSERT INTO `chat_msg` VALUES (1, '啊啊', '9', '10', '2022-10-08 15:26:23', '1');
+INSERT INTO `chat_msg` VALUES (2, 'ee', '10', '9', '2022-10-08 17:51:35', '1');
+INSERT INTO `chat_msg` VALUES (3, 'xx', '9', '10', '2022-10-08 19:20:08', '0');
+INSERT INTO `chat_msg` VALUES (4, '顶点的', '8', '10', '2022-10-26 19:34:36', '1');
+INSERT INTO `chat_msg` VALUES (5, '在', '9', '10', '2022-10-08 19:44:43', '1');
+INSERT INTO `chat_msg` VALUES (6, '？', '9', '10', '2022-10-08 19:44:57', '1');
+INSERT INTO `chat_msg` VALUES (7, '？', '9', '10', '2022-10-08 19:45:39', '1');
+INSERT INTO `chat_msg` VALUES (8, '？', '9', '10', '2022-10-08 19:47:00', '0');
+INSERT INTO `chat_msg` VALUES (9, '？', '10', '9', '2022-10-08 19:47:37', '1');
+INSERT INTO `chat_msg` VALUES (10, '搜索', '10', '9', '2022-10-08 19:47:46', '1');
+INSERT INTO `chat_msg` VALUES (11, '我是', '10', '9', '2022-10-08 19:48:55', '1');
+INSERT INTO `chat_msg` VALUES (12, '我是', '8', '9', '2022-10-08 19:49:04', '1');
+INSERT INTO `chat_msg` VALUES (13, '师生', '8', '9', '2022-10-08 19:50:23', '1');
+INSERT INTO `chat_msg` VALUES (14, '师生', '9', '8', '2022-10-08 20:03:21', '1');
+INSERT INTO `chat_msg` VALUES (15, '啊啊', '9', '8', '2022-10-08 20:03:28', '1');
+INSERT INTO `chat_msg` VALUES (23, '你是', '9', '10', '2022-10-09 16:12:17', '0');
+INSERT INTO `chat_msg` VALUES (24, '不知道', '9', '10', '2022-10-09 17:01:06', '0');
+INSERT INTO `chat_msg` VALUES (25, '》', '9', '10', '2022-10-09 19:14:23', '1');
+INSERT INTO `chat_msg` VALUES (26, '你是二娃？', '10', '9', '2022-10-09 19:27:05', '1');
+INSERT INTO `chat_msg` VALUES (27, '我是二娃，你是托尼', '9', '10', '2022-10-09 19:27:29', '1');
+INSERT INTO `chat_msg` VALUES (28, '', '9', '10', '2022-10-09 19:27:29', '1');
+INSERT INTO `chat_msg` VALUES (29, '测试', '10', '9', '2022-10-09 20:02:23', '1');
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for reconciliation
+-- ----------------------------
+DROP TABLE IF EXISTS `reconciliation`;
+CREATE TABLE `reconciliation`  (
+                                   `record_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '交易id',
+                                   `user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户id',
+                                   `order_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用于对账的订单id 或者合同id',
+                                   `order_content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '订单或合同内容',
+                                   `amounts_payable` decimal(10, 0) NOT NULL COMMENT '订单或合同应付金额',
+                                   `amount_paid` decimal(10, 0) NOT NULL COMMENT '已付金额',
+                                   `create_time` datetime NULL DEFAULT NULL COMMENT '订单或合同生成时间',
+                                   `final_payment` datetime NULL DEFAULT NULL COMMENT '最后支付时间',
+                                   `is_finished` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '款项是否结清',
+                                   `due_time` date NULL DEFAULT NULL COMMENT '交割时间',
+                                   PRIMARY KEY (`record_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of reconciliation
+-- ----------------------------
+INSERT INTO `reconciliation` VALUES ('0d4eedaae0cb46c0b9cf8ec23886b3ee', '9', '0d4eedaae0cb46c0b9cf8ec23886b3ee', '海天酱油,', 8, 0, '2022-09-19 18:39:47', NULL, '0', '2022-09-20');
+INSERT INTO `reconciliation` VALUES ('154e132f42924b30aeedcf30deb347fc', '9', '154e132f42924b30aeedcf30deb347fc', '', 2, 0, '2022-09-26 20:02:38', NULL, '0', '2022-10-10');
+INSERT INTO `reconciliation` VALUES ('4721b791076e4d2496026556008acd59', '9', '4721b791076e4d2496026556008acd59', '', 2, 0, '2022-09-26 20:02:24', NULL, '0', '2022-10-10');
+INSERT INTO `reconciliation` VALUES ('4e3aea3a1d1744eda79a2714b55b559b', '9', '4e3aea3a1d1744eda79a2714b55b559b', '', 2, 0, '2022-09-26 20:02:23', NULL, '0', '2022-10-10');
+INSERT INTO `reconciliation` VALUES ('500dd12e035547169ddd6b7c957c65ad', '9', '500dd12e035547169ddd6b7c957c65ad', '', 2, 0, '2022-09-26 20:00:48', NULL, '0', '2022-10-10');
+INSERT INTO `reconciliation` VALUES ('5b897141677d4d4ebdff0c2e092e933f', '9', '5b897141677d4d4ebdff0c2e092e933f', '', 2, 0, '2022-09-26 20:00:46', NULL, '0', '2022-10-10');
+INSERT INTO `reconciliation` VALUES ('7753cc830cf441648092817d8195a4dd', '9', '7753cc830cf441648092817d8195a4dd', '', 2, 0, '2022-09-26 20:02:21', NULL, '0', '2022-10-10');
+INSERT INTO `reconciliation` VALUES ('82c7a77229a24e53a17367d6d49ea0a2', '9', '82c7a77229a24e53a17367d6d49ea0a2', '', 2, 0, '2022-09-26 20:02:40', NULL, '0', '2022-10-10');
+INSERT INTO `reconciliation` VALUES ('91a2c63ce81a428f83893152f65bc98a', '9', '91a2c63ce81a428f83893152f65bc98a', '农夫山泉,', 2, 0, '2022-09-19 17:34:16', NULL, '0', '2022-09-20');
+INSERT INTO `reconciliation` VALUES ('bc5422c5ee1047ba842f4fb1ddf24cb0', '9', 'bc5422c5ee1047ba842f4fb1ddf24cb0', '农夫山泉,', 2, 2, '2022-09-19 08:07:31', '2022-09-19 17:35:14', '1', '2022-09-20');
+INSERT INTO `reconciliation` VALUES ('ec90ffe9e91d4c179b4cae989211892f', '9', 'ec90ffe9e91d4c179b4cae989211892f', '康师傅红烧牛肉面,', 3, 0, '2022-09-19 15:45:54', NULL, '0', '2022-09-20');
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- ----------------------------
+-- Table structure for return_goods
+-- ----------------------------
+DROP TABLE IF EXISTS `return_goods`;
+CREATE TABLE `return_goods`  (
+                                 `return_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '退换货Id',
+                                 `company` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '物流公司',
+                                 `shipment_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '物流单号',
+                                 `order_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '订单id',
+                                 `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系人',
+                                 `phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
+                                 `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '退换货说明',
+                                 PRIMARY KEY (`return_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of return_goods
+-- ----------------------------
+INSERT INTO `return_goods` VALUES ('ffc225c477d74421b0670f7c4ed4d760', '韵达', 'bc5422c5ee10', 'bc5422c5ee1047ba842f4fb1ddf24cb0', '王二麻', '18790683753', '卖不完');
+
+SET FOREIGN_KEY_CHECKS = 1;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.fmmall.dao.ChatMsgMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.fmmall.entity.ChatMsg">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="msg_id" jdbcType="BIGINT" property="msgId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="send_id" jdbcType="VARCHAR" property="sendId" />
+    <result column="receive_id" jdbcType="VARCHAR" property="receiveId" />
+    <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime" />
+    <result column="readState" jdbcType="CHAR" property="readstate" />
+  </resultMap>
+    <select id="selectHistoryMsg" resultMap="BaseResultMap">
+      select msg_id,
+             content,
+             send_id,
+             receive_id,
+             creat_time,
+             readState
+      from chat_msg
+      where (send_id=#{sendId} and receive_id=#{receiveId}) or (send_id=#{receiveId} and receive_id=#{sendId})
+      order by creat_time asc
+    </select>
+    <select id="lastMsg" resultMap="BaseResultMap">
+        select msg_id,
+               content,
+               send_id,
+               receive_id,
+               creat_time,
+               readState
+        from chat_msg
+        where (send_id=#{sendId} and receive_id=#{receiveId}) or (send_id=#{receiveId} and receive_id=#{sendId})
+        order by creat_time desc limit 0,1
+
+    </select>
+</mapper>

@@ -282,7 +282,7 @@
 									<h4>销量：{{rp.soldNum}}</h4>
 								</div>
 								<div class="recommendationMain one">
-									<img v-if="rp.imgs.length>0"  :src="'static/pimgs/'+rp.imgs[0].url"></img>
+									<img v-if="rp.imgs.length>0"  :src="rp.imgs[0].url"></img>
 								</div>
 							</div>
 						</a>
@@ -432,7 +432,7 @@
 											</div>
 											<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 										</div>
-										<a href="# "><img v-if="rc.products[0].imgs.length>0" :src="'static/pimgs/'+rc.products[0].imgs[0].url" /></a>
+										<a href="# "><img v-if="rc.products[0].imgs.length>0" :src="rc.products[0].imgs[0].url" /></a>
 									</div>
 		
 									<div class="am-u-sm-7 am-u-md-4 text-two" v-if="rc.products.length > 1">
@@ -443,7 +443,7 @@
 											</div>
 											<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 										</div>
-										<a href="# "><img  v-if="rc.products[1].imgs.length>0" :src="'static/pimgs/'+rc.products[1].imgs[0].url" /></a>
+										<a href="# "><img  v-if="rc.products[1].imgs.length>0" :src="rc.products[1].imgs[0].url" /></a>
 									</div>
 		
 		
@@ -453,7 +453,7 @@
 										<div class="sub-title ">销量：{{rc.products[2].soldNum}}</div>
 										<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 									</div>
-									<a href="# "><img  v-if="rc.products[2].imgs.length>0" :src="'static/pimgs/'+rc.products[2].imgs[0].url" /></a>
+									<a href="# "><img  v-if="rc.products[2].imgs.length>0" :src="rc.products[2].imgs[0].url" /></a>
 								</div>
 		
 								<div class="am-u-sm-3 am-u-md-2 text-three sug" v-if="rc.products.length > 3">
@@ -462,7 +462,7 @@
 										<div class="sub-title ">销量：{{rc.products[3].soldNum}}</div>
 										<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 									</div>
-									<a href="# "><img  v-if="rc.products[3].imgs.length>0" :src="'static/pimgs/'+rc.products[3].imgs[0].url" /></a>
+									<a href="# "><img  v-if="rc.products[3].imgs.length>0" :src="rc.products[3].imgs[0].url" /></a>
 								</div>
 		
 								<div class="am-u-sm-3 am-u-md-2 text-three " v-if="rc.products.length > 4">
@@ -471,7 +471,7 @@
 										<div class="sub-title ">销量：{{rc.products[4].soldNum}}</div>
 										<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 									</div>
-									<a href="# "><img  v-if="rc.products[4].imgs.length>0" :src="'static/pimgs/'+rc.products[4].imgs[0].url" /></a>
+									<a href="# "><img  v-if="rc.products[4].imgs.length>0" :src="rc.products[4].imgs[0].url" /></a>
 								</div>
 		
 								<div class="am-u-sm-3 am-u-md-2 text-three last big " v-if="rc.products.length > 5">
@@ -480,7 +480,7 @@
 										<div class="sub-title ">销量：{{rc.products[5].soldNum}}</div>
 										<i class="am-icon-shopping-basket am-icon-md  seprate"></i>
 									</div>
-									<a href="# "><img  v-if="rc.products[5].imgs.length>0" :src="'static/pimgs/'+rc.products[5].imgs[0].url" /></a>
+									<a href="# "><img  v-if="rc.products[5].imgs.length>0" :src="rc.products[5].imgs[0].url" /></a>
 								</div>
 		
 							</div>

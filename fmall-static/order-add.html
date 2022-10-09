@@ -89,15 +89,15 @@
 						</div>
 						<div class="am-form-group"><label for="user-phone" class="am-form-label">所在地</label>
 							<div id="example" class="am-form-content address">
-								<select id="provinceId">
+								<select id="provinceId" @change="getCityById">
 									<option value="选择省份">选择省份</option>
 									<option v-for="province in provinces"  :value="province.id">{{province.name}}</option>
 								</select>
-								<select id="cityId" @click="getCityById">
+								<select id="cityId" @change="getCountyById">
 									<option value="请选择">请选择</option>
 									<option v-for="city in cities" :value="city.id">{{city.name}}</option>
 								</select>
-								<select id="countyId" @click="getCountyById">
+								<select id="countyId" >
 									<option value="请选择">请选择</option>
 									<option v-for="county in counties" :value="county.id">{{county.name}}</option>
 								</select>
@@ -201,7 +201,7 @@
 									<div class="pay-phone">
 										<li class="td td-item">
 											<div class="item-pic">
-												<a href="item.html?itemId=cake-1004" target="_blank" class="J_MakePoint"><img :src="'static/pimgs/'+sc.productImg" class="itempic J_ItemImg" style="width: 80px; height: 80px;"></a>
+												<a href="item.html?itemId=cake-1004" target="_blank" class="J_MakePoint"><img :src="sc.productImg" class="itempic J_ItemImg" style="width: 80px; height: 80px;"></a>
 											</div>
 											<div class="item-info">
 												<div class="item-basic-info">
@@ -605,11 +605,28 @@
 				}).then((res) => {
 					if (res.data.code == 10000) {
 						//跳转到支付页面显示支付二维码
+						console.log("orderInfo",res.data.data);
 						var orderInfo = res.data.data; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://...."}
 						orderInfo.totalPrice = this.totalPrice; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://....",totalPrice:18.8}
-
+						console.log(orderInfo);
 						localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
-						window.location.href = "order-pay.html";
+						var urls = "http://localhost:85/cps/wh/outboundOrder/add";
+						var whOutboundOrder = {
+							orderName:orderInfo.orderId,
+							orderDate:new Date(),
+							customerId: getCookieValue("userId"),
+							customerName:this.addrs[this.addrIndex].receiverName,
+							address:address,
+							totalAmount:this.totalPrice,
+						};
+						axios({
+							url: urls,
+							method: "post",
+							data: whOutboundOrder
+						}).then((res) => {
+							console.log(res)
+						});
+						// window.location.href = "order-pay.html";
 					} else if (res.data.code == 20001 || res.data.code == 20002) {
 						window.location.href = "login.html";
 					} else {
