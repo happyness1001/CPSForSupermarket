@@ -4,7 +4,7 @@ import com.qfedu.fmmall.vo.ResultVO;
 
 public interface ProductService {
 
-    public ResultVO listRecommendProducts();
+    public ResultVO listRecommendProducts(String userId);
 
     public ResultVO getProductBasicInfo(String productId);
 

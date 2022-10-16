@@ -71,7 +71,7 @@
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" href="#"></a>
 						<form action="search.html">
-							<input id="searchInput" v-model="keyword" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+							<input id="searchInput" :v-model="keyword" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
 							<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="button" @click="toSearch">
 						</form>
 					</div>
@@ -708,6 +708,7 @@
 				created:function(){
 					//从cookie中获取token、username、userImg
 					var token = getCookieValue("token");
+					var userId = getCookieValue("userId");
 					if(token !=null && token !=""){
 						this.isLogin = true;
 						this.username = getCookieValue("username");
@@ -749,7 +750,13 @@
 					
 					//新品推荐
 					var url3 = baseUrl+"index/list-recommends";
-					axios.get(url3).then((res)=>{
+					axios({
+						url:url3,
+						method:"get",
+						params:{
+							userId:userId
+						},
+					}).then((res)=>{
 						console.log(res.data.data);
 						this.recommendProducts = res.data.data;
 						

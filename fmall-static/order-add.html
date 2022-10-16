@@ -155,7 +155,7 @@
 			</div>
 			<div class="logistics">
 				<h3>选择交割时间</h3>
-				<input id="myDate" type="datetime-local" :placeholder="请选择日期"/>
+				<input id="myDate" type="datetime-local" placeholder="请选择日期"/>
 			</div>
 			<div class="logistics">
 				<h3>选择支付方式</h3>
@@ -603,6 +603,7 @@
 					},
 					data: order
 				}).then((res) => {
+					alert(res.data.msg);
 					if (res.data.code == 10000) {
 						//跳转到支付页面显示支付二维码
 						console.log("orderInfo",res.data.data);

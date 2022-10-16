@@ -11,10 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,8 +43,8 @@ public class IndexController {
 
     @GetMapping("/list-recommends")
     @ApiOperation("新品推荐接口")
-    public ResultVO listRecommendProducts() {
-        return productService.listRecommendProducts();
+    public ResultVO listRecommendProducts(String userId) {
+        return productService.listRecommendProducts(userId);
     }
 
     @GetMapping("/category-recommends")

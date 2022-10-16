@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.fmmall.dao.RelatedProductsItemsMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.fmmall.entity.RelatedProductsItems">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="related_item_id" jdbcType="VARCHAR" property="relatedItemId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="related_id" jdbcType="VARCHAR" property="relatedId" />
+  </resultMap>
+
+  <resultMap id="RelatedIdMap" type="com.qfedu.fmmall.entity.RelatedProductsItems">
+    <result column="related_id" jdbcType="VARCHAR" property="relatedId" />
+  </resultMap>
+
+  <resultMap id="ProductIdMap" type="com.qfedu.fmmall.entity.RelatedProductsItems">
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+  </resultMap>
+
+
+  <select id="selectOrderIdByProductId" resultMap="BaseResultMap">
+    select related_id
+    from fmmall2.related_products_items
+    where product_id = #{productId}
+  </select>
+  <select id="selectProductIdByProductId" resultMap="ProductIdMap">
+    select product_id
+    from fmmall2.related_products_items
+    where related_id = #{relatedId}
+  </select>
+
+</mapper>
