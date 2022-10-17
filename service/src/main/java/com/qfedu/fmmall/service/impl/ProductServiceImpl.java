@@ -68,11 +68,13 @@ public class ProductServiceImpl implements ProductService {
                 productsId.add(orderItem.getProductId());
             }
             int amount = 0;
-            if (productsId.size() > 3) {
+            /*这里可以限制考虑关联规则的商品数量*/
+            /*if (productsId.size() > 3) {
                 amount = 3;
             } else {
                 amount = productsId.size();
-            }
+            }*/
+            amount = productsId.size();
             /*记录所有相关联的商品*/
             ArrayList<List<String>> relatedProductList = new ArrayList<>();
             /*记录所有相关联的规则id*/
