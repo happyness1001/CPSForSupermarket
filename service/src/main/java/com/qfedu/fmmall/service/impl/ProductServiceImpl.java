@@ -84,11 +84,11 @@ public class ProductServiceImpl implements ProductService {
     public ResultVO getProductsByCategoryId(int categoryId, int pageNum, int limit) {
         //1.查询分页数据
         int start = (pageNum-1)*limit;
-        List<ProductVO> productVOS = productMapper.selectProductByCategoryId(categoryId, start, limit);
+        List<ProductVO> productVOS = productMapper.selectProductByCategoryId(String.valueOf(categoryId), start, limit);
         //2.查询当前类别下的商品的总记录数
         Example example = new Example(Product.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("categoryId",categoryId);
+        criteria.andEqualTo("categoryId",String.valueOf(categoryId));
         int count = productMapper.selectCountByExample(example);
         //3.计算总页数
         int pageCount = count%limit==0? count/limit : count/limit+1;
@@ -99,7 +99,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResultVO listBrands(int categoryId) {
-        List<String> brands = productMapper.selectBrandByCategoryId(categoryId);
+        List<String> brands = productMapper.selectBrandByCategoryId(String.valueOf(categoryId));
         return new ResultVO(ResStatus.OK,"success",brands);
     }
 

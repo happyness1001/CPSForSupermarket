@@ -1,9 +1,6 @@
 package com.qfedu.fmmall.service.impl;
 
-import com.qfedu.fmmall.dao.OrderItemMapper;
-import com.qfedu.fmmall.dao.OrdersMapper;
-import com.qfedu.fmmall.dao.ReconciliationMapper;
-import com.qfedu.fmmall.dao.UsersMapper;
+import com.qfedu.fmmall.dao.*;
 import com.qfedu.fmmall.entity.*;
 import com.qfedu.fmmall.service.UserService;
 import com.qfedu.fmmall.utils.MD5Utils;
@@ -40,6 +37,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ReconciliationMapper reconciliationMapper;
+
+    @Autowired
+    private ChatMsgMapper chatMsgMapper;
 
 
     @Transactional
@@ -204,5 +204,25 @@ public class UserServiceImpl implements UserService {
         criteria.andEqualTo("userId", userId);
         List<Reconciliation> reconciliations = reconciliationMapper.selectByExample(example);
         return new ResultVO(ResStatus.OK,"sucesss",reconciliations);
+    }
+
+    @Override
+    public ResultVO getUserByDetail(String information) {
+        Example example = new Example(Users.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.orLike("userId", "%"+information+"%");
+        criteria.orLike("username","%"+information+"%");
+        criteria.orLike("nickname","%"+information+"%");
+        List<Users> users = usersMapper.selectByExample(example);
+        List<UsersMsgVo> usersMsgVos = new ArrayList<>();
+        for(Users users1:users){
+            UsersMsgVo usersMsgVo = new UsersMsgVo(users1);
+            ChatMsg chatMsg = new ChatMsg();
+            chatMsg.setContent("");
+            chatMsg.setCreatTime(new Date());
+            usersMsgVo.setChatMsg(chatMsg);
+            usersMsgVos.add(usersMsgVo);
+        }
+        return new ResultVO(ResStatus.OK,"sucesss",usersMsgVos);
     }
 }

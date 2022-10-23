@@ -2,6 +2,7 @@ package com.qfedu.fmmall.service;
 
 import com.qfedu.fmmall.entity.ChatMsg;
 import com.qfedu.fmmall.vo.ResultVO;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface ChatService {
     public ResultVO addNewMsg(ChatMsg chatMsg);
@@ -17,4 +18,12 @@ public interface ChatService {
     public ResultVO msgHistory(ChatMsg receiverId);
 
     public ResultVO LastMsg(String receiverId);
+
+    public ResultVO getUserByDetail(String information);
+
+    public ResultVO getUnreadMsg(String userId);
+
+    public String saveOrUpdateImageFile(MultipartFile image);
+
+    public ResultVO cpsImageFile(MultipartFile image,String fileName);
 }

@@ -108,4 +108,11 @@ public class UserController {
         return resultVO;
     }
 
+    @ApiOperation("查询用户接口")
+    @GetMapping("/getUserByDetail/{information}")
+    public ResultVO getUserByDetail(@RequestHeader("token") String token,@PathVariable("information") String information){
+        ResultVO resultVO = userService.getUserByDetail(information);
+        return resultVO;
+    }
+
 }
