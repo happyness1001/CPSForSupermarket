@@ -19,4 +19,20 @@
     <result column="user_modtime" jdbcType="TIMESTAMP" property="userModtime" />
     <result column="security_deposit" jdbcType="DECIMAL" property="securityDeposit" />
   </resultMap>
+
+  <insert id="insertUser" parameterType="Users">
+    insert into fmmall2.users (fmmall2.users.user_id,
+                               fmmall2.users.username,
+                               fmmall2.users.password,
+                               fmmall2.users.user_img,
+                               fmmall2.users.user_regtime,
+                               fmmall2.users.user_modtime
+                               ) values (#{userId},
+                                         #{username},
+                                         #{password},
+                                         #{userImg},
+                                         #{userRegtime},
+                                         #{userModtime})
+
+  </insert>
 </mapper>

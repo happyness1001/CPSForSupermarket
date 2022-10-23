@@ -3,7 +3,7 @@ package com.qfedu.fmmall.websocket;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qfedu.fmmall.entity.ChatMsg;
-import com.qfedu.fmmall.entity.SocketMsg;
+/*import com.qfedu.fmmall.entity.SocketMsg;*/
 import com.qfedu.fmmall.service.ChatService;
 import com.qfedu.fmmall.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +81,7 @@ public class MyWebSocket {
         //从客户端传过来的数据是json数据，所以这里使用jackson进行转换为SocketMsg对象，
         // 然后通过socketMsg的type进行判断是单聊还是群聊，进行相应的处理:
         ObjectMapper objectMapper = new ObjectMapper();
-        SocketMsg socketMsg;
+        /*SocketMsg socketMsg;*/
         ChatMsg chatMsg;
 
         try {

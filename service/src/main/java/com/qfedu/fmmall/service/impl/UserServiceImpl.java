@@ -55,12 +55,17 @@ public class UserServiceImpl implements UserService {
             if (users.size() == 0) {
                 String md5Pwd = MD5Utils.md5(pwd);
                 Users user = new Users();
+
+                /*暂时按照时间戳给赋值user_id,后续应该修改*/
+                //user.setUserId(String.valueOf(new Date().getTime()));
+                user.setUserId("123456789");
+
                 user.setUsername(name);
                 user.setPassword(md5Pwd);
                 user.setUserImg("img/default.png");
                 user.setUserRegtime(new Date());
                 user.setUserModtime(new Date());
-                int i = usersMapper.insertUseGeneratedKeys(user);
+                int i = usersMapper.insertUser(user);
                 if (i > 0) {
                     return new ResultVO(ResStatus.OK, "注册成功！", user);
                 } else {

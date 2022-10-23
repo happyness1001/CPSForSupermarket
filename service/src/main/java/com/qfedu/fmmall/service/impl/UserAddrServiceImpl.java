@@ -1,7 +1,7 @@
 package com.qfedu.fmmall.service.impl;
 
 import com.qfedu.fmmall.dao.UserAddrMapper;
-import com.qfedu.fmmall.entity.GoodsCategory;
+/*import com.qfedu.fmmall.entity.GoodsCategory;*/
 import com.qfedu.fmmall.entity.UserAddr;
 import com.qfedu.fmmall.service.UserAddrService;
 import com.qfedu.fmmall.vo.ResStatus;

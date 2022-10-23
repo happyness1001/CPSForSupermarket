@@ -18,8 +18,8 @@
 
         <!-- 配置数据库连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/fmmall2"
-                        userId="root" password="zhai1234">
+                        connectionURL="jdbc:mysql://localhost:3306/fmmall2?useSSL=false"
+                        userId="root" password="root">
         </jdbcConnection>
 
         <!-- 配置实体类存放路径 -->
@@ -32,6 +32,6 @@
         <javaClientGenerator targetPackage="com.qfedu.fmmall.dao" targetProject="src/main/java" type="XMLMAPPER"/>
 
         <!-- 配置需要指定生成的数据库和表，% 代表所有表 -->
-        <table tableName="area"></table>
+        <table tableName="related_products_items"></table>
     </context>
 </generatorConfiguration>

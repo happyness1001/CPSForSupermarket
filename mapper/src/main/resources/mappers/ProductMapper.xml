@@ -38,8 +38,22 @@
       create_time,
       update_time
     from product
-    order by create_time desc
-        limit 0,3
+    order by create_time asc
+        limit #{start},#{limit}
+  </select>
+  <select id="selectRecommendProductsByProductId" resultMap="ProductVOMap">
+      select
+          product_id,
+          product_name,
+          category_id,
+          root_category_id,
+          sold_num,
+          product_status,
+          content,
+          create_time,
+          update_time
+      from product
+      where product_id = #{productId}
   </select>
 
   <select id="selectTop6ByCategory" resultMap="ProductVOMap">
