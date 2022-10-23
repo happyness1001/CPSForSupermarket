@@ -3,35 +3,35 @@
 <mapper namespace="com.qfedu.fmmall.dao.CategoryMapper">
 
     <resultMap id="BaseResultMap" type="com.qfedu.fmmall.entity.Category">
-        <id column="category_id" jdbcType="INTEGER" property="categoryId"/>
-        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
-        <result column="category_level" jdbcType="INTEGER" property="categoryLevel"/>
-        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
-        <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon"/>
-        <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan"/>
-        <result column="category_pic" jdbcType="VARCHAR" property="categoryPic"/>
-        <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor"/>
+        <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="category_level" jdbcType="INTEGER" property="categoryLevel" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+        <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan" />
+        <result column="category_pic" jdbcType="VARCHAR" property="categoryPic" />
+        <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor" />
     </resultMap>
 
     <resultMap id="categoryVOMap" type="com.qfedu.fmmall.entity.CategoryVO">
-        <id column="category_id1" jdbcType="INTEGER" property="categoryId"/>
-        <result column="category_name1" jdbcType="VARCHAR" property="categoryName"/>
-        <result column="category_level1" jdbcType="INTEGER" property="categoryLevel"/>
-        <result column="parent_id1" jdbcType="INTEGER" property="parentId"/>
-        <result column="category_icon1" jdbcType="VARCHAR" property="categoryIcon"/>
-        <result column="category_slogan1" jdbcType="VARCHAR" property="categorySlogan"/>
-        <result column="category_pic1" jdbcType="VARCHAR" property="categoryPic"/>
-        <result column="category_bg_color1" jdbcType="VARCHAR" property="categoryBgColor"/>
-        <collection property="categories" ofType="com.qfedu.fmmall.entity.CategoryVO">
-            <id column="category_id2" jdbcType="INTEGER" property="categoryId"/>
-            <result column="category_name2" jdbcType="VARCHAR" property="categoryName"/>
-            <result column="category_level2" jdbcType="INTEGER" property="categoryLevel"/>
-            <result column="parent_id2" jdbcType="INTEGER" property="parentId"/>
-            <collection property="categories" ofType="com.qfedu.fmmall.entity.CategoryVO">
-                <id column="category_id3" jdbcType="INTEGER" property="categoryId"/>
-                <result column="category_name3" jdbcType="VARCHAR" property="categoryName"/>
-                <result column="category_level3" jdbcType="INTEGER" property="categoryLevel"/>
-                <result column="parent_id3" jdbcType="INTEGER" property="parentId"/>
+        <id column="category_id1" jdbcType="INTEGER" property="categoryId" />
+        <result column="category_name1" jdbcType="VARCHAR" property="categoryName" />
+        <result column="category_level1" jdbcType="INTEGER" property="categoryLevel" />
+        <result column="parent_id1" jdbcType="INTEGER" property="parentId" />
+        <result column="category_icon1" jdbcType="VARCHAR" property="categoryIcon" />
+        <result column="category_slogan1" jdbcType="VARCHAR" property="categorySlogan" />
+        <result column="category_pic1" jdbcType="VARCHAR" property="categoryPic" />
+        <result column="category_bg_color1" jdbcType="VARCHAR" property="categoryBgColor" />
+        <collection ofType="com.qfedu.fmmall.entity.CategoryVO" property="categories">
+            <id column="category_id2" jdbcType="INTEGER" property="categoryId" />
+            <result column="category_name2" jdbcType="VARCHAR" property="categoryName" />
+            <result column="category_level2" jdbcType="INTEGER" property="categoryLevel" />
+            <result column="parent_id2" jdbcType="INTEGER" property="parentId" />
+            <collection ofType="com.qfedu.fmmall.entity.CategoryVO" property="categories">
+                <id column="category_id3" jdbcType="INTEGER" property="categoryId" />
+                <result column="category_name3" jdbcType="VARCHAR" property="categoryName" />
+                <result column="category_level3" jdbcType="INTEGER" property="categoryLevel" />
+                <result column="parent_id3" jdbcType="INTEGER" property="parentId" />
             </collection>
         </collection>
 
@@ -63,16 +63,15 @@
     </select>
 
     <resultMap id="categoryVOMap2" type="com.qfedu.fmmall.entity.CategoryVO">
-        <id column="category_id" jdbcType="INTEGER" property="categoryId"/>
-        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
-        <result column="category_level" jdbcType="INTEGER" property="categoryLevel"/>
-        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
-        <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon"/>
-        <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan"/>
-        <result column="category_pic" jdbcType="VARCHAR" property="categoryPic"/>
-        <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor"/>
-        <collection property="categories" column="category_id"
-                    select="com.qfedu.fmmall.dao.CategoryMapper.selectAllCategories2"/>
+        <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="category_level" jdbcType="INTEGER" property="categoryLevel" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+        <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan" />
+        <result column="category_pic" jdbcType="VARCHAR" property="categoryPic" />
+        <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor" />
+        <collection column="category_id" property="categories" select="com.qfedu.fmmall.dao.CategoryMapper.selectAllCategories2" />
     </resultMap>
 
     <!-- 根据父级分类的id查询子级分类  -->
@@ -92,15 +91,15 @@
 
 
     <resultMap id="categoryVOMap3" type="com.qfedu.fmmall.entity.CategoryVO">
-        <id column="category_id" jdbcType="INTEGER" property="categoryId"/>
-        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
-        <result column="category_level" jdbcType="INTEGER" property="categoryLevel"/>
-        <result column="parent_id" jdbcType="INTEGER" property="parentId"/>
-        <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon"/>
-        <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan"/>
-        <result column="category_pic" jdbcType="VARCHAR" property="categoryPic"/>
-        <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor"/>
-        <collection property="products" select="com.qfedu.fmmall.dao.ProductMapper.selectTop6ByCategory" column="category_id"/>
+        <id column="category_id" jdbcType="INTEGER" property="categoryId" />
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+        <result column="category_level" jdbcType="INTEGER" property="categoryLevel" />
+        <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+        <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+        <result column="category_slogan" jdbcType="VARCHAR" property="categorySlogan" />
+        <result column="category_pic" jdbcType="VARCHAR" property="categoryPic" />
+        <result column="category_bg_color" jdbcType="VARCHAR" property="categoryBgColor" />
+        <collection column="category_id" property="products" select="com.qfedu.fmmall.dao.ProductMapper.selectTop6ByCategory" />
     </resultMap>
 
     <select id="selectFirstLevelCategories" resultMap="categoryVOMap3">

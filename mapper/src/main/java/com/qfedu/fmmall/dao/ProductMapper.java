@@ -18,7 +18,7 @@ public interface ProductMapper extends GeneralDAO<Product> {
      * @param cid
      * @return
      */
-    public List<ProductVO> selectTop6ByCategory(int cid);
+    public List<ProductVO> selectTop6ByCategory(String cid);
 
     /**
      * 根据三级分类ID分页查询商品信息
@@ -27,7 +27,7 @@ public interface ProductMapper extends GeneralDAO<Product> {
      * @param limit 查询记录数
      * @return
      */
-    public List<ProductVO> selectProductByCategoryId(@Param("cid") int cid,
+    public List<ProductVO> selectProductByCategoryId(@Param("cid") String cid,
                                                      @Param("start") int start,
                                                      @Param("limit") int limit);
 
@@ -36,7 +36,7 @@ public interface ProductMapper extends GeneralDAO<Product> {
      * @param cid
      * @return
      */
-    public List<String> selectBrandByCategoryId(int cid);
+    public List<String> selectBrandByCategoryId(String cid);
 
 
     /**
