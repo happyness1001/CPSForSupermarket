@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
@@ -73,13 +74,16 @@ public class OrderTimeoutCheckJob {
         }
     }
 
-    @Scheduled(cron = "0 15 10 15 * ?")
+   // @Scheduled(cron = "0 15 10 15 * ?")
+   @Scheduled(cron = "0/10 * * * * ?")
     public void checkRelatedRule(){
         /*System.out.println(111111111);*/
         Process proc;
         try {
+            File directory = new File("");//参数为空
+            String courseFile = directory.getCanonicalPath() ;
             /*这里要换成绝对路径*/
-            String[] arg = new String[]{"python", "E:\\IdeaProjects\\CPSForSupermarket2\\商城-数据库\\renewRelatedRules.py"};
+            String[] arg = new String[]{"python", courseFile+"\\商城-数据库\\renewRelatedRules.py"};
             proc = Runtime.getRuntime().exec(arg);// 执行py文件
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
