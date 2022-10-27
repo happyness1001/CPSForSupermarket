@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -68,6 +69,7 @@ public class ChatController {
 
     @GetMapping("/userList/{userId}")
     private ResultVO userList(@PathVariable("userId") String userId){
+
         return chatService.userListDev(userId);
     }
 
@@ -78,6 +80,34 @@ public class ChatController {
     public ResultVO delUserByUserId(@PathVariable("userId") String userId){
         return chatService.delUserByUserId(userId);
     }
+
+    @ApiOperation("查询是否有未读信息接口")
+    @GetMapping("/getUnreadMsg/{userId}")
+    public ResultVO getUnreadMsg(@PathVariable("userId") String userId){
+        ResultVO resultVO = chatService.getUnreadMsg(userId);
+        return resultVO;
+    }
+
+    @ApiOperation("传输图片接口")
+//    @Transactional
+    @PutMapping("/sendImg")
+    public ResultVO sendImg( @RequestBody MultipartFile image) throws IOException {
+        String name = chatService.saveOrUpdateImageFile(image);
+        ResultVO resultVO = chatService.cpsImageFile(image,name);
+        return resultVO;
+    }
+
+//    @ApiOperation("传输图片接口")
+////    @Transactional
+//    @PutMapping("/cpsImg")
+//    public ResultVO cspImg( @RequestBody MultipartFile image) throws IOException {
+//        ResultVO resultVO = chatService.cpsImageFile(image);
+//        return resultVO;
+//    }
+
+
+
+
 
 }
 

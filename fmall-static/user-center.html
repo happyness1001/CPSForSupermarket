@@ -13,6 +13,22 @@
 		<link href="static/css/amazeui.css" rel="stylesheet" type="text/css">
 		<link href="static/css/personal.css" rel="stylesheet" type="text/css">
 		<link href="static/css/systyle.css" rel="stylesheet" type="text/css">
+		<style>
+			.red-point{
+				position: relative;
+			}
+
+			.red-point::before{
+				content: " ";
+				border: 4px solid red;/*设置红色*/
+				border-radius:4px;/*设置圆角*/
+				position: absolute;
+				z-index: 1000;
+				right: 0;
+				margin-right: -8px;
+				margin-top: 3px;
+			}
+		</style>
 
 	</head>
 
@@ -114,6 +130,9 @@
 							<a >个人资料</a>
 							<ul>
 								<li>
+									<a href="chat.html"><span id="message">我的好友</span></a>
+								</li>
+								<li>
 									<a href="user-info.html" target="mainFrame">我的信息</a>
 								</li>
 								<li>
@@ -162,6 +181,43 @@
 					userImg:""
 				},
 				created:function(){
+					var nickname = getCookieValue("userId");
+					if(nickname!=null&&nickname!=""){
+						var url = baseUrl+"chat/getUnreadMsg/"+nickname;
+						axios.get(url).then((res)=>{
+							if(res.data.data.length>0){
+								var div = document.getElementById('message');
+								div.setAttribute("class","red-point")
+								// alert("您有"+res.data.data.length+"条信息未读");
+							}
+						});
+						if ('WebSocket'in window) {
+							this.websocket = new WebSocket("ws://localhost:8080/websocket/"+nickname);
+						} else {
+							alert('Not support websocket')
+						}
+						//连接发生错误的回调方法
+						this.websocket.onerror = function() {
+							alert("error");
+						};
+						//连接成功建立的回调方法
+						this.websocket.onopen = function(event) {
+							// setMessageInnerHTML("Loc MSG: 成功建立连接");
+						}
+						//接收到消息的回调方法
+						this.websocket.onmessage = function(event) {
+							console.log(event.data);
+							var div = document.getElementById('message');
+							div.setAttribute("class","red-point")
+						}
+						//连接关闭的回调方法
+						this.websocket.onclose = function() {
+						}
+						//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+						window.onbeforeunload = function() {
+							this.websocket.close();
+						}
+					}
 					//从cookie中获取用户信息（token、用户id、用户名、头像）
 					this.token = getCookieValue("token");
 					if(this.token == null){

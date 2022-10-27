@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.qfedu.fmmall.entity.Product">
     <id column="product_id" jdbcType="VARCHAR" property="productId" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
-    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
-    <result column="root_category_id" jdbcType="INTEGER" property="rootCategoryId" />
+    <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+    <result column="root_category_id" jdbcType="VARCHAR" property="rootCategoryId" />
     <result column="sold_num" jdbcType="INTEGER" property="soldNum" />
     <result column="product_status" jdbcType="INTEGER" property="productStatus" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -16,8 +16,8 @@
   <resultMap id="ProductVOMap" type="com.qfedu.fmmall.entity.ProductVO">
     <id column="product_id" jdbcType="VARCHAR" property="productId" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
-    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
-    <result column="root_category_id" jdbcType="INTEGER" property="rootCategoryId" />
+    <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+    <result column="root_category_id" jdbcType="VARCHAR" property="rootCategoryId" />
     <result column="sold_num" jdbcType="INTEGER" property="soldNum" />
     <result column="product_status" jdbcType="INTEGER" property="productStatus" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -74,8 +74,8 @@
   <resultMap id="ProductVOMap2" type="com.qfedu.fmmall.entity.ProductVO">
     <id column="product_id" jdbcType="VARCHAR" property="productId" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
-    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
-    <result column="root_category_id" jdbcType="INTEGER" property="rootCategoryId" />
+    <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
+    <result column="root_category_id" jdbcType="VARCHAR" property="rootCategoryId" />
     <result column="sold_num" jdbcType="INTEGER" property="soldNum" />
     <result column="product_status" jdbcType="INTEGER" property="productStatus" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />

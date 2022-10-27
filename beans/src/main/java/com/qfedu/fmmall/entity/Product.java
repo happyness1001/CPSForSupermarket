@@ -21,7 +21,7 @@ public class Product {
      * 分类外键id 分类id
      */
     @Column(name = "category_id")
-    private Integer categoryId;
+    private String categoryId;
 
     /**
      * 一级分类外键id 一级分类id，用于优化查询
@@ -99,7 +99,7 @@ public class Product {
      *
      * @return category_id - 分类外键id 分类id
      */
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
@@ -108,7 +108,7 @@ public class Product {
      *
      * @param categoryId 分类外键id 分类id
      */
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 

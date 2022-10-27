@@ -18,8 +18,8 @@ public class ProductVO {
 
     private String productId;
     private String productName;
-    private Integer categoryId;
-    private Integer rootCategoryId;
+    private String categoryId;
+    private String rootCategoryId;
     private Integer soldNum;
     private Integer productStatus;
     private Date createTime;

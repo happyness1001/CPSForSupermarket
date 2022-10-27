@@ -47,15 +47,17 @@ public class MyWebSocket {
      */
     @OnOpen
     public void onOpen(Session session,@PathParam("nickname") String nickname) {
-        this.session = session;
-        this.nickname=nickname;
-        if(map.containsKey(nickname)){
+        if(nickname!=null&&nickname!=""){
+            this.session = session;
+            this.nickname=nickname;
+            if(map.containsKey(nickname)){
 //            this.session.getAsyncRemote().sendText("请勿重复登录");
-        }else {
-            map.put(nickname, session);
-            webSocketSet.add(this);
-            System.out.println("有新连接加入:"+nickname+",当前在线人数为" + webSocketSet.size());
+            }else {
+                map.put(nickname, session);
+                webSocketSet.add(this);
+                System.out.println("有新连接加入:"+nickname+",当前在线人数为" + webSocketSet.size());
 //            this.session.getAsyncRemote().sendText("恭喜"+nickname+"成功连接上WebSocket(其频道号："+session.getId()+")-->当前在线人数为："+webSocketSet.size());
+            }
         }
     }
     /**
@@ -94,10 +96,10 @@ public class MyWebSocket {
                 if(toSession != null){
                     //发送给发送者.
 //                    fromSession.getAsyncRemote().sendText(nickname+"："+socketMsg.getMsg());
-                    chatMsg.setReadstate("1");
+                    chatMsg.setReadstate("0");
                     chatService.addNewMsg(chatMsg);
 //                    toSession.getAsyncRemote().sendText(nickname+"："+chatMsg.getContent());
-                    toSession.getAsyncRemote().sendText(chatMsg.getContent());
+                    toSession.getAsyncRemote().sendText(nickname+":"+chatMsg.getContent());
                 }else{
                     //发送给发送者.
                     chatMsg.setReadstate("0");

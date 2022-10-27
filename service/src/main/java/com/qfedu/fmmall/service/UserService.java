@@ -25,4 +25,6 @@ public interface UserService {
     public ResultVO getHistoryProduct(String userId);
 
     public ResultVO getReconciliation(String userId);
+
+    public ResultVO getUserByDetail(String information);
 }

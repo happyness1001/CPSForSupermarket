@@ -41,6 +41,8 @@ public class UsersMsgVo {
         return chatMsg;
     }
 
+    private Integer unreadNumber;
+
     public void setChatMsg(ChatMsg chatMsg) {
         this.chatMsg = chatMsg;
     }
@@ -55,7 +57,15 @@ public class UsersMsgVo {
         this.userImg = users.getUserImg();
         this.userId = users.getUserId();
         this.userMobile = users.getUserMobile();
+        this.username = users.getUsername();
+    }
 
+    public Integer getUnreadNumber() {
+        return unreadNumber;
+    }
+
+    public void setUnreadNumber(Integer unreadNumber) {
+        this.unreadNumber = unreadNumber;
     }
 
     public UsersMsgVo(){
