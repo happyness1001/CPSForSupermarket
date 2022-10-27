@@ -74,8 +74,8 @@ public class OrderTimeoutCheckJob {
         }
     }
 
-   // @Scheduled(cron = "0 15 10 15 * ?")
-   @Scheduled(cron = "0/10 * * * * ?")
+    @Scheduled(cron = "0 15 10 15 * ?")
+   //@Scheduled(cron = "0/10 * * * * ?")
     public void checkRelatedRule(){
         /*System.out.println(111111111);*/
         Process proc;
