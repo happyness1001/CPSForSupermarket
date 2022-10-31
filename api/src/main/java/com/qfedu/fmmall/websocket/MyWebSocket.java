@@ -3,7 +3,6 @@ package com.qfedu.fmmall.websocket;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qfedu.fmmall.entity.ChatMsg;
-/*import com.qfedu.fmmall.entity.SocketMsg;*/
 import com.qfedu.fmmall.service.ChatService;
 import com.qfedu.fmmall.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -55,6 +55,8 @@ public class MyWebSocket {
             }else {
                 map.put(nickname, session);
                 webSocketSet.add(this);
+                chatService.getOnlineStatus(nickname,'1');
+                onlineRemain(nickname);
                 System.out.println("有新连接加入:"+nickname+",当前在线人数为" + webSocketSet.size());
 //            this.session.getAsyncRemote().sendText("恭喜"+nickname+"成功连接上WebSocket(其频道号："+session.getId()+")-->当前在线人数为："+webSocketSet.size());
             }
@@ -67,6 +69,8 @@ public class MyWebSocket {
     public void onClose() {
         webSocketSet.remove(this);
         map.remove(nickname);//从set中删除
+        chatService.getOnlineStatus(nickname,'0');
+        outlineRemain(nickname);
         System.out.println("有一连接关闭！当前在线人数为" + webSocketSet.size());
     }
 
@@ -137,6 +141,39 @@ public class MyWebSocket {
             //this.session.getBasicRemote().sendText(message);
             item.session.getAsyncRemote().sendText(message);//异步发送消息.
         }
+    }
+
+    /**
+     * 好友上线提醒
+     * */
+    public  void onlineRemain(String message){
+        List<String> users = chatService.getFriendList(message);
+        for(String userId:users){
+            Session toSession = map.get(userId);
+            if(toSession!=null){
+                toSession.getAsyncRemote().sendText(message+":"+"你的好友已上线");
+            }
+        }
+//        for (MyWebSocket item : webSocketSet) {
+//            //同步异步说明参考：http://blog.csdn.net/who_is_xiaoming/article/details/53287691
+//            //this.session.getBasicRemote().sendText(message);
+//            item.session.getAsyncRemote().sendText(message);//异步发送消息.
+//        }
+    }
+
+    public  void outlineRemain(String message){
+        List<String> users = chatService.getFriendList(message);
+        for(String userId:users){
+            Session toSession = map.get(userId);
+            if(toSession!=null){
+                toSession.getAsyncRemote().sendText(message+":"+"你的好友已离线");
+            }
+        }
+//        for (MyWebSocket item : webSocketSet) {
+//            //同步异步说明参考：http://blog.csdn.net/who_is_xiaoming/article/details/53287691
+//            //this.session.getBasicRemote().sendText(message);
+//            item.session.getAsyncRemote().sendText(message);//异步发送消息.
+//        }
     }
 
     /**

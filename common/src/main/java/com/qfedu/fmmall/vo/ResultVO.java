@@ -26,4 +26,7 @@ public class ResultVO {
     @ApiModelProperty("响应数据")
     private Object data;
 
+    public String getMsg() {
+        return this.msg;
+    }
 }

@@ -119,7 +119,7 @@
 						<div class="am-slider am-slider-default scoll" data-am-flexslider id="demo-slider-0">
 							<ul class="am-slides">
 								<li v-if="indexImgs.length>0" v-for="img,index in indexImgs" :class="'banner'+(index+1)">
-									<a><img :src="'static/images/'+img.imgUrl" /></a>
+									<a><img :src="img.imgUrl" /></a>
 								</li>
 							</ul>
 						</div>

@@ -4,6 +4,8 @@ import com.qfedu.fmmall.entity.ChatMsg;
 import com.qfedu.fmmall.vo.ResultVO;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface ChatService {
     public ResultVO addNewMsg(ChatMsg chatMsg);
 
@@ -26,4 +28,8 @@ public interface ChatService {
     public String saveOrUpdateImageFile(MultipartFile image);
 
     public ResultVO cpsImageFile(MultipartFile image,String fileName);
+
+    public void getOnlineStatus(String nickname, char a);
+
+    public List<String> getFriendList(String nickname);
 }

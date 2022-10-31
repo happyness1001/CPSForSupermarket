@@ -607,10 +607,31 @@
 					if (res.data.code == 10000) {
 						//跳转到支付页面显示支付二维码
 						console.log("orderInfo",res.data.data);
+						var cart = {
+							productId:"",
+							productName:"",
+							skuId:"",
+							skuName:"",
+							cartNum:""
+						}
+						var goods = [];
+						for(var i=0; i<this.shopCarts.length; i++){
+							cart.cartNum = this.shopCarts[i].cartNum;
+							cart.productId = this.shopCarts[i].productId;
+							cart.skuId = this.shopCarts[i].skuId;
+							cart.skuName = this.shopCarts[i].skuName;
+							cart.productName = this.shopCarts[i].productName;
+							goods.push(cart);
+						}
+						var whOutboundOrderVO={
+							whOutboundOrder:"",
+							goods:[]
+						}
 						var orderInfo = res.data.data; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://...."}
 						orderInfo.totalPrice = this.totalPrice; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://....",totalPrice:18.8}
 						console.log(orderInfo);
 						localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+
 						var urls = "http://localhost:85/cps/wh/outboundOrder/add";
 						var whOutboundOrder = {
 							orderName:orderInfo.orderId,
@@ -620,10 +641,12 @@
 							address:address,
 							totalAmount:this.totalPrice,
 						};
+						whOutboundOrderVO.goods = goods;
+						whOutboundOrderVO.whOutboundOrder = whOutboundOrder;
 						axios({
 							url: urls,
 							method: "post",
-							data: whOutboundOrder
+							data: whOutboundOrderVO
 						}).then((res) => {
 							console.log(res)
 						});

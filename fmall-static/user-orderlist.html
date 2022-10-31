@@ -35,7 +35,13 @@
 						<a  @click="queryByStatus(4)"><i><img src="static/images/comment.png"></i> <span>待评价<em class="m-num" style="display: none;">0</em></span></a>
 					</li>
 					<li style="width: 25%;">
+						<a  @click="queryByStatus(5)"><i><img src="static/images/comment.png"></i> <span>已完成<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
 						<a  @click="queryByStatus(6)"><i><img src="static/images/comment.png"></i> <span>已关闭<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
+						<a  @click="queryByStatus(0)"><i><img src="static/images/comment.png"></i> <span>申请中<em class="m-num" style="display: none;">0</em></span></a>
 					</li>
 					<li style="width: 25%;">
 						<a  @click="queryByStatus(7)"><i><img src="static/images/send.png"></i> <span>退换货<em class="m-num" style="display: none;">0</em></span></a>
@@ -75,7 +81,10 @@
 									<span v-else-if="order.status == '4'">待评价</span>
 									<span v-else-if="order.status == '5'">已完成</span>
 									<span v-else-if="order.status == '6'">已关闭</span>
-									<span v-else-if="order.status == '7'">退换货</span>
+									<span v-else-if="order.status == '7'">退款中</span>
+									<span v-else-if="order.status == '8'">退货中</span>
+									<span v-else-if="order.status == '9'">换货中</span>
+									<span v-else-if="order.status >= '10'">申请中</span>
 								</td>
 								<td>{{order.createTime}}</td>
 								<td>{{order.dueTime}}</td>
@@ -87,22 +96,33 @@
 									</template>
 									<template v-if="order.status == '2'">
 										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>
+										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退款</button>
 <!--										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>-->
 									</template>
 									<template v-if="order.status == '3'">
 										<button class="btn btn-success btn-xs" @click="confirmReceipt(order.orderId)">确认收货</button>
+										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退款</button>
 									</template>
 									<template v-if="order.status == '4'">
 										<button class="btn btn-success btn-xs" @click="gotoComment" :data-index="index">去评价</button>
-										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">退换货</button>
+										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退换货</button>
 									</template>
-									<template v-if="order.status == '5' || order.status == '6'">
+									<template v-if="order.status == '5'">
 										<button class="btn btn-success btn-xs" @click="deleteOrder(order.orderId)">删除</button>
-										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">退换货</button>
+										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退换货</button>
+									</template>
+									<template v-if="order.status == '6'">
+										<button class="btn btn-success btn-xs" @click="deleteOrder(order.orderId)">删除</button>
 									</template>
 									<template v-if="order.status == '7'">
-<!--										<button class="btn btn-success btn-xs" @click="deleteOrder(order.orderId)">删除</button>-->
-<!--										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">退换货</button>-->
+									</template>
+									<template v-if="order.status == '8'">
+										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">物流信息</button>
+									</template>
+									<template v-if="order.status == '9'">
+										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">物流信息</button>
+									</template>
+									<template v-if="order.status == '0'">
 									</template>
 								</td>
 							</tr>
@@ -112,7 +132,7 @@
 								<!--分页 -->
 								<el-pagination background layout="prev, pager, next" 
 								               :current-page="pageNum"
-								               :page-size="limit" 
+								               :page-size="limit"
 								               :total="count" @current-change="pager"> </el-pagination>
 							</td>
 						</tr>
@@ -147,6 +167,14 @@
 					orderId:"",
 					duetime:"",
 					order:"",
+					returnRequest:{
+						"orderId":"",
+						"returnType":'2',
+						"returnReason":"",
+						"returnMoneyAmount":"",
+						"additionalDesp":"",
+						"returnEvidence":""
+					},
 				},
 				created:function(){
 					this.token = getCookieValue("token");
@@ -354,6 +382,9 @@
 					},
 					returnGoods:function (orderId){
 						window.location.href = "return-goods.html?orderId="+orderId;
+					},
+					returnApply:function (orderId){
+						window.location.href = "return-request.html?orderId="+orderId;
 					},
 					deleteOrder:function (orderId){
 						var token = getCookieValue("token");

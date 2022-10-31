@@ -1,5 +1,6 @@
 package com.qfedu.fmmall.service;
 
+import com.qfedu.fmmall.entity.GoodsReturnApply;
 import com.qfedu.fmmall.entity.Orders;
 import com.qfedu.fmmall.entity.ReturnGoods;
 import com.qfedu.fmmall.vo.ResultVO;
@@ -36,4 +37,12 @@ public interface OrderService {
     public int updateReconciliation(String orderId, BigDecimal money);
 
     public ResultVO returnGoods(ReturnGoods returnGoods);
+
+    public ResultVO returnRequest(GoodsReturnApply goodsReturnApply);
+
+    public ResultVO selectOrder(String oid);
+
+    public ResultVO getReconciliation(String oid);
+
+    public ResultVO changeOrderStatus(String orderId, String status);
 }

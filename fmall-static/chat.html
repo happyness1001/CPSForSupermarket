@@ -6,6 +6,10 @@
 	<link rel="stylesheet" type="text/css" href="./static/css/chat.css">
 	<script type="text/javascript" src="static/js/jquery.js"></script>
 	<style>
+
+		.change{
+			filter: grayscale(100%);
+		}
 		red-point{
 			position: relative;
 		}
@@ -49,7 +53,6 @@
 		<div class="header">
 			<div class="userimg">
 				<img :src="'static/'+userImg" class="cover">
-<!--				<img src="D:\Users\0.jpg" class="cover">-->
 			</div>
 		</div>
 		<div class="search_chat">
@@ -60,18 +63,17 @@
 		<div class="chatlist" id="chatlist">
 			<div class="block active" v-for="user in users" @click="getUser(user)" >
 				<div class="imgbx">
-					<img :src="'static/'+user.userImg" class="cover">
+					<img :src="'static/'+user.userImg" class="cover" >
 				</div>
 				<div class="details">
 					<div class="listHead">
 						<h4>{{user.nickname}}</h4>
 						<p class="time">{{user.chatMsg.creatTime}}</p>
-<!--						<span class="badge">{{user.unreadNumber}}</span>-->
 					</div>
 					<div class="message_p">
 						<p>{{user.chatMsg.content}}</p>
-						<template v-if="user.unreadNumber >0">
-							<span :id="user.userId" class="badge">{{user.unreadNumber}}</span>
+						<template v-if="user.unreadNumber>0">
+							<span :id="user.userId" class="badge" style="display:block" >{{user.unreadNumber}}</span>
 						</template>
 					</div>
 				</div>
@@ -84,7 +86,14 @@
 				<div class="userimg">
 					<img :src="'static/'+selected.userImg" class="cover">
 				</div>
-				<h4>{{selected.nickname}}<br><span>在线</span></h4>
+				<h4>{{selected.nickname}}<br>
+					<template v-if="selected.status == '1'">
+						<span>在线</span>
+					</template>
+					<template v-if="selected.status == '0'">
+						<span>离线</span>
+					</template>
+				</h4>
 			</div>
 		</div>
 		<div class="chatBox"  id="message">
@@ -97,9 +106,6 @@
 			<div>
 				<input type="text" width="200px" id="msg">
 				<img src="./static/images/sender.png" width="30" alt="图片" onclick="send()">
-<!--				<button onclick="send()">-->
-<!--					<img src="./static/images/sender.png" width="40" alt="图片">-->
-<!--				</button>-->
 			</div>
 
 		</div>
@@ -184,13 +190,14 @@
 			//接收到消息的回调方法
 			this.websocket.onmessage = function(event) {
 				var message = event.data.split(":");
-				console.log("message",message[0]);
-				console.log("message",vm.selected);
-				// if(message[0].equals(this.selected.userId)){
-				// 	setMessageInnerHTML(message[1]);
-				// }
-				setMessageInnerHTML(message[1]);
-				// creatMsg(event.data);
+
+				if(message[0]==vm.selected.userId){
+
+					setMessageInnerHTML(message[1]);
+					addMessage(message,0);
+				}else {
+					addMessage(message,1);
+				}
 			}
 			//连接关闭的回调方法
 			this.websocket.onclose = function() {
@@ -240,11 +247,7 @@
 				var userId = getCookieValue("userId");
 				var token = getCookieValue("token");
 				var url1 = baseUrl+"chat/msgHistory";
-				var obj = document.getElementById(user.userId);
-				if(obj){
-					var parent = obj.parentNode;
-					parent.removeChild(obj);
-				}
+				user.unreadNumber=0;
 				var ChatMsg = {sendId:userId,receiveId:user.userId};
 				axios({
 					url:url1,
@@ -274,6 +277,48 @@
 			}
 		}
 	});
+	function addMessage(message,t){
+		var user = 0;
+		for(var i=0;i<vm.users.length;i++){
+			if(vm.users[i].userId==message[0]){
+				user = 1;
+				if(message[1]==("你的好友已离线")){
+					vm.users[i].status='0';
+				}else {
+					vm.users[i].chatMsg.content=message[1];
+					var date = new Date();
+					var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+					var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+					var time =  hour+":"+minute;
+					vm.users[i].chatMsg.creatTime = time;
+					vm.users[i].status='1';
+					if(t==1){
+						vm.users[i].unreadNumber=vm.users[i].unreadNumber+1;
+					}
+				}
+			}
+		}
+		if(user==0){
+			var url1 = baseUrl+"user/getUserByDetail/"+message[0];
+			axios({
+				url:url1,
+				method:"get",
+			}).then((res)=>{
+				if(res.data.code == 10000){
+					//请求成功  [{commonType:0},{commonType:1}]
+					user = res.data.data;
+					var date = new Date();
+					var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+					var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+					// var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+					var time =  hour+":"+minute;
+					user.chatMsg.creatTime = time;
+					user.chatMsg.content = message[1];
+					vm.users.add(user);
+				}
+			});
+		}
+	}
 	function setMessageInnerHTML(innerHTML) {
 		var div = document.createElement("div");
 

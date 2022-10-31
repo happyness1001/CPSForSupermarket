@@ -42,8 +42,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ReturnGoodsMapper returnGoodsMapper;
 
+    @Autowired
+    private GoodsReturnApplyMapper goodsReturnApplyMapper;
+
 
     private Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
+    private Object Collection;
 
     /**
      * 保存订单业务
@@ -234,18 +238,58 @@ public class OrderServiceImpl implements OrderService {
     public ResultVO listOrders(String userId, String status, int pageNum, int limit) {
         //1.分页查询
         int start = (pageNum-1)*limit;
-        List<OrdersVO> ordersVOS = ordersMapper.selectOrders(userId, status, start, limit);
-
-        //2.查询总记录数
+//        List<OrdersVO> ordersVOS = ordersMapper.selectOrders(userId, status, start, limit);
+        List<OrdersVO> ordersVOS = new ArrayList<>();
+        if(status==null||"".equals(status)){
+             ordersVOS = ordersMapper.selectOrders(userId, status, start, limit);
+        } else if(status.equals("7")){
+            List<OrdersVO> ordersVOS1 = ordersMapper.selectOrders(userId, "7", start, limit);
+            for(OrdersVO ordersVO:ordersVOS1){
+                ordersVOS.add(ordersVO);
+            }
+            ordersVOS1 = ordersMapper.selectOrders(userId, "8", start, limit);
+            for(OrdersVO ordersVO:ordersVOS1){
+                ordersVOS.add(ordersVO);
+            }
+            ordersVOS1 = ordersMapper.selectOrders(userId, "9", start, limit);
+            for(OrdersVO ordersVO:ordersVOS1){
+                ordersVOS.add(ordersVO);
+            }
+        }else if(status.equals("0")) {
+            List<OrdersVO> ordersVOS1 = ordersMapper.selectOrders(userId, "12", start, limit);
+            for (OrdersVO ordersVO : ordersVOS1) {
+                ordersVOS.add(ordersVO);
+            }
+            ordersVOS1 = ordersMapper.selectOrders(userId, "13", start, limit);
+            for (OrdersVO ordersVO : ordersVOS1) {
+                ordersVOS.add(ordersVO);
+            }
+            ordersVOS1 = ordersMapper.selectOrders(userId, "14", start, limit);
+            for (OrdersVO ordersVO : ordersVOS1) {
+                ordersVOS.add(ordersVO);
+            }
+            ordersVOS1 = ordersMapper.selectOrders(userId, "15", start, limit);
+            for (OrdersVO ordersVO : ordersVOS1) {
+                ordersVOS.add(ordersVO);
+            }
+        }else {
+            ordersVOS = ordersMapper.selectOrders(userId, status, start, limit);
+        }
+       // 2.查询总记录数
         Example example = new Example(Orders.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andLike("userId",userId);
         if(status != null && !"".equals(status)){
-            criteria.andLike("status",status);
+            if(status.equals("7")){
+                criteria.andLike("status","7");
+                criteria.orLike("status","8");
+                criteria.orLike("status","9");
+            }else{
+                criteria.andLike("status",status);
+            }
         }
-        criteria.andNotEqualTo("deleteStatus",1);
+//        criteria.andNotEqualTo("deleteStatus",1);
         int count = ordersMapper.selectCountByExample(example);
-
         //3.计算总页数
         int pageCount = count%limit==0?count/limit:count/limit+1;
 
@@ -299,7 +343,7 @@ public class OrderServiceImpl implements OrderService {
         Orders order = ordersMapper.selectByPrimaryKey(orderId);
         order.setDueTime(orders.getDueTime());
         int i = ordersMapper.updateByPrimaryKeySelective(order);
-        if(i==1){
+        if(i>0){
             return new ResultVO(ResStatus.OK,"sucesss","");
         }
         return new ResultVO(ResStatus.NO,"FAILED","");
@@ -307,7 +351,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public int updateReconciliation(String orderId, BigDecimal money) {
-        Example example = new Example(Orders.class);
+        Example example = new Example(Reconciliation.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("orderId",orderId);
         List<Reconciliation> reconciliation = reconciliationMapper.selectByExample(example);
@@ -331,6 +375,45 @@ public class OrderServiceImpl implements OrderService {
             Orders orders = ordersMapper.selectByPrimaryKey(returnGoods.getOrderId());
             orders.setStatus("7");
             ordersMapper.updateByPrimaryKey(orders);
+            return new ResultVO(ResStatus.OK,"sucesss","");
+        }
+        return new ResultVO(ResStatus.NO,"FAILED","");
+    }
+
+    @Override
+    public ResultVO returnRequest(GoodsReturnApply goodsReturnApply) {
+        goodsReturnApply.setGoodsReturnApplyId(UUID.randomUUID().toString().replace("-", ""));
+        goodsReturnApply.setCreateDatetime(new Date());
+        goodsReturnApply.setReturnApproach('2');
+        goodsReturnApply.setAuditStatus('0');
+        goodsReturnApplyMapper.insert(goodsReturnApply);
+        return new ResultVO(ResStatus.OK,"sucesss","");
+    }
+
+    @Override
+    public ResultVO selectOrder(String oid) {
+        Orders orders = ordersMapper.selectByPrimaryKey(oid);
+        return new ResultVO(ResStatus.OK,"sucesss",orders);
+    }
+
+    @Override
+    public ResultVO getReconciliation(String oid) {
+        Example example = new Example(Reconciliation.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("orderId",oid);
+        List<Reconciliation> reconciliations = reconciliationMapper.selectByExample(example);
+        if(reconciliations.size()>=1){
+            return new ResultVO(ResStatus.OK,"sucesss",reconciliations.get(0));
+        }
+        return new ResultVO(ResStatus.NO,"FAILED","");
+    }
+
+    @Override
+    public ResultVO changeOrderStatus(String orderId, String status) {
+        Orders orders = ordersMapper.selectByPrimaryKey(orderId);
+        orders.setStatus(status);
+        int i = ordersMapper.updateByPrimaryKey(orders);
+        if(i>0){
             return new ResultVO(ResStatus.OK,"sucesss","");
         }
         return new ResultVO(ResStatus.NO,"FAILED","");

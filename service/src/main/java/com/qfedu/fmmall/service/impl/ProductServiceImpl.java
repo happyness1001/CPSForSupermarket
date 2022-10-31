@@ -30,11 +30,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductParamsMapper productParamsMapper;
 
-    public ResultVO listRecommendProducts() {
-        List<ProductVO> productVOS = productMapper.selectRecommendProducts();
+    public ResultVO listRecommendProducts(String userId) {
+        List<ProductVO> productVOS = productMapper.selectRecommendProducts(0,3);
         ResultVO resultVO = new ResultVO(ResStatus.OK, "success", productVOS);
         return resultVO;
     }
+
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public ResultVO getProductBasicInfo(String productId) {

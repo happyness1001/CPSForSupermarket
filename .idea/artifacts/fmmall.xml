@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="fmmall">
+    <output-path>$PROJECT_DIR$/out/artifacts/fmmall</output-path>
+    <root id="root">
+      <element id="archive" name="fmmall.jar">
+        <element id="module-output" name="fmmall" />
+      </element>
+    </root>
+  </artifact>
+</component>

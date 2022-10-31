@@ -97,13 +97,12 @@ public class ChatController {
         return resultVO;
     }
 
-//    @ApiOperation("传输图片接口")
-////    @Transactional
-//    @PutMapping("/cpsImg")
-//    public ResultVO cspImg( @RequestBody MultipartFile image) throws IOException {
-//        ResultVO resultVO = chatService.cpsImageFile(image);
-//        return resultVO;
-//    }
+    @ApiOperation("查询用户接口")
+    @GetMapping("/getUserByDetail/{information}")
+    public ResultVO getUserByDetail(@PathVariable("information") String information){
+        ResultVO resultVO = chatService.getUserByDetail(information);
+        return resultVO;
+    }
 
 
 

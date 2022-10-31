@@ -1,0 +1,155 @@
+2022-10-27-20:22:09.573 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 18716 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-10-27-20:22:09.584 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-10-27-20:22:11.183 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-10-27-20:22:11.445 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-10-27-20:22:11.447 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$30e8f09e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-10-27-20:22:11.463 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-10-27-20:22:11.470 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-10-27-20:22:11.916 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-10-27-20:22:11.946 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-10-27-20:22:11.947 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-10-27-20:22:11.947 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-10-27-20:22:11.950 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-10-27-20:22:11.950 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-10-27-20:22:11.951 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-10-27-20:22:11.963 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-10-27-20:22:12.106 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-10-27-20:22:12.107 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 2448 ms
+2022-10-27-20:22:12.221 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-10-27-20:22:12.412 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-10-27-20:22:14.235 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-10-27-20:22:14.425 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-10-27-20:22:14.611 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-10-27-20:22:14.618 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-10-27-20:22:14.619 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-10-27-20:22:14.620 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-10-27-20:22:14.620 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-10-27-20:22:14.692 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-10-27-20:22:14.707 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-10-27-20:22:14.708 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-10-27-20:22:14.709 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-10-27-20:22:14.710 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-10-27-20:22:14.710 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-10-27-20:22:14.710 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-10-27-20:22:14.710 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1fca53a7
+2022-10-27-20:22:14.718 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-10-27-20:22:14.784 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-10-27-20:22:14.806 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-27-20:22:14.807 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-10-27-20:22:14.826 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-10-27-20:22:14.855 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-10-27-20:22:15.112 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-10-27-20:22:15.131 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-10-27-20:22:15.146 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-10-27-20:22:15.158 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-10-27-20:22:15.181 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-10-27-20:22:15.182 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-10-27-20:22:15.200 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 6.457 seconds (JVM running for 10.287)
+2022-10-27-20:30:58.088 INFO [http-nio-8080-exec-1]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-10-27-20:30:58.089 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-10-27-20:30:58.092 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 2 ms
+2022-10-27-20:30:58.821 WARN [http-nio-8080-exec-7]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:30:58.897 WARN [http-nio-8080-exec-3]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:30:58.932 WARN [http-nio-8080-exec-9]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:30:58.990 WARN [http-nio-8080-exec-1]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:31:43.232 WARN [http-nio-8080-exec-3]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:31:43.450 WARN [http-nio-8080-exec-9]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:31:43.498 WARN [http-nio-8080-exec-4]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:31:43.596 WARN [http-nio-8080-exec-2]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:33:22.602 WARN [http-nio-8080-exec-9]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:33:22.660 WARN [http-nio-8080-exec-4]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:33:22.704 WARN [http-nio-8080-exec-7]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:33:22.750 WARN [http-nio-8080-exec-6]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:33:54.146 WARN [http-nio-8080-exec-1]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:33:54.181 WARN [http-nio-8080-exec-2]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:33:54.212 WARN [http-nio-8080-exec-6]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:33:54.255 WARN [http-nio-8080-exec-8]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:34:48.722 WARN [http-nio-8080-exec-5]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:34:48.775 WARN [http-nio-8080-exec-8]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:34:48.901 WARN [http-nio-8080-exec-4]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:34:48.986 WARN [http-nio-8080-exec-7]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:35:55.649 WARN [http-nio-8080-exec-9]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:35:55.859 WARN [http-nio-8080-exec-1]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:35:56.333 WARN [http-nio-8080-exec-7]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:35:56.426 WARN [http-nio-8080-exec-6]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:37:34.108 WARN [http-nio-8080-exec-1]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:37:34.135 WARN [http-nio-8080-exec-7]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:37:34.362 WARN [http-nio-8080-exec-10]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:37:34.378 WARN [http-nio-8080-exec-5]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:37:56.416 WARN [http-nio-8080-exec-7]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:37:56.437 WARN [http-nio-8080-exec-10]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:37:56.470 WARN [http-nio-8080-exec-9]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:37:56.521 WARN [http-nio-8080-exec-8]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:46:28.212 WARN [http-nio-8080-exec-10]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:46:28.320 WARN [http-nio-8080-exec-9]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:46:28.347 WARN [http-nio-8080-exec-1]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:46:28.381 WARN [http-nio-8080-exec-4]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:48:53.582 WARN [http-nio-8080-exec-5]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:48:53.649 WARN [http-nio-8080-exec-8]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:48:53.685 WARN [http-nio-8080-exec-4]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:48:53.710 WARN [http-nio-8080-exec-3]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-10-27-20:58:15.469 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 16252 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-10-27-20:58:15.471 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-10-27-20:58:17.590 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-10-27-20:58:17.822 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-10-27-20:58:17.823 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$30e8f09e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-10-27-20:58:17.836 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-10-27-20:58:17.843 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-10-27-20:58:18.230 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-10-27-20:58:18.251 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-10-27-20:58:18.251 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-10-27-20:58:18.251 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-10-27-20:58:18.254 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-10-27-20:58:18.254 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-10-27-20:58:18.254 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-10-27-20:58:18.277 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-10-27-20:58:18.382 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-10-27-20:58:18.383 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 2841 ms
+2022-10-27-20:58:18.474 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-10-27-20:58:18.699 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-10-27-20:58:20.492 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-10-27-20:58:20.645 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-10-27-20:58:20.768 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-10-27-20:58:20.775 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-10-27-20:58:20.776 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-10-27-20:58:20.777 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-10-27-20:58:20.778 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-10-27-20:58:20.843 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-10-27-20:58:20.853 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-10-27-20:58:20.854 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-10-27-20:58:20.855 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-10-27-20:58:20.855 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-10-27-20:58:20.855 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-10-27-20:58:20.856 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-10-27-20:58:20.856 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1fca53a7
+2022-10-27-20:58:20.862 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-10-27-20:58:20.914 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-10-27-20:58:20.936 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path ''
+2022-10-27-20:58:20.938 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-10-27-20:58:20.951 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-10-27-20:58:20.979 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-10-27-20:58:21.230 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-10-27-20:58:21.258 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-10-27-20:58:21.277 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-10-27-20:58:21.290 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-10-27-20:58:21.314 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-10-27-20:58:21.315 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-10-27-20:58:21.399 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 6.634 seconds (JVM running for 9.855)
+2022-10-27-20:58:57.714 INFO [http-nio-8080-exec-1]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-10-27-20:58:57.715 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-10-27-20:58:57.717 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 1 ms
+2022-10-27-20:58:58.878 INFO [http-nio-8080-exec-1]-com.qfedu.fmmall.controller.UserController:40>>eyJhbGciOiJIUzI1NiJ9.eyJrZXkxIjoidmFsdWUxIiwia2V5MiI6InZhbHVlMiIsImV4cCI6MTY2Njk2MTkzOH0.Ygl2FEGomvHuE6YHJnObqi6hwN62KIRgtL77w6V6VAA

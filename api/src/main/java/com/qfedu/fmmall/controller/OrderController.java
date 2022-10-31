@@ -2,6 +2,7 @@ package com.qfedu.fmmall.controller;
 
 import com.github.wxpay.sdk.WXPay;
 import com.qfedu.fmmall.config.MyPayConfig;
+import com.qfedu.fmmall.entity.GoodsReturnApply;
 import com.qfedu.fmmall.entity.Orders;
 import com.qfedu.fmmall.entity.ReturnGoods;
 import com.qfedu.fmmall.service.OrderService;
@@ -165,6 +166,33 @@ public class OrderController {
     @PostMapping("/returnGoods")
     public ResultVO returnGoods(@RequestHeader("token")String token, @RequestBody ReturnGoods returnGoods){
         ResultVO resultVO = orderService.returnGoods(returnGoods);
+        return resultVO;
+    }
+
+    @PostMapping("/returnRequest")
+    public ResultVO returnRequest(@RequestHeader("token")String token, @RequestBody GoodsReturnApply goodsReturnApply){
+        ResultVO resultVO = orderService.returnRequest(goodsReturnApply);
+        return resultVO;
+    }
+
+    @GetMapping("/getOrder/{oid}")
+    public ResultVO getOrder(@RequestHeader("token")String token, @PathVariable("oid") String oid){
+        ResultVO resultVO = orderService.selectOrder(oid);
+        return resultVO;
+    }
+
+    @GetMapping("/getReconciliation/{oid}")
+    public ResultVO getReconciliation(@RequestHeader("token")String token, @PathVariable("oid") String oid){
+        ResultVO resultVO = orderService.getReconciliation(oid);
+        return resultVO;
+    }
+
+    @PutMapping("/status/{oid}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(dataType = "String",name = "status", value = "订单状态",required = true),
+    })
+    public ResultVO changeOrderStatus(@RequestHeader("token")String token,@PathVariable("oid") String orderId,String status){
+        ResultVO resultVO = orderService.changeOrderStatus(orderId,status);
         return resultVO;
     }
 
