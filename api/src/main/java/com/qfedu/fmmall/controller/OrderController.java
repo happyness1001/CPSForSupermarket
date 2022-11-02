@@ -5,6 +5,7 @@ import com.qfedu.fmmall.config.MyPayConfig;
 import com.qfedu.fmmall.entity.GoodsReturnApply;
 import com.qfedu.fmmall.entity.Orders;
 import com.qfedu.fmmall.entity.ReturnGoods;
+import com.qfedu.fmmall.service.ChatService;
 import com.qfedu.fmmall.service.OrderService;
 import com.qfedu.fmmall.vo.ResStatus;
 import com.qfedu.fmmall.vo.ResultVO;
@@ -14,7 +15,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
@@ -193,6 +196,15 @@ public class OrderController {
     })
     public ResultVO changeOrderStatus(@RequestHeader("token")String token,@PathVariable("oid") String orderId,String status){
         ResultVO resultVO = orderService.changeOrderStatus(orderId,status);
+        return resultVO;
+    }
+
+    @ApiOperation("传输图片接口")
+//    @Transactional
+    @PutMapping("/sendImg")
+    public ResultVO sendImg( @RequestBody MultipartFile image) throws IOException {
+        String name = orderService.saveOrUpdateImageFile(image);
+        ResultVO resultVO = orderService.cpsImageFile(image,name);
         return resultVO;
     }
 

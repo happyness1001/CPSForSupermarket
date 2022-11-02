@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.fmmall.dao.GoodsReturnApplyMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.fmmall.entity.GoodsReturnApply">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="goods_return_apply_id" jdbcType="VARCHAR" property="goodsReturnApplyId" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="return_type" jdbcType="CHAR" property="returnType" />
+    <result column="return_reason" jdbcType="CHAR" property="returnReason" />
+    <result column="return_money_amount" jdbcType="DECIMAL" property="returnMoneyAmount" />
+    <result column="return_approach" jdbcType="CHAR" property="returnApproach" />
+    <result column="additional_desp" jdbcType="VARCHAR" property="additionalDesp" />
+    <result column="return_evidence" jdbcType="VARCHAR" property="returnEvidence" />
+    <result column="audit_status" jdbcType="CHAR" property="auditStatus" />
+    <result column="create_datetime" jdbcType="TIMESTAMP" property="createDatetime" />
+  </resultMap>
+</mapper>

@@ -35,7 +35,30 @@
 							<div class="am-form-content"><input type="text" id="orderId" :value="returnRequest.orderId" maxlength="12" readonly></div>
 						</div>
 						<div class="am-form-group"><label for="returnReason" class="am-form-label">退款原因</label>
-							<div class="am-form-content"><input type="text" id="returnReason" :value="returnRequest.returnReason" maxlength="12"></div>
+							<div class="am-form-content"><select id="returnReason">
+								<option value="选择退款原因">选择退款原因</option>
+								<template v-if="refund==0">
+									<option value="不喜欢/不想要">不喜欢/不想要</option>
+									<option value="多拍/错拍">多拍/错拍</option>
+									<option value="与商家协商一致退款">与商家协商一致退款</option>
+									<option value="空包裹">空包裹</option>
+									<option value="发货慢">发货慢</option>
+									<option value="快递/物流一直未送到">快递/物流一直未送到</option>
+									<option value="货物破损已拒签">货物破损已拒签</option>
+								</template>
+								<template v-if="refund==1">
+									<option value="与商家协商一致退款">与商家协商一致退款</option>
+									<option value="卖家发错货">卖家发错货</option>
+									<option value="大小/尺寸与商品描述不符">大小/尺寸与商品描述不符</option>
+									<option value="颜色/图案/款式与商品描述不符">颜色/图案/款式与商品描述不符</option>
+									<option value="货物破损/或腐烂">货物破损/或腐烂</option>
+									<option value="做工粗糙/有瑕疵">做工粗糙/有瑕疵</option>
+									<option value="质量问题">质量问题</option>
+									<option value="少件/漏发">少件/漏发</option>
+									<option value="包装/商品破损/污渍/裂痕/变形">包装/商品破损/污渍/裂痕/变形</option>
+								</template>
+
+							</select></div>
 						</div>
 						<div class="am-form-group"><label for="returnMoneyAmount" class="am-form-label">退款金额</label>
 							<div class="am-form-content"><input type="text" id="returnMoneyAmount" :value="returnRequest.returnMoneyAmount" maxlength="12"></div>
@@ -52,8 +75,14 @@
 							<div class="am-form-group"><label for="additionalDesp" class="am-form-label">退货说明</label>
 								<div class="am-form-content"><input type="text" id="additionalDesp" :value="returnRequest.additionalDesp"></div>
 							</div>
-							<div class="am-form-group"><label for="returnEvidence" class="am-form-label">退货凭证</label>
-								<div class="am-form-content"><input type="file" id="returnEvidence" :value="returnRequest.returnEvidence"></div>
+							<div class="am-form-group"><label for="image-preview" class="am-form-label">退货凭证</label>
+								<div class="am-form-content">
+									<div class="instrument">
+										<img src="./static/images/picture.png" width="30px" height="30px" onclick="file.click()" style="margin-left: 0px">
+										<input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" style="display:none">
+									</div>
+									<img id="image-preview">
+								</div>
 							</div>
 						</template>
 
@@ -149,11 +178,19 @@
 				window.location.href = "user-orderlist.html";
 			},
 			submit:function (){
-				this.returnRequest.returnReason = document.getElementById("returnReason").value;
+				var myselect = document.getElementById("returnReason");
+				var index = myselect.selectedIndex;
+				var reason = myselect.options[index].text;
+				if(reason=="选择退款原因"){
+					alert("请选择退款原因");
+					return;
+				}else {
+					this.returnRequest.returnReason = reason;
+				}
 				this.returnRequest.returnMoneyAmount = document.getElementById("returnMoneyAmount").value;
 				if(this.refund==1){
 					this.returnRequest.additionalDesp = document.getElementById("additionalDesp").value;
-					this.returnRequest.returnEvidence = document.getElementById("returnEvidence").value;
+					this.returnRequest.returnEvidence = save();
 				}else{
 					this.returnRequest.additionalDesp = "仅退款";
 					this.returnRequest.returnEvidence = "仅退款";
@@ -213,6 +250,67 @@
 		},
 	});
 
+</script>
+<script type="text/javascript">
+	let fileInput = document.getElementById('file');
+	let info = document.getElementById('info');
+	let preview = document.getElementById('image-preview');
+	let test = 0;
+	// 监听change事件:
+	fileInput.addEventListener('change', function() {
+		// 清除背景图片:
+		test = 1;
+		preview.style.backgroundImage = '';
+		if (!fileInput.value) {
+			info.innerHTML = '没有选择文件';
+			return;
+		}
+		let file = fileInput.files[0];
+		let size = file.size;
+		if (size >= 1 * 1024 * 1024) {
+			alert('文件大小超出限制');
+			info.innerHTML = '文件大小超出限制';
+			return false;
+		}
+		if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+			alert('不是有效的图片文件!');
+			return;
+		}
+		console.log( "res.data.data");
+		// 读取文件:
+		let reader = new FileReader();
+		reader.onload = function(e) {
+			let data = e.target.result;
+			console.log(preview, 'a标签')
+			preview.src = data
+		};
+		// 以DataURL的形式读取文件:
+		reader.readAsDataURL(file);
+
+	});
+
+	function save() {
+		var text = "";
+		if(test){
+			var formdata = new FormData();
+			formdata.append("image", fileInput.files[0]);
+			console.log(fileInput.files[0].name);
+			var divs = document.getElementById("file_upload");
+			divs.style.display = "none";
+			var token = getCookieValue("token");
+			var url5 = baseUrl+"order/sendImg"
+			axios({
+				url:url5,
+				method:"put",
+				contentType:"multipart/form-data",
+				data:formdata,
+
+			}).then((res)=>{
+				text = res.data.data;
+			});
+		}
+		return text;
+	}
 </script>
 </body>
 

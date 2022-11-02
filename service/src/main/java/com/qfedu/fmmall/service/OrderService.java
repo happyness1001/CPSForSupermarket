@@ -4,6 +4,7 @@ import com.qfedu.fmmall.entity.GoodsReturnApply;
 import com.qfedu.fmmall.entity.Orders;
 import com.qfedu.fmmall.entity.ReturnGoods;
 import com.qfedu.fmmall.vo.ResultVO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -45,4 +46,8 @@ public interface OrderService {
     public ResultVO getReconciliation(String oid);
 
     public ResultVO changeOrderStatus(String orderId, String status);
+
+    public String saveOrUpdateImageFile(MultipartFile image);
+
+    public ResultVO cpsImageFile(MultipartFile image, String name);
 }

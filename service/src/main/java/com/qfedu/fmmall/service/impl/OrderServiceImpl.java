@@ -6,14 +6,17 @@ import com.qfedu.fmmall.service.OrderService;
 import com.qfedu.fmmall.utils.PageHelper;
 import com.qfedu.fmmall.vo.ResStatus;
 import com.qfedu.fmmall.vo.ResultVO;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.SQLException;
@@ -417,6 +420,65 @@ public class OrderServiceImpl implements OrderService {
             return new ResultVO(ResStatus.OK,"sucesss","");
         }
         return new ResultVO(ResStatus.NO,"FAILED","");
+    }
+
+    @Override
+    public String saveOrUpdateImageFile(MultipartFile image) {
+        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\fmall-static\\static\\chatImg";
+        String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+        suffix = suffix.toLowerCase();
+        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
+            String name = String.valueOf(UUID.randomUUID());
+            String fileName = name+suffix;
+            File targetFile = new File(path, fileName);
+            if(!targetFile.getParentFile().exists()){    //注意，判断父级路径是否存在
+                targetFile.getParentFile().mkdirs();
+            }
+            long size = 0;
+            //保存
+            try {
+//                image.transferTo(targetFile);
+                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile);
+                size = image.getSize();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return fileName;
+        }else{
+            return "";
+        }
+    }
+
+    @Override
+    public ResultVO cpsImageFile(MultipartFile image, String fileName) {
+        String path ="D:\\Users\\ASUS\\Desktop\\cps\\cps-admin\\src\\main\\resources\\static\\chatImg";
+        String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+        suffix = suffix.toLowerCase();
+        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
+            File targetFile = new File(path, fileName);
+
+            if(!targetFile.getParentFile().exists()){    //注意，判断父级路径是否存在
+                targetFile.getParentFile().mkdirs();
+            }
+            long size = 0;
+            //保存
+            try {
+                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile);
+                String path2 ="D:\\Users\\ASUS\\Desktop\\cps\\cps-admin\\target\\classes\\static\\chatImg";
+                size = image.getSize();
+                File targetFile2 = new File(path2, fileName);
+
+                if(!targetFile2.getParentFile().exists()){    //注意，判断父级路径是否存在
+                    targetFile2.getParentFile().mkdirs();
+                }
+                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return new ResultVO(ResStatus.OK,"sucesss",fileName);
+        }else{
+            return new ResultVO(ResStatus.NO,"图片格式错误","");
+        }
     }
 
     @Transactional
