@@ -1,0 +1,186 @@
+2022-11-02-20:00:38.433 INFO [http-nio-8080-exec-1]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-02-20:00:38.487 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-02-20:00:38.512 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 24 ms
+2022-11-02-20:00:39.036 INFO [http-nio-8080-exec-1]-com.qfedu.fmmall.controller.UserController:40>>eyJhbGciOiJIUzI1NiJ9.eyJrZXkxIjoidmFsdWUxIiwia2V5MiI6InZhbHVlMiIsImV4cCI6MTY2NzQ3NjgzOH0.rxjbHx_MjhRM6V6kA0GOMM4p6UK3-gAPPo1r4cKv0zE
+2022-11-02-20:02:22.983 ERROR [http-nio-8080-exec-6]-org.apache.juli.logging.DirectJDKLog:175>>Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.StringIndexOutOfBoundsException: begin 0, end 6, length 5] with root cause
+java.lang.StringIndexOutOfBoundsException: begin 0, end 6, length 5
+	at java.base/java.lang.String.checkBoundsBeginEnd(String.java:3319)
+	at java.base/java.lang.String.substring(String.java:1874)
+	at com.qfedu.fmmall.service.impl.ProductCommontsServiceImpl.getCommentsCountByProductId(ProductCommontsServiceImpl.java:72)
+	at com.qfedu.fmmall.controller.ProductController.getProductCommontsCount(ProductController.java:49)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2022-11-02-20:38:05.128 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 16128 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-11-02-20:38:05.162 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-11-02-20:38:07.277 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-11-02-20:38:07.556 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-02-20:38:07.557 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$ce542d22] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-02-20:38:07.571 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-02-20:38:07.577 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-02-20:38:08.010 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-11-02-20:38:08.032 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-02-20:38:08.033 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-11-02-20:38:08.033 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-11-02-20:38:08.036 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-11-02-20:38:08.036 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-02-20:38:08.037 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-02-20:38:08.042 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-11-02-20:38:08.257 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-11-02-20:38:08.258 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 3022 ms
+2022-11-02-20:38:08.341 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-11-02-20:38:08.545 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-11-02-20:38:09.432 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='onlineStatus', column='online_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-02-20:38:09.432 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='deleteStatus', column='delete_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-02-20:38:09.977 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnType', column='return_type', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-02-20:38:09.977 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnApproach', column='return_approach', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-02-20:38:09.984 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='auditStatus', column='audit_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-02-20:38:10.397 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-02-20:38:10.510 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-11-02-20:38:10.638 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-11-02-20:38:10.649 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-11-02-20:38:10.650 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-11-02-20:38:10.650 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-11-02-20:38:10.651 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-11-02-20:38:10.696 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-11-02-20:38:10.703 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-11-02-20:38:10.704 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-11-02-20:38:10.704 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-11-02-20:38:10.705 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-11-02-20:38:10.705 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-11-02-20:38:10.705 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-11-02-20:38:10.705 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@17ec5e2a
+2022-11-02-20:38:10.710 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-11-02-20:38:10.756 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-11-02-20:38:10.776 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-02-20:38:10.777 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-11-02-20:38:10.792 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-11-02-20:38:10.825 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-11-02-20:38:11.069 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: sendImgUsingPUT_1
+2022-11-02-20:38:11.077 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-11-02-20:38:11.093 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-11-02-20:38:11.104 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-11-02-20:38:11.111 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-11-02-20:38:11.129 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-11-02-20:38:11.129 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-11-02-20:38:11.296 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 6.91 seconds (JVM running for 9.623)
+2022-11-02-20:38:33.543 INFO [http-nio-8080-exec-2]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-02-20:38:33.544 INFO [http-nio-8080-exec-2]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-02-20:38:33.546 INFO [http-nio-8080-exec-2]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 2 ms
+2022-11-02-20:38:42.420 INFO [http-nio-8080-exec-5]-com.qfedu.fmmall.controller.UserController:40>>eyJhbGciOiJIUzI1NiJ9.eyJrZXkxIjoidmFsdWUxIiwia2V5MiI6InZhbHVlMiIsImV4cCI6MTY2NzQ3OTEyMn0.i6NPZxxcuUmIHhs4RR0G8V6Wrqhjm56XACdous2k41M
+2022-11-02-20:38:49.174 ERROR [http-nio-8080-exec-6]-org.apache.juli.logging.DirectJDKLog:175>>Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.StringIndexOutOfBoundsException: begin 0, end 6, length 5] with root cause
+java.lang.StringIndexOutOfBoundsException: begin 0, end 6, length 5
+	at java.base/java.lang.String.checkBoundsBeginEnd(String.java:3319)
+	at java.base/java.lang.String.substring(String.java:1874)
+	at com.qfedu.fmmall.service.impl.ProductCommontsServiceImpl.getCommentsCountByProductId(ProductCommontsServiceImpl.java:72)
+	at com.qfedu.fmmall.controller.ProductController.getProductCommontsCount(ProductController.java:49)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2022-11-02-20:39:32.166 INFO [http-nio-8080-exec-2]-com.qfedu.fmmall.service.impl.OrderServiceImpl:60>>add order begin...
+2022-11-02-20:39:32.172 INFO [http-nio-8080-exec-2]-com.qfedu.fmmall.service.impl.OrderServiceImpl:83>>product stock is OK...
+2022-11-02-20:39:32.289 INFO [http-nio-8080-exec-2]-com.qfedu.fmmall.service.impl.OrderServiceImpl:161>>add order finished...
+2022-11-02-20:43:03.530 INFO [http-nio-8080-exec-4]-com.qfedu.fmmall.service.impl.OrderServiceImpl:60>>add order begin...
+2022-11-02-20:43:03.547 INFO [http-nio-8080-exec-4]-com.qfedu.fmmall.service.impl.OrderServiceImpl:83>>product stock is OK...
+2022-11-02-20:43:03.622 INFO [http-nio-8080-exec-4]-com.qfedu.fmmall.service.impl.OrderServiceImpl:161>>add order finished...

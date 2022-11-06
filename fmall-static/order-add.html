@@ -632,7 +632,7 @@
 						console.log(orderInfo);
 						localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
 
-						var urls = "http://localhost:85/cps/wh/outboundOrder/add";
+						var urls = "http://localhost:80/cps/wh/outboundOrder/add";
 						var whOutboundOrder = {
 							orderName:orderInfo.orderId,
 							orderDate:new Date(),

@@ -88,7 +88,7 @@
 
 						<div class="am-form-group theme-poptit">
 							<div class="am-u-sm-9 am-u-sm-push-3">
-								<div class="am-btn am-btn-default" @click="submit()">提交</div>
+								<div class="am-btn am-btn-default" onclick="save()">提交</div>
 								<div class="am-btn am-btn-success" @click="backward()">取消</div>
 							</div>
 						</div>
@@ -122,7 +122,8 @@
 			order:"",
 			reconciliation:"",
 			refund:1,
-			money:""
+			money:"",
+			imgName:""
 		},
 		created:function(){
 			// this.returnRequest.orderId = "78f012fd85f74475b0a9b7e673e38fe3";
@@ -178,6 +179,7 @@
 				window.location.href = "user-orderlist.html";
 			},
 			submit:function (){
+				// save();
 				var myselect = document.getElementById("returnReason");
 				var index = myselect.selectedIndex;
 				var reason = myselect.options[index].text;
@@ -188,17 +190,19 @@
 					this.returnRequest.returnReason = reason;
 				}
 				this.returnRequest.returnMoneyAmount = document.getElementById("returnMoneyAmount").value;
-				if(this.refund==1){
-					this.returnRequest.additionalDesp = document.getElementById("additionalDesp").value;
-					this.returnRequest.returnEvidence = save();
-				}else{
-					this.returnRequest.additionalDesp = "仅退款";
-					this.returnRequest.returnEvidence = "仅退款";
-				}
 				if(this.returnRequest.returnMoneyAmount > this.reconciliation.amountPaid){
 					alert("退款金额错误，请重新填写");
 					return;
 				}
+				if(this.refund==1){
+					this.returnRequest.additionalDesp = document.getElementById("additionalDesp").value;
+					this.returnRequest.returnEvidence = this.imgName;
+					console.log("hh",this.returnRequest.returnEvidence);
+				}else{
+					this.returnRequest.additionalDesp = "仅退款";
+					this.returnRequest.returnEvidence = "仅退款";
+				}
+
 				if(this.returnRequest.returnType=='2'){
 					this.returnRequest.returnMoneyAmount=0;
 				}
@@ -295,9 +299,6 @@
 			var formdata = new FormData();
 			formdata.append("image", fileInput.files[0]);
 			console.log(fileInput.files[0].name);
-			var divs = document.getElementById("file_upload");
-			divs.style.display = "none";
-			var token = getCookieValue("token");
 			var url5 = baseUrl+"order/sendImg"
 			axios({
 				url:url5,
@@ -306,10 +307,13 @@
 				data:formdata,
 
 			}).then((res)=>{
-				text = res.data.data;
+				test = 0;
+				vm.imgName = res.data.data;
+				vm.submit();
 			});
 		}
-		return text;
+		// console.log("图片名称2",text);
+		// return text;
 	}
 </script>
 </body>
