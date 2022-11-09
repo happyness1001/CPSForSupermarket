@@ -23,6 +23,12 @@ public class Users {
     private String password;
 
     /**
+     * 角色
+     */
+    @Column(name = "role")
+    private String role;
+
+    /**
      * 昵称 昵称
      */
     private String nickname;
@@ -79,6 +85,14 @@ public class Users {
      */
     @Column(name = "security_deposit")
     private BigDecimal securityDeposit;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public BigDecimal getSecurityDeposit() {
         return securityDeposit;

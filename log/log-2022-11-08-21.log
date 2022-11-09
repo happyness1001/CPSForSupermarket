@@ -1,0 +1,2 @@
+2022-11-08-21:02:56.530 WARN [http-nio-8080-exec-2]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]
+2022-11-08-21:11:40.116 WARN [http-nio-8080-exec-3]-org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver:207>>Resolved [org.springframework.web.bind.MissingRequestHeaderException: Missing request header 'token' for method parameter of type String]

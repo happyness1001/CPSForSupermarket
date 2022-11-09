@@ -61,6 +61,15 @@ public class ChatMsg {
         this.msgId = msgId;
     }
 
+    public ChatMsg (Date date,String content){
+        this.creatTime = date;
+        this.content = content;
+    }
+
+    public ChatMsg (){
+
+    }
+
     /**
      * 获取消息内容
      *

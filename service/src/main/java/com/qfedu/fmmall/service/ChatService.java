@@ -32,4 +32,14 @@ public interface ChatService {
     public void getOnlineStatus(String nickname, char a);
 
     public List<String> getFriendList(String nickname);
+
+    public String assignServices(String nickname);
+
+    public ResultVO getCustomer(String userId);
+
+    public ResultVO addCustomerMsg(ChatMsg chatMsg);
+
+    public void removeFriend(String nickname);
+
+    public ResultVO userRelationDev(String userId);
 }

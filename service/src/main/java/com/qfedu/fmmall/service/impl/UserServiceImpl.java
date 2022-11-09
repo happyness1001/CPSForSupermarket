@@ -58,7 +58,8 @@ public class UserServiceImpl implements UserService {
 
                 /*暂时按照时间戳给赋值user_id,后续应该修改*/
                 //user.setUserId(String.valueOf(new Date().getTime()));
-                user.setUserId("123456789");
+                Integer userId = Integer.valueOf(usersMapper.getLatestUser());
+                user.setUserId(String.valueOf(userId+1));
 
                 user.setUsername(name);
                 user.setPassword(md5Pwd);

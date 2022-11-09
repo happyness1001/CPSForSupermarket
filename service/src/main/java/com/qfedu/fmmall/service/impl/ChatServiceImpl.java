@@ -1,8 +1,10 @@
 package com.qfedu.fmmall.service.impl;
 
+import com.jayway.jsonpath.internal.function.numeric.Max;
 import com.qfedu.fmmall.dao.*;
 import com.qfedu.fmmall.entity.*;
 import com.qfedu.fmmall.service.ChatService;
+import com.qfedu.fmmall.utils.MD5Utils;
 import com.qfedu.fmmall.vo.ResStatus;
 import com.qfedu.fmmall.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class ChatServiceImpl implements ChatService {
 
     @Autowired
     private FriendListMapper friendListMapper;
+
+    @Autowired
+    private CpsSupermarketMapper cpsSupermarketMapper;
 
 
     @Override
@@ -73,22 +78,39 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public ResultVO userListDev(String userId) {
+        Users users = usersMapper.selectByPrimaryKey(userId);
         Example example = new Example(FriendList.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userId",userId);
         List<FriendList> friendLists = friendListMapper.selectByExample(example);
-        List<Users> users = new ArrayList<>();
         List<UsersMsgVo> usersMsgVos = new ArrayList<>();
         for(FriendList friendList :friendLists){
             Users users1 = usersMapper.selectByPrimaryKey(friendList.getFriendId());
             UsersMsgVo usersMsgVo = new UsersMsgVo(users1);
             Example example2 = new Example(ChatMsg.class);
             Example.Criteria criteria2 = example2.createCriteria();
-            criteria2.andEqualTo("receiveId",userId);
-            criteria2.andEqualTo("sendId",users1.getUserId());
+            if(users.getRole().equals("1")){
+                criteria2.andEqualTo("receiveId","0");
+                criteria2.andEqualTo("sendId",users1.getUserId());
+            }else{
+                criteria2.andEqualTo("receiveId",userId);
+                criteria2.andEqualTo("sendId",users1.getUserId());
+            }
             criteria2.andEqualTo("readstate","0");
             List<ChatMsg> chatMsgList2 = chatMsgMapper.selectByExample(example2);
-            usersMsgVo.setChatMsg(chatMsgMapper.lastMsg(userId,users1.getUserId()));
+            if(users.getRole().equals("1")){
+                if(chatMsgMapper.lastMsg("0",users1.getUserId())!=null){
+                    usersMsgVo.setChatMsg(chatMsgMapper.lastMsg("0",users1.getUserId()));
+                }else{
+                    usersMsgVo.setChatMsg(new ChatMsg(new Date(),"尚未开始聊天"));
+                }
+            }else{
+                if(chatMsgMapper.lastMsg(userId,users1.getUserId())!=null){
+                    usersMsgVo.setChatMsg(chatMsgMapper.lastMsg(userId,users1.getUserId()));
+                }else{
+                    usersMsgVo.setChatMsg(new ChatMsg(new Date(),"尚未开始聊天"));
+                }
+            }
             usersMsgVo.setUnreadNumber(chatMsgList2.size());
             usersMsgVo.setStatus(friendList.getOnlineStatus());
             usersMsgVos.add(usersMsgVo);
@@ -282,6 +304,131 @@ public class ChatServiceImpl implements ChatService {
             userId.add(friendList.getUserId());
         }
         return userId;
+    }
+
+    @Override
+    public String assignServices(String nickname) {
+        return null;
+    }
+
+
+    @Override
+    public ResultVO getCustomer(String userId) {
+        Example example = new Example(Users.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("role","1");
+        List<Users> usersList = usersMapper.selectByExample(example);
+        String customer = "";
+        Integer num = Integer.MAX_VALUE;
+        for(Users users1:usersList){
+            Example example1 = new Example(FriendList.class);
+            Example.Criteria criteria1 = example1.createCriteria();
+            criteria1.andEqualTo("friendId",users1.getUserId());
+            if(num>friendListMapper.selectByExample(example1).size()){
+                num = friendListMapper.selectByExample(example1).size();
+                customer = users1.getUserId();
+            }
+        }
+        if(customer!=null&&customer!=""){
+            FriendList friendList = new FriendList();
+            friendList.setUserId(customer);
+            friendList.setFriendId(userId);
+            friendList.setDeleteStatus('1');
+            friendList.setOnlineStatus('1');
+            friendListMapper.insert(friendList);
+            friendList.setFriendId(customer);
+            friendList.setUserId(userId);
+            friendListMapper.insert(friendList);
+        }
+        List<UsersMsgVo> usersMsgVos = new ArrayList<>();
+        Users users1 = usersMapper.selectByPrimaryKey(customer);
+        UsersMsgVo usersMsgVo = new UsersMsgVo(users1);
+        Example example2 = new Example(ChatMsg.class);
+        Example.Criteria criteria2 = example2.createCriteria();
+        criteria2.andEqualTo("receiveId",userId);
+        criteria2.andEqualTo("sendId","0");
+        criteria2.andEqualTo("readstate","0");
+        List<ChatMsg> chatMsgList2 = chatMsgMapper.selectByExample(example2);
+        usersMsgVo.setChatMsg(chatMsgMapper.lastMsg(userId,"0"));
+        usersMsgVo.setUnreadNumber(chatMsgList2.size());
+        usersMsgVo.setStatus('1');
+        usersMsgVos.add(usersMsgVo);
+        return new ResultVO(ResStatus.OK,"success",usersMsgVos);
+    }
+
+    @Override
+    public ResultVO addCustomerMsg(ChatMsg chatMsg) {
+        chatMsg.setCreatTime(new Date());
+        Users users = usersMapper.selectByPrimaryKey(chatMsg.getSendId());
+        if(users.getRole().equals("1")){
+            chatMsg.setSendId("0");
+
+        }else{
+            chatMsg.setReceiveId("0");
+        }
+        int t = chatMsgMapper.insert(chatMsg);
+        if(t > 0){
+            return new ResultVO(ResStatus.OK,"success",null);
+        }else{
+            return new ResultVO(ResStatus.NO,"fail",null);
+        }
+    }
+
+    @Override
+    public void removeFriend(String nickname) {
+        System.out.println("xx");
+        System.out.println(nickname);
+        Example example = new Example(FriendList.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("friendId",nickname);
+        List<FriendList> friendLists = friendListMapper.selectByExample(example);
+        for(FriendList friendList : friendLists){
+            Users users = usersMapper.selectByPrimaryKey(friendList.getUserId());
+            if(users.getRole().equals("1")){
+                Example example1 = new Example(FriendList.class);
+                Example.Criteria criteria1 = example1.createCriteria();
+                criteria1.andEqualTo("userId",nickname);
+                criteria1.andEqualTo("friendId",users.getUserId());
+                List<FriendList> friendLists1 = friendListMapper.selectByExample(example1);
+                for(FriendList friendList2 : friendLists1){
+                    friendListMapper.delete(friendList2);
+                }
+                friendListMapper.delete(friendList);
+            }
+
+        }
+    }
+
+    @Override
+    public ResultVO userRelationDev(String userId) {
+        Example example = new Example(CpsSupermarket.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("cpsId",userId);
+        List<CpsSupermarket> cpsSupermarkets = cpsSupermarketMapper.selectByExample(example);
+        if(cpsSupermarkets.size()>0){
+            return new ResultVO(ResStatus.OK,"success",cpsSupermarkets.get(0).getUserId());
+        }else {
+            int num = cpsSupermarketMapper.selectCount(new CpsSupermarket());
+            Users user = new Users();
+            Integer id = Integer.valueOf(usersMapper.getLatestUser());
+            user.setUserId(String.valueOf(id+1));
+            user.setUsername(String.valueOf(new Date().getTime()));
+            user.setPassword(MD5Utils.md5("admin123"));
+            user.setUserImg("img/default.png");
+            user.setUserRegtime(new Date());
+            user.setNickname("客服"+ num +"号");
+            user.setUserModtime(new Date());
+            int i = usersMapper.insertUser(user);
+            CpsSupermarket cpsSupermarket = new CpsSupermarket();
+            cpsSupermarket.setCpsId(userId);
+            if(i>0){
+                cpsSupermarket.setUserId(String.valueOf(id+1));
+                cpsSupermarketMapper.insert(cpsSupermarket);
+                return new ResultVO(ResStatus.OK,"success",cpsSupermarket.getUserId());
+            }else{
+                return new ResultVO(ResStatus.NO,"fail","");
+            }
+        }
     }
 
 

@@ -73,6 +73,12 @@ public class ChatController {
         return chatService.userListDev(userId);
     }
 
+    @GetMapping("/getCustomer/{userId}")
+    private ResultVO getCustomer(@PathVariable("userId") String userId){
+
+        return chatService.getCustomer(userId);
+    }
+
     /**
      * @description: 根据userId删除用户
      */
@@ -102,6 +108,13 @@ public class ChatController {
     public ResultVO getUserByDetail(@PathVariable("information") String information){
         ResultVO resultVO = chatService.getUserByDetail(information);
         return resultVO;
+    }
+
+
+    @GetMapping("/userRelation/{userId}")
+    private ResultVO userRelation(@PathVariable("userId") String userId){
+
+        return chatService.userRelationDev(userId);
     }
 
 

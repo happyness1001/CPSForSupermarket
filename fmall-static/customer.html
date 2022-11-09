@@ -2,7 +2,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<title>聊天</title>
+	<title>客服服务</title>
 	<link rel="stylesheet" type="text/css" href="./static/css/chat.css">
 	<script type="text/javascript" src="static/js/jquery.js"></script>
 	<style>
@@ -141,7 +141,7 @@
 			var userId = getCookieValue("userId");
 			this.userImg = getCookieValue("userImg");
 			var token = getCookieValue("token");
-			var url1 = baseUrl+"chat/userList/"+userId;
+			var url1 = baseUrl+"chat/getCustomer/"+userId;
 			axios({
 				url:url1,
 				method:"get",
@@ -175,7 +175,7 @@
 			var nickname = userId
 			//判断当前浏览器是否支持WebSocket
 			if ('WebSocket'in window) {
-				this.websocket = new WebSocket("ws://localhost:8080/websocket/"+nickname);
+				this.websocket = new WebSocket("ws://localhost:8080/CustomerSocket/"+nickname);
 			} else {
 				alert('Not support websocket')
 			}
@@ -209,46 +209,13 @@
 			}
 		},
 		methods: {
-			searchUser:function (){
-				document.getElementById('chatlist').value="";
-				var information = document.getElementById('search').value;
-				if(information==""||information==null){
-					this.users = this.oldUsers;
-				}else{
-					var url1 = baseUrl+"user/getUserByDetail/"+information;
-					axios({
-						url:url1,
-						method:"get",
-						headers: {
-							token: getCookieValue("token")
-						}
-					}).then((res)=>{
-						if(res.data.code == 10000){
-							//请求成功  [{commonType:0},{commonType:1}]
-							vm.users = res.data.data;
-							for(var i=0; i<this.users.length; i++) {
-								var date = new Date(this.users[i].chatMsg.creatTime);
-								var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-								var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-								// var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-								var time =  hour+":"+minute;
-								this.users[i].chatMsg.creatTime = time;
-							}
-							console.log("users",vm.users);
-
-						}
-					});
-				}
-
-			},
 			getUser: function (user){
 				document.getElementById('message').innerHTML = "";
 				this.selected = user;
 				var userId = getCookieValue("userId");
-				var token = getCookieValue("token");
 				var url1 = baseUrl+"chat/msgHistory";
 				user.unreadNumber=0;
-				var ChatMsg = {sendId:userId,receiveId:user.userId};
+				var ChatMsg = {sendId:userId,receiveId:"0"};
 				axios({
 					url:url1,
 					method:"post",
@@ -264,7 +231,7 @@
 					}
 				});
                 var url2 = baseUrl+"chat/msgRead";
-                var ChatMsg = {sendId:user.userId,receiveId:userId};
+                var ChatMsg = {sendId:"0",receiveId:userId};
                 axios({
                     url:url2,
                     method:"post",
@@ -278,10 +245,8 @@
 		}
 	});
 	function addMessage(message,t){
-		var user = 0;
 		for(var i=0;i<vm.users.length;i++){
 			if(vm.users[i].userId==message[0]){
-				user = 1;
 				if(message[1]==("你的好友已离线")){
 					vm.users[i].status='0';
 				}else {
@@ -297,27 +262,6 @@
 					}
 				}
 			}
-		}
-		if(user==0){
-			var url1 = baseUrl+"chat/getUserByDetail/"+message[0];
-			axios({
-				url:url1,
-				method:"get",
-			}).then((res)=>{
-				if(res.data.code == 10000){
-					//请求成功  [{commonType:0},{commonType:1}]
-					user = res.data.data;
-					var date = new Date();
-					var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-					var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-					// var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-					var time =  hour+":"+minute;
-					user[0].chatMsg.creatTime = time;
-					user[0].chatMsg.content = message[1];
-					vm.oldUsers.push(user[0]);
-					vm.users = vm.oldUsers;
-				}
-			});
 		}
 	}
 	function setMessageInnerHTML(innerHTML) {
@@ -425,6 +369,7 @@
 		}
 		document.getElementById('message').appendChild(div)
 	}
+
 </script>
 <script type="text/javascript">
 	let fileInput = document.getElementById('file');

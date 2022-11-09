@@ -10,4 +10,6 @@ public interface UsersMapper extends GeneralDAO<Users> {
 
     public int insertUser(Users users);
 
+    public String getLatestUser();
+
 }

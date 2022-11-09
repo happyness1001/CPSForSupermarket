@@ -9,6 +9,7 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="realname" jdbcType="VARCHAR" property="realname" />
     <result column="user_img" jdbcType="VARCHAR" property="userImg" />
     <result column="user_mobile" jdbcType="VARCHAR" property="userMobile" />
@@ -35,4 +36,7 @@
                                          #{userModtime})
 
   </insert>
+    <select id="getLatestUser" resultType="java.lang.String">
+        select user_id from users order by user_regtime desc limit 0,1
+    </select>
 </mapper>
