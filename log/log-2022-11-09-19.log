@@ -58,3 +58,6 @@
 2022-11-09-19:02:22.527 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
 2022-11-09-19:02:22.527 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
 2022-11-09-19:02:22.546 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 7.51 seconds (JVM running for 13.17)
+2022-11-09-19:05:42.035 INFO [http-nio-8080-exec-1]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-09-19:05:42.036 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-09-19:05:42.038 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 1 ms

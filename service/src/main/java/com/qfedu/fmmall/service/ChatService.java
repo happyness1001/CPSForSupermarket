@@ -42,4 +42,6 @@ public interface ChatService {
     public void removeFriend(String nickname);
 
     public ResultVO userRelationDev(String userId);
+
+    public ResultVO removeFriend(ChatMsg chatMsg);
 }

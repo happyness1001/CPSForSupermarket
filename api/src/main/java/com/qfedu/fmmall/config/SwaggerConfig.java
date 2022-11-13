@@ -25,10 +25,10 @@ public class SwaggerConfig {
 
         //创建封面信息对象
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
-        apiInfoBuilder.title("《锋迷商城》后端接口说明")
-                .description("此文档详细说明了锋迷商城项目后端接口规范....")
+        apiInfoBuilder.title("《集采商城》后端接口说明")
+                .description("此文档详细说明了集采商城项目后端接口规范....")
                 .version("v 2.0.1")
-                .contact( new Contact("亮哥","www.liangge.com","liangge@wang.com") );
+                .contact( new Contact("集采","www.liangge.com","liangge@wang.com") );
         ApiInfo apiInfo =  apiInfoBuilder.build();
 
         Docket docket = new Docket(DocumentationType.SWAGGER_2)

@@ -424,7 +424,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public String saveOrUpdateImageFile(MultipartFile image) {
-        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\fmall-static\\static\\returnEvidence";
+        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\returnEvidence";
         String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
         suffix = suffix.toLowerCase();
         if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
@@ -464,14 +464,7 @@ public class OrderServiceImpl implements OrderService {
             //保存
             try {
                 FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile);
-//                String path2 ="D:\\Users\\ASUS\\Desktop\\cps\\cps-admin\\target\\classes\\static\\returnEvidence";
-//                size = image.getSize();
-//                File targetFile2 = new File(path2, fileName);
-//
-//                if(!targetFile2.getParentFile().exists()){    //注意，判断父级路径是否存在
-//                    targetFile2.getParentFile().mkdirs();
-//                }
-//                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile2);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

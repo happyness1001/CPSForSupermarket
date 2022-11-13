@@ -221,7 +221,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public String saveOrUpdateImageFile(MultipartFile image){
-        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\fmall-static\\static\\chatImg";
+        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\chatImg";
         String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
         suffix = suffix.toLowerCase();
         if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
@@ -249,7 +249,7 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public ResultVO cpsImageFile(MultipartFile image,String fileName) {
-        String path ="D:\\Users\\ASUS\\Desktop\\cps\\cps-admin\\src\\main\\resources\\static\\chatImg";
+        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\chatImg";
         String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
         suffix = suffix.toLowerCase();
         if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
@@ -320,25 +320,38 @@ public class ChatServiceImpl implements ChatService {
         List<Users> usersList = usersMapper.selectByExample(example);
         String customer = "";
         Integer num = Integer.MAX_VALUE;
+        Integer sign = 0;
         for(Users users1:usersList){
             Example example1 = new Example(FriendList.class);
             Example.Criteria criteria1 = example1.createCriteria();
             criteria1.andEqualTo("friendId",users1.getUserId());
-            if(num>friendListMapper.selectByExample(example1).size()){
-                num = friendListMapper.selectByExample(example1).size();
+            criteria1.andEqualTo("userId",userId);
+            if(friendListMapper.selectByExample(example1).size()>0){
+                sign = 1;
                 customer = users1.getUserId();
             }
         }
-        if(customer!=null&&customer!=""){
-            FriendList friendList = new FriendList();
-            friendList.setUserId(customer);
-            friendList.setFriendId(userId);
-            friendList.setDeleteStatus('1');
-            friendList.setOnlineStatus('1');
-            friendListMapper.insert(friendList);
-            friendList.setFriendId(customer);
-            friendList.setUserId(userId);
-            friendListMapper.insert(friendList);
+        if(sign==0){
+            for(Users users1:usersList) {
+                Example example1 = new Example(FriendList.class);
+                Example.Criteria criteria1 = example1.createCriteria();
+                criteria1.andEqualTo("friendId", users1.getUserId());
+                if (num > friendListMapper.selectByExample(example1).size()) {
+                    num = friendListMapper.selectByExample(example1).size();
+                    customer = users1.getUserId();
+                }
+            }
+            if(customer!=null&&customer!=""){
+                FriendList friendList = new FriendList();
+                friendList.setUserId(customer);
+                friendList.setFriendId(userId);
+                friendList.setDeleteStatus('1');
+                friendList.setOnlineStatus('1');
+                friendListMapper.insert(friendList);
+                friendList.setFriendId(customer);
+                friendList.setUserId(userId);
+                friendListMapper.insert(friendList);
+            }
         }
         List<UsersMsgVo> usersMsgVos = new ArrayList<>();
         Users users1 = usersMapper.selectByPrimaryKey(customer);
@@ -355,6 +368,50 @@ public class ChatServiceImpl implements ChatService {
         usersMsgVos.add(usersMsgVo);
         return new ResultVO(ResStatus.OK,"success",usersMsgVos);
     }
+
+//    @Override
+//    public ResultVO getCustomer(String userId) {
+//        Example example = new Example(Users.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        criteria.andEqualTo("role","1");
+//        List<Users> usersList = usersMapper.selectByExample(example);
+//        String customer = "";
+//        Integer num = Integer.MAX_VALUE;
+//        for(Users users1:usersList){
+//            Example example1 = new Example(FriendList.class);
+//            Example.Criteria criteria1 = example1.createCriteria();
+//            criteria1.andEqualTo("friendId",users1.getUserId());
+//            if(num>friendListMapper.selectByExample(example1).size()){
+//                num = friendListMapper.selectByExample(example1).size();
+//                customer = users1.getUserId();
+//            }
+//        }
+//        if(customer!=null&&customer!=""){
+//            FriendList friendList = new FriendList();
+//            friendList.setUserId(customer);
+//            friendList.setFriendId(userId);
+//            friendList.setDeleteStatus('1');
+//            friendList.setOnlineStatus('1');
+//            friendListMapper.insert(friendList);
+//            friendList.setFriendId(customer);
+//            friendList.setUserId(userId);
+//            friendListMapper.insert(friendList);
+//        }
+//        List<UsersMsgVo> usersMsgVos = new ArrayList<>();
+//        Users users1 = usersMapper.selectByPrimaryKey(customer);
+//        UsersMsgVo usersMsgVo = new UsersMsgVo(users1);
+//        Example example2 = new Example(ChatMsg.class);
+//        Example.Criteria criteria2 = example2.createCriteria();
+//        criteria2.andEqualTo("receiveId",userId);
+//        criteria2.andEqualTo("sendId","0");
+//        criteria2.andEqualTo("readstate","0");
+//        List<ChatMsg> chatMsgList2 = chatMsgMapper.selectByExample(example2);
+//        usersMsgVo.setChatMsg(chatMsgMapper.lastMsg(userId,"0"));
+//        usersMsgVo.setUnreadNumber(chatMsgList2.size());
+//        usersMsgVo.setStatus('1');
+//        usersMsgVos.add(usersMsgVo);
+//        return new ResultVO(ResStatus.OK,"success",usersMsgVos);
+//    }
 
     @Override
     public ResultVO addCustomerMsg(ChatMsg chatMsg) {
@@ -376,8 +433,6 @@ public class ChatServiceImpl implements ChatService {
 
     @Override
     public void removeFriend(String nickname) {
-        System.out.println("xx");
-        System.out.println(nickname);
         Example example = new Example(FriendList.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("friendId",nickname);
@@ -429,6 +484,28 @@ public class ChatServiceImpl implements ChatService {
                 return new ResultVO(ResStatus.NO,"fail","");
             }
         }
+    }
+
+    @Override
+    public ResultVO removeFriend(ChatMsg chatMsg) {
+        Example example = new Example(FriendList.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("friendId",chatMsg.getReceiveId());
+        criteria.andEqualTo("userId",chatMsg.getSendId());
+        List<FriendList> friendLists = friendListMapper.selectByExample(example);
+        for(FriendList friendList : friendLists){
+            Example example1 = new Example(FriendList.class);
+            Example.Criteria criteria1 = example1.createCriteria();
+            criteria1.andEqualTo("userId",chatMsg.getReceiveId());
+            criteria1.andEqualTo("friendId",chatMsg.getSendId());
+            List<FriendList> friendLists1 = friendListMapper.selectByExample(example1);
+            for(FriendList friendList2 : friendLists1){
+                friendListMapper.delete(friendList2);
+            }
+            friendListMapper.delete(friendList);
+
+        }
+        return new ResultVO(ResStatus.OK,"success",null);
     }
 
 

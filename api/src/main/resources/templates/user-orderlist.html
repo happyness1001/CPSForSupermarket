@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="static/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="static/css/amazeui.css" rel="stylesheet" type="text/css">
+		<link href="static/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="static/css/systyle.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="static/css/bootstrap.css" />
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<script type="text/javascript" src="static/js/jquery-3.4.1.min.js" ></script>
+		<script type="text/javascript" src="static/js/bootstrap.js" ></script>
+	</head>
+	<body>
+		
+		<div id="container">
+			
+			<div class="m-order" style="margin-bottom: 0px;">
+				<div class="s-bar"><i class="s-icon"></i>我的订单
+					<a href="/order.html" class="i-load-more-item-shadow">全部订单</a>
+				</div>
+				<ul>
+					<li style="width: 25%;">
+						<a @click="queryByStatus(1)"><i><img src="static/images/pay.png"></i> <span>待付款<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
+						<a @click="queryByStatus(2)"><i><img src="static/images/send.png"></i> <span>待发货<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
+						<a  @click="queryByStatus(3)"><i><img src="static/images/receive.png"></i> <span>待收货<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
+						<a  @click="queryByStatus(4)"><i><img src="static/images/comment.png"></i> <span>待评价<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
+						<a  @click="queryByStatus(5)"><i><img src="static/images/comment.png"></i> <span>已完成<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
+						<a  @click="queryByStatus(6)"><i><img src="static/images/comment.png"></i> <span>已关闭<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
+						<a  @click="queryByStatus(0)"><i><img src="static/images/comment.png"></i> <span>申请中<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+					<li style="width: 25%;">
+						<a  @click="queryByStatus(7)"><i><img src="static/images/send.png"></i> <span>退换货<em class="m-num" style="display: none;">0</em></span></a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="box-container-bottom" style="margin-bottom: 15px;"></div>
+			<div class="logistics" id="div1" style="overflow: hidden;display: none;">
+				<h5>更改交割时间</h5>
+				<input id="myDate" type="datetime-local" :placeholder="请选择日期" size="15"/>
+				<div class="am-btn am-btn-danger" @click="saveTime()">保存</div>
+				<div class="am-btn am-btn-danger" @click="showOrHide()">取消</div>
+			</div>
+			
+			<div class="m-logistics">
+				<div class="s-bar"><i class="s-icon"></i></div>
+				<div class="s-content">
+					<ul class="lg-list"></ul>
+					<table class="table" >
+						<tr>
+							<td>序号</td>
+							<td>订单商品</td>
+							<td>订单状态</td>
+							<td>下单时间</td>
+							<td>交割时间</td>
+							<td>操作</td>
+						</tr>
+						<template v-for="order,index in orders">
+							<tr>
+								<td>{{index+1}}</td>
+								<td>{{order.untitled.substring(0,order.untitled.length-1)}}</td>
+								<td>
+									<span v-if="order.status == '1'">待付款</span>
+									<span v-else-if="order.status == '2'">待发货</span>
+									<span v-else-if="order.status == '3'">待收货</span>
+									<span v-else-if="order.status == '4'">待评价</span>
+									<span v-else-if="order.status == '5'">已完成</span>
+									<span v-else-if="order.status == '6'">已关闭</span>
+									<span v-else-if="order.status == '7'">退款中</span>
+									<span v-else-if="order.status == '8'">退货中</span>
+									<span v-else-if="order.status == '9'">换货中</span>
+									<span v-else-if="order.status >= '10'">申请中</span>
+								</td>
+								<td>{{order.createTime}}</td>
+								<td>{{order.dueTime}}</td>
+								<td>
+									<template v-if="order.status == '1'">
+										<button class="btn btn-success btn-xs" @click="doSubmit(order)">去支付</button>
+										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>
+<!--										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>-->
+									</template>
+									<template v-if="order.status == '2'">
+<!--										<button class="btn btn-danger btn-xs" @click="cancelOrder(order.orderId)">取消订单</button>-->
+										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退款</button>
+<!--										<button class="btn btn-success btn-xs" @click="changeTime(order)">更改交割时间</button>-->
+									</template>
+									<template v-if="order.status == '3'">
+										<button class="btn btn-success btn-xs" @click="confirmReceipt(order.orderId)">确认收货</button>
+										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退款</button>
+									</template>
+									<template v-if="order.status == '4'">
+										<button class="btn btn-success btn-xs" @click="gotoComment" :data-index="index">去评价</button>
+										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退换货</button>
+									</template>
+									<template v-if="order.status == '5'">
+										<button class="btn btn-success btn-xs" @click="deleteOrder(order.orderId)">删除</button>
+										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退换货</button>
+									</template>
+									<template v-if="order.status == '6'">
+										<button class="btn btn-success btn-xs" @click="deleteOrder(order.orderId)">删除</button>
+									</template>
+									<template v-if="order.status == '7'">
+									</template>
+									<template v-if="order.status == '8'">
+										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">物流信息</button>
+									</template>
+									<template v-if="order.status == '9'">
+										<button class="btn btn-danger btn-xs" @click="returnGoods(order.orderId)">物流信息</button>
+									</template>
+									<template v-if="order.status == '0'">
+									</template>
+								</td>
+							</tr>
+						</template>
+						<tr>
+							<td colspan="5">
+								<!--分页 -->
+								<el-pagination background layout="prev, pager, next" 
+								               :current-page="pageNum"
+								               :page-size="limit"
+								               :total="count" @current-change="pager"> </el-pagination>
+							</td>
+						</tr>
+					</table>
+					
+					<div id="wrap" class="wrap">
+						
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<script type="text/javascript" src="static/js/cookie_utils.js" ></script>
+		<script type="text/javascript" src="static/js/axios.min.js" ></script>
+		<script type="text/javascript" src="static/js/vue.js" ></script>
+		<!-- 引入组件库 -->
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<script type="text/javascript" src="static/js/base.js" ></script>
+		<script type="text/javascript">
+			var v = new Vue({
+				el:"#container",
+				data:{
+					token:"",
+					pageNum:1,
+					limit:5,
+					userId:"",
+					orders:[],
+					count:0,
+					status:null,
+					time:"",
+					orderId:"",
+					duetime:"",
+					order:"",
+					returnRequest:{
+						"orderId":"",
+						"returnType":'2',
+						"returnReason":"",
+						"returnMoneyAmount":"",
+						"additionalDesp":"",
+						"returnEvidence":""
+					},
+				},
+				created:function(){
+					this.token = getCookieValue("token");
+					this.userId = getCookieValue("userId");
+					//1.加载页面，请求订单信息
+					var url1 = baseUrl+"order/list";
+					axios({
+						url:url1,
+						method:"get",
+						headers:{
+							token:this.token
+						},
+						params:{
+							userId:this.userId,
+							pageNum:this.pageNum,
+							limit:this.limit
+						}
+					}).then((res)=>{
+						console.log(res.data.data);
+						if(res.data.code == 10000){
+							this.orders = res.data.data.list;
+							this.count = res.data.data.count;
+						}
+					});
+				},
+				methods:{
+					pager:function(page){
+						this.pageNum = page;
+						//1.加载页面，请求订单信息
+						var url1 = baseUrl+"order/list";
+						var obj = {
+								userId:this.userId,
+								pageNum:this.pageNum,
+								limit:this.limit
+						};
+						if(this.status!=null){
+							obj.status = this.status;
+						}
+						axios({
+							url:url1,
+							method:"get",
+							headers:{
+								token:this.token
+							},
+							params:obj
+						}).then((res)=>{
+							console.log(res.data.data);
+							if(res.data.code == 10000){
+								this.orders = res.data.data.list;
+								this.count = res.data.data.count;
+							}
+						});
+					},
+					queryByStatus:function(status){
+						this.pageNum = 1;
+						this.status = status;
+						console.log(this.status);
+						var url1 = baseUrl+"order/list";
+						axios({
+							url:url1,
+							method:"get",
+							headers:{
+								token:this.token
+							},
+							params:{
+								userId:this.userId,
+								pageNum:this.pageNum,
+								limit:this.limit,
+								status:this.status
+							}
+						}).then((res)=>{
+							console.log(res.data.data);
+							if(res.data.code == 10000){
+								this.orders = res.data.data.list;
+								this.count = res.data.data.count;
+							}else if(res.data.code == 10001){
+								layer.msg("订单取消失败！");
+							}else{
+								var str = "";
+								if(res.data.code == 20001){
+									str = "请先登录！";
+								}else if(res.data.code == 20002){
+									str = "登录过期，请重新登录！";
+								}
+								var loginUrl = "login.html?"+params;
+
+								//跳转到登录页面
+								window.location.href= encodeURI(loginUrl);
+							}
+						});
+					},
+					gotoComment:function(event){
+						var index = event.srcElement.dataset.index;
+						var order = this.orders[index];
+						localStorage.setItem("order",JSON.stringify(order));
+						window.location.href = "user-commentadd.html";
+					},
+					doSubmit: function (obj) {
+						var url3 = baseUrl + "order/payMoney";
+						axios({
+							url: url3,
+							method: "post",
+							data: obj
+						}).then((res) => {
+							if (res.data.code == 10000) {
+								//跳转到支付页面显示支付二维码
+								console.log("orderInfo",res.data.data);
+								var orderInfo = res.data.data; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://...."}
+								orderInfo.totalPrice = obj.totalAmount; // {orderId:"123123",productNames:"aseraer",payUrl:"weixin://....",totalPrice:18.8}
+								console.log(orderInfo);
+								localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
+								window.location.href = "order-pay.html";
+							} else if (res.data.code == 20001 || res.data.code == 20002) {
+								window.location.href = "login.html";
+							} else {
+								alert(res.data.msg);
+							}
+						});
+					},
+					cancelOrder:function (orderId){
+						var token = getCookieValue("token");
+						var url1 = baseUrl+"order/cancelOrder/"+orderId;
+						axios({
+							url:url1,
+							method:"put",
+							headers:{
+								token:this.token
+							}
+
+						}).then((res)=>{
+							console.log(res.data.data);
+							if(res.data.code == 10000){
+								alert("订单取消成功");
+								location.reload([true]);
+							}
+						});
+
+					},
+					showOrHide: function () {
+						var divs = document.getElementById("div1");
+						divs.style.display = "none";
+					},
+					changeTime:function (order){
+						this.time = order.dueTime;
+						this.orderId = order.orderId;
+						this.order = order;
+						var divs = document.getElementById("div1");
+						divs.style.display = "";
+
+					},
+					saveTime:function (){
+						var x = document.getElementById("myDate").value;
+						if(x == ""||x==null){
+							alert("请选择交割时间");
+							return;
+						}
+						var time = new Date(x);
+						var now = new Date();
+						if(time<=now){
+							alert("请选择正确的交割时间");
+							return;
+						}
+						var token = getCookieValue("token");
+						var url1 = baseUrl+"order/changeTime/"+this.orderId;
+						this.duetime = new Date(x);
+						this.order.dueTime = this.duetime
+						alert(this.order.dueTime);
+						axios({
+							url:url1,
+							method:"put",
+							headers:{
+								token:token
+							},
+							data:this.order
+
+
+						}).then((res)=>{
+							if(res.data.code == 10000){
+								alert("时间修改成功");
+								location.reload([true]);
+							}
+						});
+						var divs = document.getElementById("div1");
+						divs.style.display = "none";
+
+					},
+					confirmReceipt: function(orderId) {
+						var token = getCookieValue("token");
+						var url1 = baseUrl+"order/confirmReceipt/"+orderId;
+						axios({
+							url:url1,
+							method:"put",
+							headers:{
+								token:this.token
+							}
+
+						}).then((res)=>{
+							console.log(res.data.data);
+							if(res.data.code == 10000){
+								alert("收货成功");
+								location.reload([true]);
+							}
+						});
+
+					},
+					returnGoods:function (orderId){
+						window.location.href = "return-goods.html?orderId="+orderId;
+					},
+					returnApply:function (orderId){
+						window.location.href = "return-request.html?orderId="+orderId;
+					},
+					deleteOrder:function (orderId){
+						var token = getCookieValue("token");
+						var url1 = baseUrl+"order/deleteOrder/"+orderId;
+						axios({
+							url:url1,
+							method:"put",
+							headers:{
+								token:this.token
+							}
+
+						}).then((res)=>{
+							console.log(res.data.data);
+							if(res.data.code == 10000){
+								alert("订单删除成功");
+								location.reload([true]);
+							}
+						});
+
+					}
+				}
+				
+			});
+			
+		</script>
+	</body>
+</html>

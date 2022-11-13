@@ -8,7 +8,7 @@ public class Category {
      */
     @Id
     @Column(name = "category_id")
-    private Integer categoryId;
+    private String categoryId;
 
     /**
      * 分类名称 分类名称
@@ -23,13 +23,13 @@ public class Category {
 3:三级小分类
      */
     @Column(name = "category_level")
-    private Integer categoryLevel;
+    private String categoryLevel;
 
     /**
      * 父层级id 父id 上一级依赖的id，1级分类则为0，二级三级分别依赖上一级
      */
     @Column(name = "parent_id")
-    private Integer parentId;
+    private String parentId;
 
     /**
      * 图标 logo
@@ -60,7 +60,7 @@ public class Category {
      *
      * @return category_id - 主键 分类id主键
      */
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
@@ -69,7 +69,7 @@ public class Category {
      *
      * @param categoryId 主键 分类id主键
      */
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -102,7 +102,7 @@ public class Category {
 2:二级分类
 3:三级小分类
      */
-    public Integer getCategoryLevel() {
+    public String getCategoryLevel() {
         return categoryLevel;
     }
 
@@ -117,7 +117,7 @@ public class Category {
 2:二级分类
 3:三级小分类
      */
-    public void setCategoryLevel(Integer categoryLevel) {
+    public void setCategoryLevel(String categoryLevel) {
         this.categoryLevel = categoryLevel;
     }
 
@@ -126,7 +126,7 @@ public class Category {
      *
      * @return parent_id - 父层级id 父id 上一级依赖的id，1级分类则为0，二级三级分别依赖上一级
      */
-    public Integer getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
@@ -135,7 +135,7 @@ public class Category {
      *
      * @param parentId 父层级id 父id 上一级依赖的id，1级分类则为0，二级三级分别依赖上一级
      */
-    public void setParentId(Integer parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

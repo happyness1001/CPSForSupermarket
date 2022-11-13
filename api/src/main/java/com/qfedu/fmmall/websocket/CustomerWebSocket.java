@@ -68,8 +68,7 @@ public class CustomerWebSocket {
     public void onClose() {
         webSocketSet.remove(this);
         map.remove(nickname);//从set中删除
-        chatService.removeFriend(nickname);
-//        outlineRemain(nickname);
+//        chatService.removeFriend(nickname);
         System.out.println("有一连接关闭！当前在线人数为" + webSocketSet.size());
     }
 

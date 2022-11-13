@@ -1,0 +1,505 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>聊天</title>
+	<link rel="stylesheet" type="text/css" href="./static/css/chat.css">
+	<script type="text/javascript" src="static/js/jquery.js"></script>
+	<style>
+
+		.change{
+			filter: grayscale(100%);
+		}
+		red-point{
+			position: relative;
+		}
+
+		.red-point::before{
+			content: " ";
+			border: 4px solid red;/*设置红色*/
+			border-radius:4px;/*设置圆角*/
+			position: absolute;
+			z-index: 1000;
+			right: 0;
+			margin-right: -8px;
+			margin-top: 3px;
+		}
+		.picture {
+			margin-top: 50px;
+			margin-left: 50px;
+			width: 50px;
+			height: 50px;
+		}
+		.badge {
+			width: 20px;
+			height: 20px;
+			line-height: 20px;  /* 数值与height相同，使数字垂直居中 */
+			text-align: center;
+			background-color: red;
+			color: white;
+			font-size: 12px;
+			font-weight: 700;
+			border-radius: 50%;
+			position: relative;
+			/*bottom: 60px;*/
+			/*left: 90px;*/
+		}
+	</style>
+</head>
+<body >
+<div class="container" id="container">
+	<div class="leftSide">
+		<!--header-->
+		<div class="header">
+			<div class="userimg">
+				<img :src="'static/'+userImg" class="cover">
+			</div>
+		</div>
+		<div class="search_chat">
+			<div>
+				<input type="text" placeholder="搜索..." id="search" @change="searchUser()">
+			</div>
+		</div>
+		<div class="chatlist" id="chatlist">
+			<div class="block active" v-for="user in users" @click="getUser(user)" >
+				<div class="imgbx">
+					<img :src="'static/'+user.userImg" class="cover" >
+				</div>
+				<div class="details">
+					<div class="listHead">
+						<h4>{{user.nickname}}</h4>
+						<p class="time">{{user.chatMsg.creatTime}}</p>
+					</div>
+					<div class="message_p">
+						<p>{{user.chatMsg.content}}</p>
+						<template v-if="user.unreadNumber>0">
+							<span :id="user.userId" class="badge" style="display:block" >{{user.unreadNumber}}</span>
+						</template>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="rightSide">
+		<div class="header">
+			<div class="imgText">
+				<div class="userimg">
+					<img :src="'static/'+selected.userImg" class="cover">
+				</div>
+				<h4>{{selected.nickname}}<br>
+					<template v-if="selected.status == '1'">
+						<span>在线</span>
+					</template>
+					<template v-if="selected.status == '0'">
+						<span>离线</span>
+					</template>
+				</h4>
+			</div>
+		</div>
+		<div class="chatBox"  id="message">
+		</div>
+		<div class="chatbox_input">
+			<div class="instrument">
+				<img src="./static/images/picture.png" width="30px" height="30px" onclick="file.click()" style="margin-left: 100px" title="发送图片">
+				<input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
+				<img src="./static/img/over.png" width="30px" height="30px" @click="removeFriend()" style="margin-left: 100px" title="结束通话">
+			</div>
+
+			<div>
+				<input type="text" width="200px" id="msg">
+				<img src="./static/images/sender.png" width="30" alt="图片" onclick="send()">
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript " src="static/js/quick_links.js "></script>
+<script type="text/javascript" src="static/js/cookie_utils.js" ></script>
+<script type="text/javascript" src="static/js/vue.js" ></script>
+<script type="text/javascript" src="static/js/axios.min.js" ></script>
+<script type="text/javascript" src="static/js/base.js" ></script>
+<script type="text/javascript">
+
+	var vm = new Vue({
+		el:"#container",
+		data:{
+			token:"",
+			username:"",
+			userImg:"",
+			websocket:"",
+			users:[],
+			selected:"",
+			toUser:"",
+			msg:[],
+			userImg:"",
+			userId:"",
+			oldUsers:""
+
+		},
+		created:function() {
+			//从cookie中获取token、username、userImg
+			this.username = getCookieValue("username");
+			var userId = getCookieValue("userId");
+			this.userImg = getCookieValue("userImg");
+			var token = getCookieValue("token");
+			var url1 = baseUrl+"chat/userList/"+userId;
+			axios({
+				url:url1,
+				method:"get",
+				params:{
+					userId:userId
+				},
+			}).then((res)=>{
+				if(res.data.code == 20001 || res.data.code == 20002){
+					//跳转登录
+				}else if(res.data.code == 10000){
+					//请求成功  [{commonType:0},{commonType:1}]
+					this.users = res.data.data;
+					this.oldUsers = res.data.data;
+					if(this.users.length>=1){
+						this.selected = this.users[0];
+					}
+					for(var i=0; i<this.users.length; i++) {
+						var date = new Date(this.users[i].chatMsg.creatTime);
+						var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+						var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+						// var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+						var time =  hour+":"+minute;
+						this.users[i].chatMsg.creatTime = time;
+						if(this.users[i].chatMsg.content.includes("jpg")||this.users[i].chatMsg.content.includes("png")||this.users[i].chatMsg.content.includes("JPG")||this.users[i].chatMsg.content.includes("PNG")) {
+							this.users[i].chatMsg.content="【图片】";
+						}
+					}
+					console.log(this.users);
+				}
+			});
+			var nickname = userId
+			//判断当前浏览器是否支持WebSocket
+			if ('WebSocket'in window) {
+				this.websocket = new WebSocket("ws://localhost:8080/websocket/"+nickname);
+			} else {
+				alert('Not support websocket')
+			}
+			//连接发生错误的回调方法
+			this.websocket.onerror = function() {
+				setMessageInnerHTML("error");
+			};
+			//连接成功建立的回调方法
+			this.websocket.onopen = function(event) {
+				// setMessageInnerHTML("Loc MSG: 成功建立连接");
+			}
+			//接收到消息的回调方法
+			this.websocket.onmessage = function(event) {
+				var message = event.data.split(":");
+
+				if(message[0]==vm.selected.userId){
+
+					setMessageInnerHTML(message[1]);
+					addMessage(message,0);
+				}else {
+					addMessage(message,1);
+				}
+			}
+			//连接关闭的回调方法
+			this.websocket.onclose = function() {
+				setMessageInnerHTML("Loc MSG:关闭连接");
+			}
+			//监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+			window.onbeforeunload = function() {
+				this.websocket.close();
+			}
+		},
+		methods: {
+			searchUser:function (){
+				document.getElementById('chatlist').value="";
+				var information = document.getElementById('search').value;
+				if(information==""||information==null){
+					this.users = this.oldUsers;
+				}else{
+					var url1 = baseUrl+"user/getUserByDetail/"+information;
+					axios({
+						url:url1,
+						method:"get",
+						headers: {
+							token: getCookieValue("token")
+						}
+					}).then((res)=>{
+						if(res.data.code == 10000){
+							//请求成功  [{commonType:0},{commonType:1}]
+							vm.users = res.data.data;
+							for(var i=0; i<this.users.length; i++) {
+								var date = new Date(this.users[i].chatMsg.creatTime);
+								var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+								var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+								// var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+								var time =  hour+":"+minute;
+								this.users[i].chatMsg.creatTime = time;
+							}
+							console.log("users",vm.users);
+
+						}
+					});
+				}
+
+			},
+			getUser: function (user){
+				document.getElementById('message').innerHTML = "";
+				this.selected = user;
+				var userId = getCookieValue("userId");
+				var token = getCookieValue("token");
+				var url1 = baseUrl+"chat/msgHistory";
+				user.unreadNumber=0;
+				var ChatMsg = {sendId:userId,receiveId:user.userId};
+				axios({
+					url:url1,
+					method:"post",
+					data: ChatMsg
+				}).then((res)=>{
+					if(res.data.code == 10000){
+						//请求成功  [{commonType:0},{commonType:1}]
+						this.msg = res.data.data;
+						console.log("msg",this.msg);
+						for(var i=0; i<this.msg.length; i++) {
+							creatMsg(this.msg[i]);
+						}
+					}
+				});
+                var url2 = baseUrl+"chat/msgRead";
+                var ChatMsg = {sendId:user.userId,receiveId:userId};
+                axios({
+                    url:url2,
+                    method:"post",
+                    data: ChatMsg
+                }).then((res)=>{
+                    if(res.data.code == 10000){
+                        //请求成功  [{commonType:0},{commonType:1}]
+                    }
+                });
+			}
+		}
+	});
+	function addMessage(message,t){
+		var user = 0;
+		for(var i=0;i<vm.users.length;i++){
+			if(vm.users[i].userId==message[0]){
+				user = 1;
+				if(message[1]==("你的好友已离线")){
+					vm.users[i].status='0';
+				}else {
+					vm.users[i].chatMsg.content=message[1];
+					var date = new Date();
+					var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+					var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+					var time =  hour+":"+minute;
+					vm.users[i].chatMsg.creatTime = time;
+					vm.users[i].status='1';
+					if(t==1){
+						vm.users[i].unreadNumber=vm.users[i].unreadNumber+1;
+					}
+				}
+			}
+		}
+		if(user==0){
+			var url1 = baseUrl+"chat/getUserByDetail/"+message[0];
+			axios({
+				url:url1,
+				method:"get",
+			}).then((res)=>{
+				if(res.data.code == 10000){
+					//请求成功  [{commonType:0},{commonType:1}]
+					user = res.data.data;
+					var date = new Date();
+					var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+					var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+					// var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+					var time =  hour+":"+minute;
+					user[0].chatMsg.creatTime = time;
+					user[0].chatMsg.content = message[1];
+					vm.oldUsers.push(user[0]);
+					vm.users = vm.oldUsers;
+				}
+			});
+		}
+	}
+	function setMessageInnerHTML(innerHTML) {
+		var div = document.createElement("div");
+
+		//为div创建属性class = "test"
+		var divattr = document.createAttribute("class");
+		divattr.value = "message frnd_message";
+
+		//把属性class = "test"添加到div
+		div.setAttributeNode(divattr);
+		if(innerHTML.includes("jpg")||innerHTML.includes("png")||innerHTML.includes("JPG")||innerHTML.includes("PNG")){
+			var span = document.createElement("span");
+			var date = new Date();
+			var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+			var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+			span.innerHTML += hour+":"+minute+":"+second;
+			var img = document.createElement("img");
+			img.setAttribute("src", "static/chatImg/"+innerHTML);
+			div.appendChild(img);
+			div.appendChild(span);
+		}else{
+			var text = document.createElement("p");
+			var span = document.createElement("span");
+			var date = new Date();
+			var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+			var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+			span.innerHTML +=  hour+":"+minute+":"+second;
+			text.innerHTML +=innerHTML + '<br/>';
+			text.appendChild(span);
+			div.appendChild(text)
+		}
+		// document.getElementById('message').innerHTML += innerHTML + '<br/>';
+		document.getElementById('message').appendChild(div)
+	}
+	//关闭连接
+	function closeWebSocket() {
+		websocket.close();
+	}
+	//发送消息
+	//发送消息
+	function send() {
+		//获取输入的文本信息进行发送
+		var message = document.getElementById('msg').value;
+		document.getElementById('msg').value="";
+		// var toUser = document.getElementById('toUser').value;
+		var toUser = vm.selected.userId;
+		var ChatMsg = {content:message,receiveId:toUser};
+		vm.websocket.send(JSON.stringify(ChatMsg));
+		var div = document.createElement("div");
+
+		//为div创建属性class = "test"
+		var divattr = document.createAttribute("class");
+		divattr.value = "message my_message";
+
+		//把属性class = "test"添加到div
+		div.setAttributeNode(divattr);
+		var text = document.createElement("p");
+		var span = document.createElement("span");
+		var date = new Date();
+		var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+		var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+		var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+		span.innerHTML += hour+":"+minute+":"+second;
+		text.innerHTML +=message + '<br/>';
+		text.appendChild(span);
+		div.appendChild(text)
+		// document.getElementById('message').innerHTML += innerHTML + '<br/>';
+		document.getElementById('message').appendChild(div)
+	}
+	function creatMsg(message){
+		var div = document.createElement("div");
+		//为div创建属性class = "test"
+		var divattr = document.createAttribute("class");
+		if(message.sendId==getCookieValue("userId")){
+			divattr.value = "message my_message";
+		}else {
+			divattr.value = "message frnd_message";
+		}
+		div.setAttributeNode(divattr);
+		if(message.content.includes("jpg")||message.content.includes("png")||message.content.includes("JPG")||message.content.includes("PNG")){
+			var span = document.createElement("span");
+			var date = new Date(message.creatTime);
+			var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+			var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+			span.innerHTML += hour+":"+minute+":"+second;
+			var img = document.createElement("img");
+			img.setAttribute("src", "static/chatImg/"+message.content);
+			div.appendChild(img);
+			div.appendChild(span);
+		}else{
+			var text = document.createElement("p");
+			var span = document.createElement("span");
+			var date = new Date(message.creatTime);
+			var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+			var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+			span.innerHTML += hour+":"+minute+":"+second;
+			text.innerHTML +=message.content + '<br/>';
+			text.appendChild(span);
+			div.appendChild(text)
+		}
+		document.getElementById('message').appendChild(div)
+	}
+</script>
+<script type="text/javascript">
+	let fileInput = document.getElementById('file');
+	// 监听change事件:
+	fileInput.addEventListener('change', function() {
+		// 清除背景图片:
+		// preview.style.backgroundImage = '';
+		if (!fileInput.value) {
+			info.innerHTML = '没有选择文件';
+			return;
+		}
+		let file = fileInput.files[0];
+		let size = file.size;
+		if (size >= 1 * 1024 * 1024) {
+			alert('文件大小超出限制');
+			info.innerHTML = '文件大小超出限制';
+			return false;
+		}
+		// 获取File信息:
+		// info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
+		if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+			alert('不是有效的图片文件!');
+			return;
+		}
+		console.log( "res.data.data");
+		// 读取文件:
+		let reader = new FileReader();
+		reader.onload = function(e) {
+			let data = e.target.result;
+			var div = document.createElement("div");
+			//为div创建属性class = "test"
+			var divattr = document.createAttribute("class");
+			divattr.value = "message my_message";
+			//把属性class = "test"添加到div
+			div.setAttributeNode(divattr);
+			// var text = document.createElement("p");
+			var span = document.createElement("span");
+			var date = new Date();
+			var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+			var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+			span.innerHTML += hour+":"+minute+":"+second;
+			var img = document.createElement("img");
+			img.setAttribute("src", data);
+			div.appendChild(img);
+			div.appendChild(span);
+			document.getElementById('message').appendChild(div)
+		};
+		// 以DataURL的形式读取文件:
+		reader.readAsDataURL(file);
+		//将照片传输到后台
+		var formdata = new FormData();
+		// formdata.append("name", fileInput.files[0].name);
+		formdata.append("image", fileInput.files[0]);
+		console.log(fileInput.files[0].name);
+		var url5 = baseUrl+"chat/sendImg"
+		axios({
+			url:url5,
+			method:"put",
+			contentType:"multipart/form-data",
+			data:formdata,
+
+		}).then((res)=>{
+			if(res.data.code == 10000){
+				var message = res.data.data;
+				var toUser = vm.selected.userId;
+				var ChatMsg = {content:message,receiveId:toUser};
+				vm.websocket.send(JSON.stringify(ChatMsg));
+			}
+		});
+	});
+
+</script>
+</body>
+
+</html>

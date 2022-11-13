@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0072)pay.html?selectedItemSpecIds=cake-1004-spec-1 -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 ,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link href="static/css/amazeui.css" rel="stylesheet" type="text/css">
+	<link href="static/css/admin.css" rel="stylesheet" type="text/css">
+	<link href="static/css/demo.css" rel="stylesheet" type="text/css">
+	<link href="static/css/personal.css" rel="stylesheet" type="text/css">
+	<link href="static/css/systyle.css" rel="stylesheet" type="text/css">
+	<link href="static/css/cartstyle.css" rel="stylesheet" type="text/css">
+	<link href="static/css/jsstyle.css" rel="stylesheet" type="text/css">
+	<link href="static/css/lee.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="static/css/bootstrap.css" />
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<script type="text/javascript" src="static/js/jquery-3.4.1.min.js" ></script>
+	<script type="text/javascript" src="static/js/bootstrap.js" ></script>
+</head>
+
+<body>
+<div id="container">
+	<div class="concent" style="margin-top: 35px;">
+		<div class="paycont">
+			<div class="address">
+				<h3>收货地址 </h3>
+				<div class="control selected">
+					<div class="tc-btn createAddr theme-login am-btn am-btn-danger" @click="showOrHide()">使用新地址</div>
+				</div>
+				<div class="am-u-md-12" style="overflow: hidden;;display: none;" id="div1">
+					<div class="am-cf am-padding">
+						<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">新增地址</strong> / <small>Add
+							address</small></div>
+					</div>
+					<form class="am-form am-form-horizontal">
+						<div class="am-form-group"><label for="user-name" class="am-form-label">收货人</label>
+							<div class="am-form-content"><input type="text" id="user-name" placeholder="收货人" maxlength="12"></div>
+						</div>
+						<div class="am-form-group"><label for="user-phone" class="am-form-label">手机号码</label>
+							<div class="am-form-content"><input id="user-phone" placeholder="手机号必填" maxlength="11"></div>
+						</div>
+						<div class="am-form-group"><label for="user-phone" class="am-form-label">所在地</label>
+							<div id="example" class="am-form-content address">
+								<select id="provinceId">
+									<option value="选择省份">选择省份</option>
+									<option v-for="province in provinces"  :value="province.id">{{province.name}}</option>
+								</select>
+								<select id="cityId" @click="getCityById">
+									<option value="请选择">请选择</option>
+									<option v-for="city in cities" :value="city.id">{{city.name}}</option>
+								</select>
+								<select id="countyId" @click="getCountyById">
+									<option value="请选择">请选择</option>
+									<option v-for="county in counties" :value="county.id">{{county.name}}</option>
+								</select>
+							</div>
+						</div>
+						<div class="am-form-group"><label for="user-intro" class="am-form-label">详细地址</label>
+							<div class="am-form-content"><textarea rows="3" id="user-intro" placeholder="输入详细地址"></textarea> <small>100字以内写出你的详细地址...</small></div>
+						</div>
+						<div class="am-form-group theme-poptit">
+							<div class="am-u-sm-9 am-u-sm-push-3">
+								<div class="am-btn am-btn-danger" @click="newAddress()">保存</div>
+								<div class="am-btn am-btn-danger" @click="showOrHide()">取消</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<table class="table" id="tab">
+					<tr>
+						<td>收货人</td>
+						<td>电话</td>
+						<td>地址</td>
+						<td>操作</td>
+					</tr>
+				    <tr v-for="addr in addrs">
+						<td>
+							{{addr.receiverName}}
+						</td>
+						<td id="name">
+							{{addr.receiverMobile}}
+						</td>
+						<td>
+							<div class="user DefaultAddr">
+								<span class="buy-address-detail">
+									<span class="province">{{addr.province}}</span>
+									<span class="city">{{addr.city}}</span>
+									<span class="dist">{{addr.area}}</span>
+									<span class="street">{{addr.addr}}</span>
+								</span>
+							</div>
+						</td>
+						<td>
+							<button class="btn btn-danger btn-xs" @click="updateAddr(addr)">修改</button>
+							<button id="cid" class="btn btn-success btn-xs" @click="deleteAddr(addr.addrId)">删除</button>
+						</td>
+					</tr>
+				</table>
+			<div class="am-u-md-12" style="overflow: hidden;;display: none;" id="div2">
+				<div class="am-cf am-padding">
+					<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">修改地址</strong> / <small>Update
+						address</small></div>
+				</div>
+				<form class="am-form am-form-horizontal">
+					<div class="am-form-group"><label for="user-name" class="am-form-label">收货人</label>
+						<div class="am-form-content"><input type="text" id="user-name2" :value="newaddress.receiverName" maxlength="12"></div>
+					</div>
+					<div class="am-form-group"><label for="user-phone" class="am-form-label">手机号码</label>
+						<div class="am-form-content"><input id="user-phone2" :value="newaddress.receiverMobile" maxlength="11"></div>
+					</div>
+					<div class="am-form-group"><label for="user-phone" class="am-form-label">所在地</label>
+						<div id="example2" class="am-form-content address">
+							<select id="provinceId2">
+								<option value="选择省份">{{newaddress.province}}</option>
+								<option v-for="province in provinces"  :value="province.id">{{province.name}}</option>
+							</select>
+							<select id="cityId2" @click="getCityById2">
+								<option value="请选择">{{newaddress.city}}</option>
+								<option v-for="city in cities" :value="city.id">{{city.name}}</option>
+							</select>
+							<select id="countyId2" @click="getCountyById2">
+								<option value="请选择">{{newaddress.area}}</option>
+								<option v-for="county in counties" :value="county.id">{{county.name}}</option>
+							</select>
+						</div>
+					</div>
+					<div class="am-form-group"><label for="user-intro" class="am-form-label">详细地址</label>
+						<div class="am-form-content"><textarea rows="3" id="user-intro2" :value="newaddress.addr" maxlength="11"></textarea> <small>100字以内写出你的详细地址...</small></div>
+					</div>
+					<div class="am-form-group theme-poptit">
+						<div class="am-u-sm-9 am-u-sm-push-3">
+							<div class="am-btn am-btn-danger" @click="saveAddress()">保存</div>
+							<div class="am-btn am-btn-danger" @click="showOrHide2()">取消</div>
+						</div>
+					</div>
+				</form>
+			</div>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		<div class="clear"></div>
+	</div>
+</div>
+<script type="text/javascript" src="static/js/utils.js" ></script>
+<script type="text/javascript" src="static/js/cookie_utils.js" ></script>
+<script type="text/javascript" src="static/js/vue.js" ></script>
+<script type="text/javascript" src="static/js/axios.min.js" ></script>
+<script type="text/javascript" src="static/js/base.js" ></script>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:"#container",
+		data:{
+			addrs:[],
+			areas:[],
+			addrIndex:0,  //用户选择的地址的索引（默认值和当前用户地址的默认地址索引相同）
+			provinces:[],
+			cities:[],
+			counties:[],
+			isNewAddress:"false",
+			addrId:"",
+			newaddress:{
+				"addr": "",
+				"area": "",
+				"city": "",
+				"commonAddr": 0,
+				"createTime": "",
+				"postCode": "",
+				"province": "",
+				"receiverMobile": "",
+				"receiverName": "",
+				"status": "1",
+				"updateTime": "",
+				"userId": ""
+
+			}
+		},
+		created:function(){
+			//1.根据当前用户id查询收货地址信息
+			var userId = getCookieValue("userId");
+			var token = getCookieValue("token");
+			var url1 = baseUrl+"useraddr/list";
+			axios({
+				url:url1,
+				method:"get",
+				params:{
+					userId:userId
+				},
+				headers:{
+					token:token
+				}
+			}).then((res)=>{
+				if(res.data.code == 20001 || res.data.code == 20002){
+					//跳转登录
+				}else if(res.data.code == 10000){
+					//请求成功  [{commonType:0},{commonType:1}]
+					this.addrs = res.data.data;
+				}
+			});
+			var url4 = baseUrl+"order/area-list";
+			axios.get(url4).then((res)=>{
+				this.provinces = res.data.data;
+			});
+		},
+		methods: {
+			newAddress:function (){
+				var myselect = document.getElementById("provinceId");
+				var index = myselect.selectedIndex;
+				var province = myselect.options[index].text;
+				var myselect1 = document.getElementById("cityId");
+				var index1 = myselect1.selectedIndex;
+				var city = myselect1.options[index1].text;
+				var myselect2 = document.getElementById("countyId");
+				var index2 = myselect2.selectedIndex;
+				var county = myselect2.options[index2].text;
+				var detail = document.getElementById("user-intro");
+				var detailAddress = detail.value;
+				var lable = document.getElementById("user-name");
+				var user = lable.value;
+				var lable2 = document.getElementById("user-phone");
+				var phone = lable2.value;
+				var reg =/^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
+				if(user==""||city=="请选择"||county=="请选择"||detailAddress==""||province=="选择省份"){
+					alert("请输入完整的信息");
+					return;
+				}
+				if(!reg.test(phone||phone=="")){
+					alert("请输入正确的手机号码！");
+					return ;
+				}
+				var divs = document.getElementById("div1");
+				var index = divs.style.display;
+				divs.style.display = "none";
+				this.newaddress.receiverName = user;
+				this.newaddress.receiverMobile = phone;
+				this.newaddress.province = province;
+				this.newaddress.city = city;
+				this.newaddress.area = county;
+				this.newaddress.addr = detailAddress;
+				this.newaddress.userId = getCookieValue("userId");
+				//从cookie中获取token
+				var token = getCookieValue("token");
+				var url5 = baseUrl+"useraddr/add-address"
+				axios({
+					url:url5,
+					method:"post",
+					headers:{
+						token:token
+					},
+					data: this.newaddress
+				}).then((res)=>{
+					if(res.data.code == 10000){
+						layer.msg("添加地址成功！");
+					}else if(res.data.code == 10001){
+						layer.msg("添加地址失败！");
+					}else{
+						var str = "";
+						if(res.data.code == 20001){
+							str = "请先登录！";
+						}else if(res.data.code == 20002){
+							str = "登录过期，请重新登录！";
+						}
+						var loginUrl = "login.html?"+params;
+
+						//跳转到登录页面
+						window.location.href= encodeURI(loginUrl);
+					}
+
+				});
+				location.reload([true]);
+			},
+			showOrHide:function (){
+				var divs = document.getElementById("div1");
+				var index = divs.style.display;
+				if(divs.style.display == ""){
+					divs.style.display = "none";
+				}else{
+					divs.style.display = "";
+				}
+			},
+			showOrHide2:function (){
+				var divs = document.getElementById("div2");
+				var index = divs.style.display;
+				if(divs.style.display == ""){
+					divs.style.display = "none";
+				}else{
+					divs.style.display = "";
+				}
+			},
+			updateAddr:function (addr){
+				this.newaddress.receiverName = addr.receiverName;
+				this.newaddress.receiverMobile = addr.receiverMobile;
+				this.newaddress.province = addr.province;
+				this.newaddress.city = addr.city;
+				this.newaddress.area = addr.area;
+				this.newaddress.addr = addr.addr;
+				this.addrId = addr.addrId;
+				var divs = document.getElementById("div2");
+				var index = divs.style.display;
+				if(divs.style.display == ""){
+					divs.style.display = "none";
+				}else{
+					divs.style.display = "";
+				}
+			},
+			deleteAddr:function (id){
+				var token = getCookieValue("token");
+				var url5 = baseUrl+"useraddr/deleteAddr"
+				axios({
+					url:url5,
+					method:"delete",
+					headers:{
+						token:token
+					},
+					params:{
+						addrId:id
+					}
+				}).then((res)=>{
+					if(res.data.code == 10000){
+						alert("地址删除成功")
+					}else if(res.data.code == 10001){
+						layer.msg("删除地址失败！");
+					}else{
+						var str = "";
+						if(res.data.code == 20001){
+							str = "请先登录！";
+						}else if(res.data.code == 20002){
+							str = "登录过期，请重新登录！";
+						}
+						var loginUrl = "login.html?"+params;
+						//跳转到登录页面
+						window.location.href= encodeURI(loginUrl);
+					}
+
+				});
+				location.reload([true]);
+			},
+			saveAddress:function (){
+				var myselect = document.getElementById("provinceId2");
+				var index = myselect.selectedIndex;
+				var province = myselect.options[index].text;
+				var myselect1 = document.getElementById("cityId2");
+				var index1 = myselect1.selectedIndex;
+				var city = myselect1.options[index1].text;
+				var myselect2 = document.getElementById("countyId2");
+				var index2 = myselect2.selectedIndex;
+				var county = myselect2.options[index2].text;
+				var detail = document.getElementById("user-intro2");
+				var detailAddress = detail.value;
+				var lable = document.getElementById("user-name2");
+				var user = lable.value;
+				var lable2 = document.getElementById("user-phone2");
+				var phone = lable2.value;
+				var reg =/^0?1[3|4|5|6|7|8][0-9]\d{8}$/;
+				if(user==""||city=="请选择"||county=="请选择"||detailAddress==""||province=="选择省份"){
+					alert("请输入完整的信息");
+					return;
+				}
+				if(!reg.test(phone||phone=="")){
+					alert("请输入正确的手机号码！");
+					return ;
+				}
+				var divs = document.getElementById("div2");
+				var index = divs.style.display;
+				divs.style.display = "none";
+				var data ={
+					    "addr": detailAddress,
+						"addrId": this.addrId,
+						"area": county,
+						"city": city,
+						"commonAddr": 0,
+						"createTime": "",
+						"postCode": "",
+						"province": province,
+						"receiverMobile": phone,
+						"receiverName": user,
+						"status": 1,
+						"updateTime": "",
+						"userId": ""
+				}
+				var token = getCookieValue("token");
+				var url5 = baseUrl+"useraddr/updateAddr"
+				axios({
+					url:url5,
+					method:"put",
+					headers:{
+						token:token
+					},
+					data: data
+				}).then((res)=>{
+					if(res.data.code == 10000){
+						layer.msg("修改地址成功！");
+						alert("hh")
+					}else if(res.data.code == 10001){
+						layer.msg("修改地址失败！");
+					}else{
+						var str = "";
+						if(res.data.code == 20001){
+							str = "请先登录！";
+						}else if(res.data.code == 20002){
+							str = "登录过期，请重新登录！";
+						}
+						var loginUrl = "login.html?"+params;
+
+						//跳转到登录页面
+						window.location.href= encodeURI(loginUrl);
+					}
+
+				});
+				location.reload([true]);
+
+			},
+			getCityById:function(){
+				var myselect=document.getElementById("provinceId");
+				var index=myselect.selectedIndex;
+				var provinceId = myselect.options[index].value;
+				var url2 = baseUrl+"order/area/"+provinceId;
+				axios({
+					url:url2,
+					method:"get"
+				}).then((res)=>{
+					this.cities = res.data.data;
+
+				});
+			},
+
+			getCountyById:function(){
+				var myselect=document.getElementById("cityId");
+				var index=myselect.selectedIndex;
+				var cityId = myselect.options[index].value;
+				var url3 = baseUrl+"order/area/"+cityId;
+				axios({
+					url:url3,
+					method:"get"
+				}).then((res)=>{
+					this.counties = res.data.data;
+
+				});
+			},
+			getCityById2:function(){
+				var myselect=document.getElementById("provinceId2");
+				var index=myselect.selectedIndex;
+				var provinceId = myselect.options[index].value;
+				var url2 = baseUrl+"order/area/"+provinceId;
+				axios({
+					url:url2,
+					method:"get"
+				}).then((res)=>{
+					this.cities = res.data.data;
+
+				});
+			},
+
+			getCountyById2:function(){
+				var myselect=document.getElementById("cityId2");
+				var index=myselect.selectedIndex;
+				var cityId = myselect.options[index].value;
+				var url3 = baseUrl+"order/area/"+cityId;
+				axios({
+					url:url3,
+					method:"get"
+				}).then((res)=>{
+					this.counties = res.data.data;
+
+				});
+			},
+
+		}
+	});
+
+</script>
+
+</body>
+
+</html>

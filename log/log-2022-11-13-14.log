@@ -1,0 +1,437 @@
+2022-11-13-14:37:35.055 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 22256 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-11-13-14:37:35.059 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-11-13-14:37:37.747 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-11-13-14:37:38.035 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:37:38.037 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$4f8f4e7d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:37:38.055 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:37:38.064 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:37:38.638 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-11-13-14:37:38.661 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:37:38.661 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-11-13-14:37:38.662 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-11-13-14:37:38.665 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-11-13-14:37:38.665 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-13-14:37:38.666 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-13-14:37:38.796 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-11-13-14:37:38.950 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-11-13-14:37:38.950 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 3818 ms
+2022-11-13-14:37:39.033 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-11-13-14:37:39.188 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-11-13-14:37:40.081 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='onlineStatus', column='online_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:37:40.082 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='deleteStatus', column='delete_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:37:40.740 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnType', column='return_type', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:37:40.740 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnApproach', column='return_approach', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:37:40.741 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='auditStatus', column='audit_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:37:41.046 WARN [main]-org.springframework.context.support.AbstractApplicationContext:591>>Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentationPluginsBootstrapper' defined in URL [jar:file:/C:/Users/ASUS/.m2/repository/io/springfox/springfox-spring-web/2.9.2/springfox-spring-web-2.9.2.jar!/springfox/documentation/spring/web/plugins/DocumentationPluginsBootstrapper.class]: Unsatisfied dependency expressed through constructor parameter 1; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'webMvcRequestHandlerProvider' defined in URL [jar:file:/C:/Users/ASUS/.m2/repository/io/springfox/springfox-spring-web/2.9.2/springfox-spring-web-2.9.2.jar!/springfox/documentation/spring/web/plugins/WebMvcRequestHandlerProvider.class]: Unsatisfied dependency expressed through constructor parameter 1; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration$EnableWebMvcConfiguration': Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.boot.context.properties.ConfigurationPropertiesBindException: Error creating bean with name 'spring.resources-org.springframework.boot.autoconfigure.web.ResourceProperties': Could not bind properties to 'ResourceProperties' : prefix=spring.resources, ignoreInvalidFields=false, ignoreUnknownFields=false; nested exception is org.springframework.boot.context.properties.bind.BindException: Failed to bind properties under 'spring.resources' to org.springframework.boot.autoconfigure.web.ResourceProperties
+2022-11-13-14:37:41.047 INFO [main]-com.alibaba.druid.pool.DruidDataSource:2029>>{dataSource-1} closing ...
+2022-11-13-14:37:41.049 INFO [main]-com.alibaba.druid.pool.DruidDataSource:2101>>{dataSource-1} closed
+2022-11-13-14:37:41.051 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Stopping service [Tomcat]
+2022-11-13-14:37:41.075 INFO [main]-org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener:136>>
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2022-11-13-14:37:41.094 ERROR [main]-org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter:40>>
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Binding to target [Bindable@4ffe3d42 type = org.springframework.boot.autoconfigure.web.ResourceProperties, value = 'provided', annotations = array<Annotation>[@org.springframework.boot.context.properties.ConfigurationProperties(ignoreInvalidFields=false, ignoreUnknownFields=false, prefix=spring.resources, value=spring.resources)]] failed:
+
+    Property: spring.resources.mvc.view.prefix
+    Value: html/
+    Origin: class path resource [application.yml] - 5:17
+    Reason: The elements [spring.resources.mvc.view.prefix,spring.resources.mvc.view.suffix] were left unbound.
+    Property: spring.resources.mvc.view.suffix
+    Value: .html
+    Origin: class path resource [application.yml] - 6:17
+    Reason: The elements [spring.resources.mvc.view.prefix,spring.resources.mvc.view.suffix] were left unbound.
+
+Action:
+
+Update your application's configuration
+
+2022-11-13-14:39:15.741 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 10392 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-11-13-14:39:15.744 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-11-13-14:39:17.256 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-11-13-14:39:17.571 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:39:17.573 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$719a2ec5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:39:17.585 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:39:17.594 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:39:17.950 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-11-13-14:39:17.963 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:39:17.963 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-11-13-14:39:17.964 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-11-13-14:39:17.965 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-11-13-14:39:17.965 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-13-14:39:17.965 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-13-14:39:17.972 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-11-13-14:39:18.113 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-11-13-14:39:18.114 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 2289 ms
+2022-11-13-14:39:18.226 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-11-13-14:39:18.378 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-11-13-14:39:18.980 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='onlineStatus', column='online_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:39:18.980 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='deleteStatus', column='delete_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:39:19.559 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnType', column='return_type', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:39:19.559 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnApproach', column='return_approach', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:39:19.560 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='auditStatus', column='audit_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:39:19.982 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-13-14:39:20.116 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-11-13-14:39:20.176 INFO [main]-org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:53>>Adding welcome page: class path resource [static/index.html]
+2022-11-13-14:39:20.244 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-11-13-14:39:20.249 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-11-13-14:39:20.250 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-11-13-14:39:20.251 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-11-13-14:39:20.251 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-11-13-14:39:20.346 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-11-13-14:39:20.354 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-11-13-14:39:20.355 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-11-13-14:39:20.355 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-11-13-14:39:20.356 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-11-13-14:39:20.356 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-11-13-14:39:20.356 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-11-13-14:39:20.356 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@11c999da
+2022-11-13-14:39:20.362 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-11-13-14:39:20.411 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:39:20.457 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path '/cps'
+2022-11-13-14:39:20.459 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-11-13-14:39:20.477 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-11-13-14:39:20.514 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-11-13-14:39:20.745 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: sendImgUsingPUT_1
+2022-11-13-14:39:20.755 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-11-13-14:39:20.777 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-11-13-14:39:20.789 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-11-13-14:39:20.799 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-11-13-14:39:20.822 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-11-13-14:39:20.822 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-11-13-14:39:20.851 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 6.031 seconds (JVM running for 7.746)
+2022-11-13-14:40:14.558 INFO [http-nio-8080-exec-7]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-13-14:40:14.560 INFO [http-nio-8080-exec-7]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-13-14:40:14.561 INFO [http-nio-8080-exec-7]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 1 ms
+2022-11-13-14:45:17.823 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 6032 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-11-13-14:45:17.826 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-11-13-14:45:20.062 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-11-13-14:45:20.359 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:45:20.362 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$691732de] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:45:20.379 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:45:20.387 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:45:20.818 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-11-13-14:45:20.838 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:45:20.838 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-11-13-14:45:20.839 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-11-13-14:45:20.841 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-11-13-14:45:20.841 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-13-14:45:20.842 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-13-14:45:20.857 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-11-13-14:45:21.063 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-11-13-14:45:21.063 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 3175 ms
+2022-11-13-14:45:21.157 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-11-13-14:45:21.381 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-11-13-14:45:22.454 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='onlineStatus', column='online_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:45:22.454 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='deleteStatus', column='delete_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:45:23.335 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnType', column='return_type', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:45:23.335 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnApproach', column='return_approach', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:45:23.336 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='auditStatus', column='audit_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:45:24.093 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-13-14:45:24.289 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-11-13-14:45:24.378 INFO [main]-org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:53>>Adding welcome page: class path resource [static/index.html]
+2022-11-13-14:45:24.479 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-11-13-14:45:24.489 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-11-13-14:45:24.491 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-11-13-14:45:24.492 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-11-13-14:45:24.493 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-11-13-14:45:24.600 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-11-13-14:45:24.619 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-11-13-14:45:24.619 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-11-13-14:45:24.620 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-11-13-14:45:24.621 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-11-13-14:45:24.622 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-11-13-14:45:24.622 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-11-13-14:45:24.622 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@4ec27c4c
+2022-11-13-14:45:24.631 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-11-13-14:45:24.707 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:45:24.747 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path '/cps'
+2022-11-13-14:45:24.749 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-11-13-14:45:24.769 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-11-13-14:45:24.804 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-11-13-14:45:25.226 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: sendImgUsingPUT_1
+2022-11-13-14:45:25.237 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-11-13-14:45:25.259 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-11-13-14:45:25.272 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-11-13-14:45:25.287 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-11-13-14:45:25.316 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-11-13-14:45:25.316 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-11-13-14:45:25.370 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 8.762 seconds (JVM running for 12.242)
+2022-11-13-14:45:58.473 INFO [http-nio-8080-exec-1]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-13-14:45:58.474 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-13-14:45:58.475 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 1 ms
+2022-11-13-14:48:21.359 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 5352 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-11-13-14:48:21.374 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-11-13-14:48:23.420 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-11-13-14:48:23.740 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:48:23.742 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$e803843d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:48:23.757 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:48:23.763 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:48:24.092 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-11-13-14:48:24.103 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:48:24.103 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-11-13-14:48:24.103 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-11-13-14:48:24.105 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-11-13-14:48:24.105 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-13-14:48:24.105 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-13-14:48:24.116 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-11-13-14:48:24.228 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-11-13-14:48:24.228 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 2797 ms
+2022-11-13-14:48:24.326 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-11-13-14:48:24.499 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-11-13-14:48:25.288 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='onlineStatus', column='online_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:48:25.289 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='deleteStatus', column='delete_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:48:25.846 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnType', column='return_type', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:48:25.846 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnApproach', column='return_approach', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:48:25.846 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='auditStatus', column='audit_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:48:26.305 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-13-14:48:26.401 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-11-13-14:48:26.523 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-11-13-14:48:26.528 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-11-13-14:48:26.529 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-11-13-14:48:26.530 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-11-13-14:48:26.530 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-11-13-14:48:26.595 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-11-13-14:48:26.603 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-11-13-14:48:26.604 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-11-13-14:48:26.604 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-11-13-14:48:26.605 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-11-13-14:48:26.605 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-11-13-14:48:26.605 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-11-13-14:48:26.605 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@6207145c
+2022-11-13-14:48:26.612 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-11-13-14:48:26.662 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:48:26.704 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path '/cps'
+2022-11-13-14:48:26.706 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-11-13-14:48:26.720 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-11-13-14:48:26.754 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-11-13-14:48:26.980 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: sendImgUsingPUT_1
+2022-11-13-14:48:26.987 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-11-13-14:48:27.004 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-11-13-14:48:27.014 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-11-13-14:48:27.023 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-11-13-14:48:27.041 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-11-13-14:48:27.041 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-11-13-14:48:27.066 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 6.8 seconds (JVM running for 10.478)
+2022-11-13-14:49:25.835 INFO [http-nio-8080-exec-7]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-13-14:49:25.837 INFO [http-nio-8080-exec-7]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-13-14:49:25.839 INFO [http-nio-8080-exec-7]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 1 ms
+2022-11-13-14:50:34.811 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 16200 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-11-13-14:50:34.814 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-11-13-14:50:36.731 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-11-13-14:50:36.965 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:50:36.966 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$691732de] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:50:36.981 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:50:36.986 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:50:37.325 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-11-13-14:50:37.361 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:50:37.361 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-11-13-14:50:37.361 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-11-13-14:50:37.363 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-11-13-14:50:37.364 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-13-14:50:37.364 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-13-14:50:37.370 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-11-13-14:50:37.499 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-11-13-14:50:37.500 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 2625 ms
+2022-11-13-14:50:37.605 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-11-13-14:50:37.792 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-11-13-14:50:38.615 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='onlineStatus', column='online_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:50:38.616 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='deleteStatus', column='delete_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:50:39.163 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnType', column='return_type', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:50:39.164 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnApproach', column='return_approach', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:50:39.165 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='auditStatus', column='audit_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:50:39.689 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-13-14:50:39.784 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-11-13-14:50:39.903 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-11-13-14:50:39.906 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-11-13-14:50:39.907 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-11-13-14:50:39.907 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-11-13-14:50:39.908 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-11-13-14:50:39.953 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-11-13-14:50:39.961 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-11-13-14:50:39.961 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-11-13-14:50:39.962 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-11-13-14:50:39.962 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-11-13-14:50:39.963 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-11-13-14:50:39.963 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-11-13-14:50:39.963 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@78861d9e
+2022-11-13-14:50:39.968 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-11-13-14:50:40.013 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:50:40.042 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path '/cps'
+2022-11-13-14:50:40.043 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-11-13-14:50:40.056 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-11-13-14:50:40.083 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-11-13-14:50:40.304 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: sendImgUsingPUT_1
+2022-11-13-14:50:40.313 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-11-13-14:50:40.337 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-11-13-14:50:40.348 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-11-13-14:50:40.356 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-11-13-14:50:40.371 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-11-13-14:50:40.372 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-11-13-14:50:40.385 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 8.107 seconds (JVM running for 10.406)
+2022-11-13-14:51:22.008 INFO [http-nio-8080-exec-1]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-13-14:51:22.009 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-13-14:51:22.011 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 2 ms
+2022-11-13-14:53:38.854 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 4612 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-11-13-14:53:38.858 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-11-13-14:53:39.930 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-11-13-14:53:40.142 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:53:40.144 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$7749a063] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:53:40.155 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:53:40.160 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:53:40.380 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-11-13-14:53:40.405 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:53:40.406 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-11-13-14:53:40.407 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-11-13-14:53:40.409 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-11-13-14:53:40.409 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-13-14:53:40.410 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-13-14:53:40.422 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-11-13-14:53:40.560 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-11-13-14:53:40.560 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 1637 ms
+2022-11-13-14:53:40.651 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-11-13-14:53:40.763 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-11-13-14:53:41.317 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='onlineStatus', column='online_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:53:41.318 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='deleteStatus', column='delete_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:53:41.948 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnType', column='return_type', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:53:41.948 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnApproach', column='return_approach', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:53:41.948 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='auditStatus', column='audit_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:53:42.345 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-13-14:53:42.475 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-11-13-14:53:42.546 INFO [main]-org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:53>>Adding welcome page: class path resource [index.html]
+2022-11-13-14:53:42.609 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-11-13-14:53:42.617 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-11-13-14:53:42.618 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-11-13-14:53:42.618 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-11-13-14:53:42.618 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-11-13-14:53:42.712 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-11-13-14:53:42.731 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-11-13-14:53:42.732 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-11-13-14:53:42.733 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-11-13-14:53:42.734 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-11-13-14:53:42.735 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-11-13-14:53:42.736 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-11-13-14:53:42.736 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@64d93096
+2022-11-13-14:53:42.753 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-11-13-14:53:42.848 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:53:42.900 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path '/cps'
+2022-11-13-14:53:42.902 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-11-13-14:53:42.915 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-11-13-14:53:42.953 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-11-13-14:53:43.181 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: sendImgUsingPUT_1
+2022-11-13-14:53:43.191 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-11-13-14:53:43.212 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-11-13-14:53:43.222 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-11-13-14:53:43.237 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-11-13-14:53:43.271 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-11-13-14:53:43.271 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-11-13-14:53:43.288 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 5.304 seconds (JVM running for 6.907)
+2022-11-13-14:54:13.048 INFO [http-nio-8080-exec-5]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-13-14:54:13.050 INFO [http-nio-8080-exec-5]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-13-14:54:13.052 INFO [http-nio-8080-exec-5]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 2 ms
+2022-11-13-14:56:18.597 INFO [main]-org.springframework.boot.StartupInfoLogger:55>>Starting ApiApplication using Java 11.0.7 on LAPTOP-Q2EAS1OC with PID 4644 (D:\Users\ASUS\Desktop\CPSForSupermarket\api\target\classes started by ASUS in D:\Users\ASUS\Desktop\CPSForSupermarket)
+2022-11-13-14:56:18.600 INFO [main]-org.springframework.boot.SpringApplication:662>>No active profile set, falling back to default profiles: default
+2022-11-13-14:56:20.755 WARN [main]-org.mybatis.logging.Logger:44>>No MyBatis mapper was found in '[com.qfedu.fmmall]' package. Please check your configuration.
+2022-11-13-14:56:20.986 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:56:20.987 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$c2adef08] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:56:21.000 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:56:21.005 INFO [main]-org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376>>Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2022-11-13-14:56:21.332 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108>>Tomcat initialized with port(s): 8080 (http)
+2022-11-13-14:56:21.356 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:56:21.357 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting service [Tomcat]
+2022-11-13-14:56:21.358 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting Servlet engine: [Apache Tomcat/9.0.44]
+2022-11-13-14:56:21.365 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Loaded Apache Tomcat Native library [1.2.23] using APR version [1.7.0].
+2022-11-13-14:56:21.365 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2022-11-13-14:56:21.365 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2022-11-13-14:56:21.380 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>OpenSSL successfully initialized [OpenSSL 1.1.1c  28 May 2019]
+2022-11-13-14:56:21.539 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring embedded WebApplicationContext
+2022-11-13-14:56:21.539 INFO [main]-org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:289>>Root WebApplicationContext: initialization completed in 2871 ms
+2022-11-13-14:56:21.621 INFO [main]-com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure:56>>Init DruidDataSource
+2022-11-13-14:56:21.811 INFO [main]-com.alibaba.druid.pool.DruidDataSource:994>>{dataSource-1} inited
+2022-11-13-14:56:22.563 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='onlineStatus', column='online_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:56:22.563 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=friend_list, property='deleteStatus', column='delete_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:56:23.103 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnType', column='return_type', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:56:23.103 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='returnApproach', column='return_approach', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:56:23.103 WARN [main]-tk.mybatis.mapper.mapperhelper.resolve.DefaultEntityResolve:154>>通用 Mapper 警告信息: <[EntityColumn{table=goods_return_apply, property='auditStatus', column='audit_status', javaType=char, jdbcType=null, typeHandler=null, id=false, identity=false, blob=false, generator='null', orderBy='null', orderPriority='0', insertable=true, updatable=true, order=DEFAULT}]> 使用了基本类型，基本类型在动态 SQL 中由于存在默认值，因此任何时候都不等于 null，建议修改基本类型为对应的包装类型!
+2022-11-13-14:56:23.534 INFO [main]-springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69>>Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-11-13-14:56:23.646 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'applicationTaskExecutor'
+2022-11-13-14:56:23.710 INFO [main]-org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping:53>>Adding welcome page: class path resource [static/index.html]
+2022-11-13-14:56:23.785 INFO [main]-com.baomidou.dynamic.datasource.DynamicDataSourceCreator:113>>动态数据源-检测到druid存在,如配置中未指定type,druid会默认配置
+2022-11-13-14:56:23.792 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.util.MsUtil CLASS_CACHE cache.
+2022-11-13-14:56:23.793 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.genid.GenIdUtil CACHE cache.
+2022-11-13-14:56:23.793 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:60>>Clear tk.mybatis.mapper.version.VersionUtil CACHE cache.
+2022-11-13-14:56:23.794 INFO [main]-tk.mybatis.mapper.autoconfigure.MapperCacheDisabler:83>>Clear EntityHelper entityTableMap cache.
+2022-11-13-14:56:23.844 INFO [main]-org.quartz.impl.StdSchedulerFactory:1220>>Using default implementation for ThreadExecutor
+2022-11-13-14:56:23.854 INFO [main]-org.quartz.core.SchedulerSignalerImpl:61>>Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2022-11-13-14:56:23.855 INFO [main]-org.quartz.core.QuartzScheduler:229>>Quartz Scheduler v.2.3.2 created.
+2022-11-13-14:56:23.856 INFO [main]-org.quartz.simpl.RAMJobStore:155>>RAMJobStore initialized.
+2022-11-13-14:56:23.856 INFO [main]-org.quartz.core.QuartzScheduler:294>>Scheduler meta-data: Quartz Scheduler (v2.3.2) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2022-11-13-14:56:23.856 INFO [main]-org.quartz.impl.StdSchedulerFactory:1374>>Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2022-11-13-14:56:23.856 INFO [main]-org.quartz.impl.StdSchedulerFactory:1378>>Quartz scheduler version: 2.3.2
+2022-11-13-14:56:23.857 INFO [main]-org.quartz.core.QuartzScheduler:2293>>JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@4a5066f5
+2022-11-13-14:56:23.862 INFO [main]-org.springframework.scheduling.concurrent.ExecutorConfigurationSupport:181>>Initializing ExecutorService 'taskScheduler'
+2022-11-13-14:56:23.916 INFO [main]-org.apache.juli.logging.DirectJDKLog:173>>Starting ProtocolHandler ["http-nio-8080"]
+2022-11-13-14:56:23.940 INFO [main]-org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220>>Tomcat started on port(s): 8080 (http) with context path ''
+2022-11-13-14:56:23.942 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160>>Context refreshed
+2022-11-13-14:56:23.955 INFO [main]-springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163>>Found 1 custom documentation plugin(s)
+2022-11-13-14:56:23.985 INFO [main]-springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41>>Scanning for api listing references
+2022-11-13-14:56:24.179 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: sendImgUsingPUT_1
+2022-11-13-14:56:24.189 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteOrderUsingPUT_1
+2022-11-13-14:56:24.206 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: listUsingGET_1
+2022-11-13-14:56:24.218 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: deleteAddressUsingDELETE_1
+2022-11-13-14:56:24.227 INFO [main]-springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40>>Generating unique operation named: getUserByDetailUsingGET_1
+2022-11-13-14:56:24.246 INFO [main]-org.springframework.scheduling.quartz.SchedulerFactoryBean:727>>Starting Quartz Scheduler now
+2022-11-13-14:56:24.247 INFO [main]-org.quartz.core.QuartzScheduler:547>>Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2022-11-13-14:56:24.266 INFO [main]-org.springframework.boot.StartupInfoLogger:61>>Started ApiApplication in 6.524 seconds (JVM running for 9.098)
+2022-11-13-14:56:41.831 INFO [http-nio-8080-exec-1]-org.apache.juli.logging.DirectJDKLog:173>>Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-11-13-14:56:41.833 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:525>>Initializing Servlet 'dispatcherServlet'
+2022-11-13-14:56:41.834 INFO [http-nio-8080-exec-1]-org.springframework.web.servlet.FrameworkServlet:547>>Completed initialization in 1 ms
+2022-11-13-14:57:04.669 INFO [http-nio-8080-exec-10]-com.qfedu.fmmall.controller.UserController:40>>eyJhbGciOiJIUzI1NiJ9.eyJrZXkxIjoidmFsdWUxIiwia2V5MiI6InZhbHVlMiIsImV4cCI6MTY2ODQwOTAyNH0.YJxHOfGBO4RtqB-e0WL3LA1i40xZiFX8GQf6u8aAnl8

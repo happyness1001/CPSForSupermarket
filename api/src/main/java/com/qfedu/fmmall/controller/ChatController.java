@@ -118,6 +118,15 @@ public class ChatController {
     }
 
 
+    /**
+     * @description: 消息已读
+     */
+    @PostMapping("/removeFriend")
+    private ResultVO removeFriend(@RequestBody ChatMsg data) throws IOException {
+        return  chatService.removeFriend(data);
+    }
+
+
 
 
 
