@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact name="fmmall:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/fmmall_jar</output-path>
+    <root id="root">
+      <element id="archive" name="fmmall.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/service/META-INF/MANIFEST.MF" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

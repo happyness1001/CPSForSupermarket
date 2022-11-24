@@ -47,7 +47,6 @@ public interface OrderService {
 
     public ResultVO changeOrderStatus(String orderId, String status);
 
-    public String saveOrUpdateImageFile(MultipartFile image);
+    public ResultVO saveOrUpdateImageFile(MultipartFile image);
 
-    public ResultVO cpsImageFile(MultipartFile image, String name);
 }

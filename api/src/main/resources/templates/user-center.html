@@ -181,7 +181,8 @@
 				data:{
 					token:"",
 					username:"",
-					userImg:""
+					userImg:"",
+					websocket:""
 				},
 				created:function(){
 					var nickname = getCookieValue("userId");
@@ -195,13 +196,12 @@
 							}
 						});
 						if ('WebSocket'in window) {
-							this.websocket = new WebSocket("ws://localhost:8080/websocket/"+nickname);
+							this.websocket = new WebSocket(webSocketBaseUrl+"websocket/"+nickname);
 						} else {
 							alert('Not support websocket')
 						}
 						//连接发生错误的回调方法
 						this.websocket.onerror = function() {
-							alert("error");
 						};
 						//连接成功建立的回调方法
 						this.websocket.onopen = function(event) {

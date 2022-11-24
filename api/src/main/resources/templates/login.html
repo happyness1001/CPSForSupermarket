@@ -40,7 +40,7 @@
 							</div>
 							<div class="user-pass"  style="margin-top: 20px;">
 								<label for="password"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></label>
-								<input type="password" v-model="password" placeholder="请输入密码" @keyup="checkInfo">
+								<input type="password" v-model="password" placeholder="请输入密码" @keyup="checkInfo" id="password">
 							</div>
 						</form>
 					</div>
@@ -51,7 +51,7 @@
 						<br />
 					</div>
 					<div class="am-cf">
-						<input type="button" @click="doSubmit" value="登 录" class="am-btn am-btn-primary am-btn-sm">
+						<input type="button" @click="doSubmit" value="登 录" class="am-btn am-btn-primary am-btn-sm" id="submit">
 					</div>
 					<div class="am-cf">
 						<input type="button" onclick="javascript:window.location.href='register.html'" value="注 册" class="am-btn am-btn-default am-btn-sm">
@@ -83,7 +83,6 @@
 		<script type="text/javascript" src="static/js/axios.min.js" ></script>
 		<script type="text/javascript" src="static/js/base.js" ></script>
 		<script type="text/javascript">
-			var baseUrl = "http://localhost:8080/";
 			var vm = new Vue({
 				el:"#container",
 				data:{
@@ -180,5 +179,14 @@
 
 		</script>
 	</body>
+	<script>
+		$("body").keydown(function () {
+			if (event.keyCode == "13"){    //13是enter键的键码
+				$("#submit").click();
+				//调用登录方法,在div中定义方法,或通过js绑定的方法都可以,我的登录方法就是通过jquery绑定的点击事件
+			}
+		});
+
+	</script>
 
 </html>

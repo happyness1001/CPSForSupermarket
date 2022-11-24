@@ -50,9 +50,9 @@
 					<div class="search-bar pr">
 						<a name="index_none_header_sysc" href="#"></a>
 						<form>
-<!--							<input id="searchInput" v-model="keyword" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">-->
-							<input id="searchInput"  name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-							<input id="ai-topsearch" class="submit am-btn"  value="搜索" index="1" type="button" @click="search()">
+							<input id="searchInput" v-model="keyword" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
+<!--							<input id="searchInput"  name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">-->
+							<input id="ai-topsearch" class="submit am-btn"  value="搜索" index="1" type="button" @click="searchgoods()">
 						</form>
 					</div>
 				</div>
@@ -130,7 +130,7 @@
 											<template v-for="p in products">
 												<li>
 													<div class="i-pic limit" @click="toIntroduction(p.productId)" :data-id="p.productId">
-														<img :src="skus[0].skuImg" />
+														<img :src="p.skus[0].skuImg" />
 														<p class="title fl">【{{p.productName}}】 {{p.skus[0].skuName}}</p>
 														<p class="price fl">
 															<b>¥</b>
@@ -271,7 +271,7 @@
 					}
 				},
 				methods:{
-					search:function (){
+					searchgoods:function (){
 						//根据关键字查询商品信息
 						this.keyword = document.getElementById("searchInput").value;
 						var url3 = baseUrl+"product/listbykeyword";

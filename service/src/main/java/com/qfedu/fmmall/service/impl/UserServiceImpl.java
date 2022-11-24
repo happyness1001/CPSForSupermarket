@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultVO saveOrUpdateImageFile(String id, MultipartFile image) throws IOException {
-        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\img";
+        String path ="/var/CPSForSupermarket/api/src/main/resources/templates/static/img";
         String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
         suffix = suffix.toLowerCase();
         if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){

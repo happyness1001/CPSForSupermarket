@@ -98,8 +98,7 @@ public class ChatController {
 //    @Transactional
     @PutMapping("/sendImg")
     public ResultVO sendImg( @RequestBody MultipartFile image) throws IOException {
-        String name = chatService.saveOrUpdateImageFile(image);
-        ResultVO resultVO = chatService.cpsImageFile(image,name);
+        ResultVO resultVO = chatService.saveOrUpdateImageFile(image);
         return resultVO;
     }
 

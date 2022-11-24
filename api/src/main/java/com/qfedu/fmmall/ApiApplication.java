@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import tk.mybatis.spring.annotation.MapperScan;
 
-@SpringBootApplication
+
+@SpringBootApplication()
 @MapperScan("com.qfedu.fmmall.dao")
 @EnableScheduling
 public class ApiApplication {

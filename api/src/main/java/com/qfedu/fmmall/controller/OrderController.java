@@ -203,8 +203,7 @@ public class OrderController {
 //    @Transactional
     @PutMapping("/sendImg")
     public ResultVO sendImg( @RequestBody MultipartFile image) throws IOException {
-        String name = orderService.saveOrUpdateImageFile(image);
-        ResultVO resultVO = orderService.cpsImageFile(image,name);
+        ResultVO resultVO = orderService.saveOrUpdateImageFile(image);
         return resultVO;
     }
 

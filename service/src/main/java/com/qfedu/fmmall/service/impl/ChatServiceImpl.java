@@ -8,6 +8,8 @@ import com.qfedu.fmmall.utils.MD5Utils;
 import com.qfedu.fmmall.vo.ResStatus;
 import com.qfedu.fmmall.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tk.mybatis.mapper.entity.Example;
@@ -20,7 +22,14 @@ import java.util.*;
 import org.apache.commons.io.FileUtils;
 
 @Service
+@Configuration
 public class ChatServiceImpl implements ChatService {
+
+    @Value(value ="${file.uploadurl}")
+    private String uploadPath;
+
+    @Value(value ="${file.ip}")
+    private String ip;
 
     @Autowired
     private ChatMsgMapper chatMsgMapper;
@@ -220,8 +229,10 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public String saveOrUpdateImageFile(MultipartFile image){
-        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\chatImg";
+    public ResultVO saveOrUpdateImageFile(MultipartFile image){
+//        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\chatImg";
+//        String path ="/var/CPSForSupermarket/api/src/main/resources/templates/static/chatImg";
+        String path = uploadPath+"chatImg";
         String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
         suffix = suffix.toLowerCase();
         if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
@@ -240,45 +251,47 @@ public class ChatServiceImpl implements ChatService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-                return fileName;
-        }else{
-            return "";
-        }
-
-    }
-
-    @Override
-    public ResultVO cpsImageFile(MultipartFile image,String fileName) {
-        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\chatImg";
-        String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
-        suffix = suffix.toLowerCase();
-        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
-            File targetFile = new File(path, fileName);
-
-            if(!targetFile.getParentFile().exists()){    //注意，判断父级路径是否存在
-                targetFile.getParentFile().mkdirs();
-            }
-            long size = 0;
-            //保存
-            try {
-                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile);
-                String path2 ="D:\\Users\\ASUS\\Desktop\\cps\\cps-admin\\target\\classes\\static\\chatImg";
-                size = image.getSize();
-                File targetFile2 = new File(path2, fileName);
-
-                if(!targetFile2.getParentFile().exists()){    //注意，判断父级路径是否存在
-                    targetFile2.getParentFile().mkdirs();
-                }
-                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile2);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return new ResultVO(ResStatus.OK,"sucesss",fileName);
+            return new ResultVO(ResStatus.OK,"sucesss","http://"+ip+"/cps/profile/upload/chatImg/"+fileName);
         }else{
             return new ResultVO(ResStatus.NO,"图片格式错误","");
         }
 
     }
+
+//    @Override
+//    public ResultVO cpsImageFile(MultipartFile image,String fileName) {
+//////        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\chatImg";
+////        String path ="/var/cps/cps-admin/src/main/resources/static/chatImg";
+////        String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+////        suffix = suffix.toLowerCase();
+////        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
+////            File targetFile = new File(path, fileName);
+////
+////            if(!targetFile.getParentFile().exists()){    //注意，判断父级路径是否存在
+////                targetFile.getParentFile().mkdirs();
+////            }
+////            long size = 0;
+////            //保存
+////            try {
+////                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile);
+//////                String path2 ="D:\\Users\\ASUS\\Desktop\\cps\\cps-admin\\target\\classes\\static\\chatImg";
+////                String path2 ="/var/cps/cps-admin/target/classes/static/chatImg";
+////                size = image.getSize();
+////                File targetFile2 = new File(path2, fileName);
+////
+////                if(!targetFile2.getParentFile().exists()){    //注意，判断父级路径是否存在
+////                    targetFile2.getParentFile().mkdirs();
+////                }
+////                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile2);
+////            } catch (Exception e) {
+////                e.printStackTrace();
+////            }
+//            return new ResultVO(ResStatus.OK,"sucesss",fileName);
+////        }else{
+////            return new ResultVO(ResStatus.NO,"图片格式错误","");
+////        }
+//
+//    }
 
     @Override
     public void getOnlineStatus(String userId,char a) {

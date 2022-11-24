@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,11 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private GoodsReturnApplyMapper goodsReturnApplyMapper;
 
+    @Value(value ="${file.uploadurl}")
+    private String uploadPath;
+
+    @Value(value ="${file.ip}")
+    private String ip;
 
     private Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
     private Object Collection;
@@ -423,8 +429,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public String saveOrUpdateImageFile(MultipartFile image) {
-        String path ="D:\\Users\\ASUS\\Desktop\\CPSForSupermarket\\api\\src\\main\\resources\\templates\\static\\returnEvidence";
+    public ResultVO saveOrUpdateImageFile(MultipartFile image) {
+
+        String path =uploadPath+"returnEvidence";
         String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
         suffix = suffix.toLowerCase();
         if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
@@ -443,36 +450,37 @@ public class OrderServiceImpl implements OrderService {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return fileName;
-        }else{
-            return "";
-        }
-    }
-
-    @Override
-    public ResultVO cpsImageFile(MultipartFile image, String fileName) {
-        String path ="D:\\Users\\ASUS\\Desktop\\cps\\uploadPath\\upload\\returnEvidence";
-        String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
-        suffix = suffix.toLowerCase();
-        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
-            File targetFile = new File(path, fileName);
-
-            if(!targetFile.getParentFile().exists()){    //注意，判断父级路径是否存在
-                targetFile.getParentFile().mkdirs();
-            }
-            long size = 0;
-            //保存
-            try {
-                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return new ResultVO(ResStatus.OK,"sucesss","http://localhost/cps/profile/upload/returnEvidence/"+fileName);
+            return new ResultVO(ResStatus.OK,"sucesss","http://"+ip+"/cps/profile/upload/returnEvidence/"+fileName);
         }else{
             return new ResultVO(ResStatus.NO,"图片格式错误","");
         }
     }
+
+//    @Override
+//    public ResultVO cpsImageFile(MultipartFile image, String fileName) {
+////        String path ="D:\\Users\\ASUS\\Desktop\\cps\\uploadPath\\upload\\returnEvidence";
+//        String path ="/var/cps/uploadPath/upload/returnEvidence";
+//        String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
+//        suffix = suffix.toLowerCase();
+//        if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
+//            File targetFile = new File(path, fileName);
+//
+//            if(!targetFile.getParentFile().exists()){    //注意，判断父级路径是否存在
+//                targetFile.getParentFile().mkdirs();
+//            }
+//            long size = 0;
+//            //保存
+//            try {
+//                FileUtils.copyInputStreamToFile(image.getInputStream(), targetFile);
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return new ResultVO(ResStatus.OK,"sucesss","http://localhost/cps/profile/upload/returnEvidence/"+fileName);
+//        }else{
+//            return new ResultVO(ResStatus.NO,"图片格式错误","");
+//        }
+//    }
 
     @Transactional
     public Map<String,String> addOrder2(String cids,Orders order) throws SQLException {

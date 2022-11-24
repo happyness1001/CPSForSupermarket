@@ -25,9 +25,8 @@ public interface ChatService {
 
     public ResultVO getUnreadMsg(String userId);
 
-    public String saveOrUpdateImageFile(MultipartFile image);
+    public ResultVO saveOrUpdateImageFile(MultipartFile image);
 
-    public ResultVO cpsImageFile(MultipartFile image,String fileName);
 
     public void getOnlineStatus(String nickname, char a);
 

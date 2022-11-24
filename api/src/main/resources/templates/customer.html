@@ -178,7 +178,7 @@
 			var nickname = userId
 			//判断当前浏览器是否支持WebSocket
 			if ('WebSocket'in window) {
-				this.websocket = new WebSocket("ws://localhost:8080/CustomerSocket/"+nickname);
+				this.websocket = new WebSocket(webSocketBaseUrl+"CustomerSocket/"+nickname);
 			} else {
 				alert('Not support websocket')
 			}
@@ -304,7 +304,7 @@
 			var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 			span.innerHTML += hour+":"+minute+":"+second;
 			var img = document.createElement("img");
-			img.setAttribute("src", "static/chatImg/"+innerHTML);
+			img.setAttribute("src", innerHTML);
 			div.appendChild(img);
 			div.appendChild(span);
 		}else{
@@ -375,7 +375,7 @@
 			var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
 			span.innerHTML += hour+":"+minute+":"+second;
 			var img = document.createElement("img");
-			img.setAttribute("src", "static/chatImg/"+message.content);
+			img.setAttribute("src", message.content);
 			div.appendChild(img);
 			div.appendChild(span);
 		}else{

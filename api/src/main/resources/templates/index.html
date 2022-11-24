@@ -757,7 +757,8 @@
 							}
 						});
 						if ('WebSocket'in window) {
-							this.websocket = new WebSocket("ws://localhost:8080/websocket/"+nickname);
+							// this.websocket = new WebSocket("ws://123.249.18.188:8080/websocket/"+nickname);
+							this.websocket = new WebSocket(webSocketBaseUrl+"websocket/"+nickname);
 						} else {
 							alert('Not support websocket')
 						}
@@ -855,6 +856,7 @@
 			});
 
 		</script>
+
 			</div>
 			</div>
 		</div>
