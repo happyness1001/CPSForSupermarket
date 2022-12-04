@@ -75,7 +75,7 @@ public class OrderTimeoutCheckJob {
     }
 
     @Scheduled(cron = "0 15 10 15 * ?")
-   //@Scheduled(cron = "0/10 * * * * ?")
+   // @Scheduled(cron = "0/10 * * * * ?")
     public void checkRelatedRule(){
         /*System.out.println(111111111);*/
         Process proc;
@@ -83,7 +83,7 @@ public class OrderTimeoutCheckJob {
             File directory = new File("");//参数为空
             String courseFile = directory.getCanonicalPath() ;
             /*这里要换成绝对路径*/
-            String[] arg = new String[]{"python", courseFile+"\\商城-数据库\\renewRelatedRules.py"};
+            String[] arg = new String[]{"python3", "/home/cps/otherPython/renewRelatedRules.py"};
             proc = Runtime.getRuntime().exec(arg);// 执行py文件
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -91,9 +91,9 @@ public class OrderTimeoutCheckJob {
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
             }
-            if(proc.exitValue() != 0){
-                System.out.println("ERROR:推荐算法读取失败，请检查算法文件存在且路径准确");
-            }
+            //if(proc.exitValue() != 0){
+            //    System.out.println("ERROR:推荐算法读取失败，请检查算法文件存在且路径准确");
+            //}
             in.close();
             proc.waitFor();
         } catch (IOException e) {

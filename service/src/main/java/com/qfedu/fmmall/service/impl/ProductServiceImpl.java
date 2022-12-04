@@ -142,6 +142,10 @@ public class ProductServiceImpl implements ProductService {
                 }
             }
 
+            if(productVOS.size()<3){
+                productVOS.addAll(productMapper.selectRecommendProducts(0,3-productVOS.size()));
+            }
+
             ResultVO resultVO = new ResultVO(ResStatus.OK, "success", productVOS);
             return resultVO;
         }

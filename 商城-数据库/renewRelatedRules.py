@@ -7,7 +7,7 @@ import numpy as np
 from pandas.io import sql
 import pymysql
 import time
-
+import random
 
 
 #自定义连接函数，用于实现L_{k-1}到C_k的连接
@@ -67,7 +67,7 @@ def find_rule(d, support, confidence, ms = u'--'):
 
 db_fmmall = pymysql.connect(host="localhost",
                       user='root',
-                      password='root',
+                      password='mVOtVo3@OD3O$ke!83@TtxZHgvompSiX&VYY',
                       database='fmmall2')
 cursor_fmmall = db_fmmall.cursor()
 #关联规则分析
@@ -147,18 +147,18 @@ try:
 except:
   print("ERROR:Failed to update or create related table, please confirm the database information")
 try:
-  for i in range(result_index.__len__()):
-    related_id = "A" +  str(time.time())
-    sql_insert_related_products = "insert into related_products (`related_id`,support,confidence) values ('%s',%f,%f)"%\
-      (related_id,result.iloc[i].values[0],result.iloc[i].values[1])
-    cursor_fmmall.execute(sql_insert_related_products)
-    related_item_list = str.split(result_index[i],"---")
-    for j in range(related_item_list.__len__()):
-      related_item_id = "B" + str(time.time()) + related_item_list[j] + str(np.random.randint(10,99))
-      #print(related_item_id)
-      sql_insert_related_products_items = "insert into related_products_items (`related_item_id`,`product_id`,`related_id`) values('%s','%s','%s')"%\
-                                          (related_item_id,related_item_list[j],related_id)
-      cursor_fmmall.execute(sql_insert_related_products_items)
+    for i in range(result_index.__len__()):
+      related_id = "A" +  str(time.time()) + str(random.randint(1,50))
+      sql_insert_related_products = "insert into related_products (`related_id`,support,confidence) values ('%s',%f,%f)"%\
+        (related_id,result.iloc[i].values[0],result.iloc[i].values[1])
+      cursor_fmmall.execute(sql_insert_related_products)
+      related_item_list = str.split(result_index[i],"---")
+      for j in range(related_item_list.__len__()):
+        related_item_id = "B" + str(time.time()) + related_item_list[j] + str(np.random.randint(10,99))
+        #print(related_item_id)
+        sql_insert_related_products_items = "insert into related_products_items (`related_item_id`,`product_id`,`related_id`) values('%s','%s','%s')"%\
+                                            (related_item_id,related_item_list[j],related_id)
+        cursor_fmmall.execute(sql_insert_related_products_items)
 except:
   print("ERROR:Failed to write related table, please confirm the database information")
 
