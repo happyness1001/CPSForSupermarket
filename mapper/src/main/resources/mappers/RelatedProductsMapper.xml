@@ -13,7 +13,7 @@
     <result column="confidence" jdbcType="DECIMAL" property="confidence" />
   </resultMap>
 
-  <select id="selectConfidenceByRelatedId" resultMap="BaseResultMap">
+  <select id="selectConfidenceByRelatedId" resultType="double">
     select fmmall2.related_products.confidence
     from fmmall2.related_products
     where related_id=#{relatedId}
