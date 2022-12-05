@@ -52,7 +52,7 @@
 		<!--header-->
 		<div class="header">
 			<div class="userimg">
-				<img :src="'static/'+userImg" class="cover">
+				<img :src="userImg" class="cover">
 			</div>
 		</div>
 		<div class="search_chat">
@@ -63,7 +63,7 @@
 		<div class="chatlist" id="chatlist">
 			<div class="block active" v-for="user in users" @click="getUser(user)" >
 				<div class="imgbx">
-					<img :src="'static/'+user.userImg" class="cover" >
+					<img :src="user.userImg" class="cover" >
 				</div>
 				<div class="details">
 					<div class="listHead">
@@ -84,7 +84,7 @@
 		<div class="header">
 			<div class="imgText">
 				<div class="userimg">
-					<img :src="'static/'+selected.userImg" class="cover">
+					<img :src="selected.userImg" class="cover">
 				</div>
 				<h4>{{selected.nickname}}<br>
 					<template v-if="selected.status == '1'">

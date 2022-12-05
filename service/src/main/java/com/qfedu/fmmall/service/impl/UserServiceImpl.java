@@ -10,6 +10,7 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,6 +42,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ChatMsgMapper chatMsgMapper;
 
+    @Value(value ="${file.uploadurl}")
+    private String uploadPath;
+
+    @Value(value ="${file.ip}")
+    private String ip;
+
 
     @Transactional
     public ResultVO userResgit(String name, String pwd) {
@@ -63,7 +70,8 @@ public class UserServiceImpl implements UserService {
 
                 user.setUsername(name);
                 user.setPassword(md5Pwd);
-                user.setUserImg("img/default.png");
+                user.setUserImg("static/img/default.png");
+                user.setNickname(name);
                 user.setUserRegtime(new Date());
                 user.setUserModtime(new Date());
                 int i = usersMapper.insertUser(user);
@@ -143,7 +151,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResultVO saveOrUpdateImageFile(String id, MultipartFile image) throws IOException {
-        String path ="/var/CPSForSupermarket/api/src/main/resources/templates/static/img";
+        String path =uploadPath+"/Img";
         String suffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf("."));
         suffix = suffix.toLowerCase();
         if(suffix.equals(".jpg") || suffix.equals(".jpeg") || suffix.equals(".png") || suffix.equals(".gif")){
@@ -161,7 +169,7 @@ public class UserServiceImpl implements UserService {
                 e.printStackTrace();
             }
             Users users = usersMapper.selectByPrimaryKey(id);
-            users.setUserImg("img/"+fileName);
+            users.setUserImg("http://"+ip+"/cps/profile/upload/Img/"+fileName);
             int i = usersMapper.updateByPrimaryKeySelective(users);
             if(i==1){
                 return new ResultVO(ResStatus.OK,"sucesss","");
@@ -188,7 +196,7 @@ public class UserServiceImpl implements UserService {
         List<Orders> orders = ordersMapper.selectByExample(example);
         List<String> skuIds = new ArrayList<>();
         for(Orders orders1 : orders){
-            Example example1 = new Example(Orders.class);
+            Example example1 = new Example(OrderItem.class);
             Example.Criteria criteria1 = example1.createCriteria();
             criteria1.andEqualTo("orderId", orders1.getOrderId());
             List<OrderItem> orderItems1 = orderItemMapper.selectByExample(example1);

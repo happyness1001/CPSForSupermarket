@@ -405,7 +405,7 @@
 		var divs = document.getElementById("file_upload");
 		divs.style.display = "none";
 		var token = getCookieValue("token");
-		var url5 = baseUrl+"user/changeAvatar/9"
+		var url5 = baseUrl+"user/changeAvatar/"+getCookieValue("userId");
 		axios({
 			url:url5,
 			method:"put",
