@@ -117,7 +117,8 @@
 				<div class="clear"></div>
 				<ul>
 							<span style="">
-								<template v-for="addr,index in addrs">
+								<template v-if="sign">
+									<template v-for="addr,index in addrs">
 									<li :class="{'user-addresslist':true, 'defaultAddr':index==addrIndex}" style="margin-top: 6px;" @click="chooseAddr" :data-index="index">
 										<div class="address-left">
 											<div class="user DefaultAddr">
@@ -143,10 +144,11 @@
 										<div class="clear"></div>
 										<div class="new-addr-btn">
 											<a href="javascript:void(0);" class="hidden">设为默认</a> <span class="new-addr-bar hidden">|</span>
-											<a href="javascript:void(0);">编辑</a> <span class="new-addr-bar">|</span>
+<!--											<a href="javascript:void(0);">编辑</a> <span class="new-addr-bar">|</span>-->
 											<a @click="deleteAddr(index)" >删除</a>
 										</div>
 									</li>
+								    </template>
 								</template>
 
 							</span>
@@ -264,37 +266,39 @@
 					<em class="pay-sum">¥{{totalPrice}}</em></p>
 			</div>
 			<div class="order-go clearfix">
-				<div class="pay-confirm clearfix">
-					<div class="box">
-						<div tabindex="0" id="holyshit267" class="realPay"><em class="t">实付款：</em>
-							<span class="price g_price ">
+				<template v-if="sign">
+					<div class="pay-confirm clearfix">
+						<div class="box">
+							<div tabindex="0" id="holyshit267" class="realPay"><em class="t">实付款：</em>
+								<span class="price g_price ">
 											<em id="J_ActualFee" class="style-large-bold-red ">¥{{totalPrice}}</em>
 										</span></div>
-						<div id="holyshit268" class="pay-address">
-							<p  class="buy-footer-address"><span class="buy-line-title buy-line-title-type">寄送至：</span>
-								<span class="buy--address-detail">
+							<div id="holyshit268" class="pay-address">
+								<p  class="buy-footer-address"><span class="buy-line-title buy-line-title-type">寄送至：</span>
+									<span class="buy--address-detail">
 												<span class="province">{{addrs[addrIndex].province}}</span>
 												<span class="city">{{addrs[addrIndex].city}}</span>
 												<span class="dist">{{addrs[addrIndex].area}}</span>
 												<span class="street">{{addrs[addrIndex].addr}}</span>
 											</span>
-							</p>
-							<p  class="buy-footer-address">
-								<span class="buy-line-title">收货人：</span>
-								<span class="buy-address-detail">
+								</p>
+								<p  class="buy-footer-address">
+									<span class="buy-line-title">收货人：</span>
+									<span class="buy-address-detail">
 												<span class="buy-user">{{addrs[addrIndex].receiverName}}</span>
 												<span class="buy-phone">{{addrs[addrIndex].receiverMobile}}</span>
 											</span>
-							</p>
+								</p>
+							</div>
 						</div>
-					</div>
-					<div id="holyshit269" class="submitOrder">
-						<div class="go-btn-wrap">
-							<a id="J_Go" href="#" tabindex="0" title="点击此按钮，提交订单" class="btn-go" @click="doSubmit">提交订单</a>
+						<div id="holyshit269" class="submitOrder">
+							<div class="go-btn-wrap">
+								<a id="J_Go" href="#" tabindex="0" title="点击此按钮，提交订单" class="btn-go" @click="doSubmit">提交订单</a>
+							</div>
 						</div>
+						<div class="clear"></div>
 					</div>
-					<div class="clear"></div>
-				</div>
+				</template>
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -356,7 +360,8 @@
 				"receiverName": "",
 				"userId":"",
 
-			}
+			},
+			sign :0
 		},
 		created:function(){
 			this.cartIds = getUrlParam("cids");
@@ -387,6 +392,11 @@
 						if(this.addrs[i].commonAddr == 1){
 							this.addrIndex = i;
 						}
+					}
+					if(this.addrs.length>0){
+						this.sign = 1;
+					}else{
+						alert("请添加新地址购买！")
 					}
 				}
 			});
@@ -505,7 +515,11 @@
 					data: this.newaddress
 				}).then((res)=>{
 					if(res.data.code == 10000){
+						this.addrs.push(this.newaddress);
+						this.addrIndex = this.addrs.length;
+						location.reload([true]);
 						layer.msg("添加地址成功！");
+						this.sign=1;
 					}else if(res.data.code == 10001){
 						layer.msg("添加地址失败！");
 					}else{
@@ -522,7 +536,6 @@
 					}
 
 				});
-				location.reload([true]);
 
 
 			},
@@ -632,7 +645,6 @@
 						console.log(orderInfo);
 						localStorage.setItem("orderInfo", JSON.stringify(orderInfo));
 
-						var urls = "http://localhost:80/cps/wh/outboundOrder/add";
 						var whOutboundOrder = {
 							orderName:orderInfo.orderId,
 							orderDate:new Date(),
@@ -643,12 +655,17 @@
 						};
 						whOutboundOrderVO.goods = goods;
 						whOutboundOrderVO.whOutboundOrder = whOutboundOrder;
+						console.log("发送数据",whOutboundOrderVO);
+						var urls = cpsUrl+"cps/wh/outboundOrder/add";
+						// var urls = "http://localhost:80/cps/wh/outboundOrder/add";
+						// var urls = "http://123.249.18.188:80/cps/wh/outboundOrder/add";
 						axios({
 							url: urls,
 							method: "post",
 							data: whOutboundOrderVO
 						}).then((res) => {
-							console.log(res)
+							console.log(res);
+							window.location.href = "order-pay.html";
 						});
 						// window.location.href = "order-pay.html";
 					} else if (res.data.code == 20001 || res.data.code == 20002) {

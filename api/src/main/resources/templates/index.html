@@ -260,7 +260,7 @@
 						<div class="mod-vip">
 							<div class="m-baseinfo" v-if="isLogin">
 								<a href="person/index.html">
-									<img :src="'static/'+userimg">
+									<img :src="userimg">
 								</a>
 								<em>
 									Hi,<span class="s-name">{{username}}</span>
@@ -850,6 +850,7 @@
 				},
 				methods:{
 					toSearch:function(){
+						this.keyword = document.getElementById('searchInput').value;
 						var url = "search.html?keyword="+this.keyword;
 						window.location.href = encodeURI(url);
 					}
