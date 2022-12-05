@@ -375,7 +375,12 @@ public class ChatServiceImpl implements ChatService {
         criteria2.andEqualTo("sendId","0");
         criteria2.andEqualTo("readstate","0");
         List<ChatMsg> chatMsgList2 = chatMsgMapper.selectByExample(example2);
-        usersMsgVo.setChatMsg(chatMsgMapper.lastMsg(userId,"0"));
+        if(chatMsgMapper.lastMsg(userId,"0")!=null){
+            usersMsgVo.setChatMsg(chatMsgMapper.lastMsg(userId,"0"));
+        }else{
+            usersMsgVo.setChatMsg(new ChatMsg(new Date(),"尚未开始聊天"));
+        }
+//        usersMsgVo.setChatMsg(chatMsgMapper.lastMsg(userId,"0"));
         usersMsgVo.setUnreadNumber(chatMsgList2.size());
         usersMsgVo.setStatus('1');
         usersMsgVos.add(usersMsgVo);
