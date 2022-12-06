@@ -10,6 +10,7 @@ import com.qfedu.fmmall.entity.ProductSku;
 import com.qfedu.fmmall.service.OrderService;
 import com.qfedu.fmmall.service.impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import tk.mybatis.mapper.entity.Example;
@@ -30,6 +31,8 @@ public class OrderTimeoutCheckJob {
     private OrdersMapper ordersMapper;
     @Autowired
     private OrderService orderService;
+    @Value(value ="${file.uploadurl}")
+    private String uploadPath;
 
     private WXPay wxPay = new WXPay(new MyPayConfig());
 
@@ -83,7 +86,7 @@ public class OrderTimeoutCheckJob {
             File directory = new File("");//参数为空
             String courseFile = directory.getCanonicalPath() ;
             /*这里要换成绝对路径*/
-            String[] arg = new String[]{"python3", "/home/cps/otherPython/renewRelatedRules.py"};
+            String[] arg = new String[]{"python3", uploadPath+ "renewRelatedRules.py"};
             proc = Runtime.getRuntime().exec(arg);// 执行py文件
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
