@@ -215,6 +215,26 @@
 			}
 		},
 		methods: {
+			removeFriend:function (){
+				var r = confirm("确定要结束聊天吗？")
+				if (r == true) {
+					var url2 = baseUrl+"chat/removeFriend";
+					var ChatMsg = {sendId:this.userId,receiveId:this.selected.userId};
+					axios({
+						url:url2,
+						method:"post",
+						data: ChatMsg
+					}).then((res)=>{
+						if(res.data.code == 10000){
+							//请求成功  [{commonType:0},{commonType:1}]
+
+							window.history.back();
+						}
+					});
+				} else {
+					return;
+				}
+			},
 			searchUser:function (){
 				document.getElementById('chatlist').value="";
 				var information = document.getElementById('search').value;

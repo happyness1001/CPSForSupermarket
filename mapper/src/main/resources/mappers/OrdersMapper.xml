@@ -123,7 +123,7 @@
     delivery_flow_id,order_freight,delete_status,create_time,
     update_time,pay_time,delivery_time, flish_time,cancel_time,close_type,due_time
     from orders
-    where user_id=#{userId}
+    where user_id=#{userId} and delete_status =0
     <if test="status != null">
       and status=#{status}
     </if>

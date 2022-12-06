@@ -57,6 +57,8 @@ public class ProductServiceImpl implements ProductService {
                 ResultVO resultVO = new ResultVO(ResStatus.OK, "success", productVOS);
                 return resultVO;
             }
+            System.out.println("查看订单");
+            System.out.println(orders);
             System.out.println(orders.get(0).getOrderId());
             /*查询最近的一次订单所含有的商品id*/
             Example OrderItemExample = new Example(OrderItem.class);
@@ -197,10 +199,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResultVO getProductsByCategoryId(int categoryId, int pageNum, int limit) {
+    public ResultVO getProductsByCategoryId(String categoryId, int pageNum, int limit) {
         //1.查询分页数据
         int start = (pageNum-1)*limit;
-        List<ProductVO> productVOS = productMapper.selectProductByCategoryId(String.valueOf(categoryId), start, limit);
+        List<ProductVO> productVOS = productMapper.selectProductByCategoryId(categoryId, start, limit);
         //2.查询当前类别下的商品的总记录数
         Example example = new Example(Product.class);
         Example.Criteria criteria = example.createCriteria();

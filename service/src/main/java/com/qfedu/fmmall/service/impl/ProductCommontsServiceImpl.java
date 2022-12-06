@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -91,6 +92,18 @@ public class ProductCommontsServiceImpl implements ProductCommontsService {
             return new ResultVO(ResStatus.OK,"sucesss","");
         }
         return new ResultVO(ResStatus.NO,"FAILED","");
+    }
+
+    @Override
+    public ResultVO addComment(ProductComments productComments) {
+        String id = productCommentsMapper.selectLastComment();
+        productComments.setCommId(String.valueOf(Integer.valueOf(id)+1));
+        productComments.setSepcName(new Date());
+        if(productComments.getCommContent().equals("")){
+            productComments.setCommContent("无");
+        }
+        productCommentsMapper.insert(productComments);
+        return new ResultVO(ResStatus.OK,"sucesss","");
     }
 
 

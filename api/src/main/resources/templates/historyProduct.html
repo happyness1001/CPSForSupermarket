@@ -435,6 +435,7 @@
 				}
 			},
 			allAddCart:function (){
+				var sign = 1;
 				var uid = getCookieValue("userId");
 				if(this.opts.length ==0){
 					alert("请选择要加入购物车的商品！")
@@ -465,10 +466,15 @@
 						}).then((res)=>{
 							if(res.data.code == 10000){
 							}else{
+								sign=0;
 								alert("添加购物车失败！");
 								return;
 							}
 						});
+					}
+					console.log(sign);
+					if(sign){
+						alert("添加购物车成功！");
 					}
 				}
 			},
@@ -546,7 +552,6 @@
 								vm.cartIds.push(res.data.data);
 								this.orderAdd(res.data.data);
 							}else{
-								alert("添加购物车失败！");
 								return;
 							}
 						});

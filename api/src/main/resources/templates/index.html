@@ -171,10 +171,13 @@
 																<div class="sort-side">
 																	<!--每个dl代表一个二级分类-->
 																	<dl class="dl-sort" v-for="c2 in c1.categories">
-																		<dt><span :title="c2.categoryName">{{c2.categoryName}}</span></dt>
-																		<dd v-for="c3 in c2.categories">
-																			<a :title="c3.categoryName" :href="'search.html?cid='+c3.categoryId"><span>{{c3.categoryName}}</span></a>
-																		</dd>
+																		<dt>
+                                                                            <a :title="c2.categoryName" :href="'search.html?cid='+c2.categoryId"><span>{{c2.categoryName}}</span></a>
+<!--                                                                            <span :title="c2.categoryName">{{c2.categoryName}}</span>-->
+                                                                        </dt>
+<!--																		<dd v-for="c3 in c2.categories">-->
+<!--																			<a :title="c3.categoryName" :href="'search.html?cid='+c3.categoryId"><span>{{c3.categoryName}}</span></a>-->
+<!--																		</dd>-->
 																	</dl>
 																</div>
 

@@ -234,10 +234,6 @@
 					alert("性别输入错误！");
 					return ;
 				}
-				if(x == ""||x==null){
-					alert("请输入正确的出生日期！");
-					return ;
-				}
 				var now = new Date();
 				if(this.information.userBirth >=now){
 					alert("请选择正确的出生日期");
@@ -254,13 +250,12 @@
 					alert("请输入正确的电子邮件！");
 					return ;
 				}
-
 				this.information.userId = getCookieValue("userId");
 				console.log("个人信息",this.information)
 				var token = getCookieValue("token");
 				var divs = document.getElementById("div1");
 				divs.style.display = "none";
-				alert(this.information.userBirth);
+				this.information.password = null;
 				var url5 = baseUrl+"user/updateUser"
 				axios({
 					url:url5,
@@ -270,8 +265,9 @@
 					},
 					data: this.information
 				}).then((res)=>{
+					console.log("返回信息",res.data);
 					if(res.data.code == 10000){
-						layer.msg("修改信息成功！");
+						alert("修改信息成功！");
 					}else if(res.data.code == 10001){
 						layer.msg("修改信息失败！");
 					}else{
@@ -299,60 +295,57 @@
 				console.log(newPassword.length);
 				var newPassword2 = document.getElementById("newPassword2").value;
 				console.log(newPassword2.length);
-				if( md5(oldPassword)!= this.user.password){
-					alert("密码错误，请重新输入！")
-					this.isRight = "false";
+				if(!(md5(oldPassword)===this.user.password)) {
+					alert("密码错误，请重新输入！");
+					return;
 				}
 				if(newPassword!=newPassword2){
 					alert("两次密码不一致，请重新输入！")
-					this.isRight = "false";
+					return;
 				}
 				if(newPassword.length<6 || newPassword.length>16){
 					alert("密码应为6~16位，请重新输入！")
-					this.isRight = "false";
+					return;
 				}
-				if(this.isRight){
-					var divs = document.getElementById("div2");
-					divs.style.display = "none";
-					this.information.username = this.user.username;
-					this.information.nickname = this.user.nickname;
-					this.information.realname = this.user.realname;
-					this.information.userSex = this.user.userSex;
-					this.information.userBirth = this.user.userBirth;
-					this.information.userMobile = this.user.userMobile;
-					this.information.userEmail = this.user.userEmail;
-					this.information.password(newPassword);
-					this.information.userId = getCookieValue("userId");
-					var token = getCookieValue("token");
-					var url5 = baseUrl+"user/updateUser"
-					axios({
-						url:url5,
-						method:"put",
-						headers:{
-							token:token
-						},
-						data: this.information
-					}).then((res)=>{
-						if(res.data.code == 10000){
-							layer.msg("修改信息成功！");
-							alert("hh")
-						}else if(res.data.code == 10001){
-							layer.msg("修改信息失败！");
-						}else{
-							var str = "";
-							if(res.data.code == 20001){
-								str = "请先登录！";
-							}else if(res.data.code == 20002){
-								str = "登录过期，请重新登录！";
-							}
-							var loginUrl = "login.html?"+params;
-
-							//跳转到登录页面
-							window.location.href= encodeURI(loginUrl);
+				this.information.username = this.user.username;
+				this.information.nickname = this.user.nickname;
+				this.information.realname = this.user.realname;
+				this.information.userSex = this.user.userSex;
+				this.information.userBirth = this.user.userBirth;
+				this.information.userMobile = this.user.userMobile;
+				this.information.userEmail = this.user.userEmail;
+				this.information.password = newPassword;
+				this.information.userId = getCookieValue("userId");
+				var token = getCookieValue("token");
+				var url5 = baseUrl+"user/updateUser"
+				axios({
+					url:url5,
+					method:"put",
+					headers:{
+						token:token
+					},
+					data: this.information
+				}).then((res)=>{
+					if(res.data.code == 10000){
+						alert("信息修改成功")
+						var divs = document.getElementById("div2");
+						divs.style.display = "none";
+					}else if(res.data.code == 10001){
+						layer.msg("修改信息失败！");
+					}else{
+						var str = "";
+						if(res.data.code == 20001){
+							str = "请先登录！";
+						}else if(res.data.code == 20002){
+							str = "登录过期，请重新登录！";
 						}
+						var loginUrl = "login.html?"+params;
 
-					});
-				}
+						//跳转到登录页面
+						window.location.href= encodeURI(loginUrl);
+					}
+
+				});
 
 			},
 		}

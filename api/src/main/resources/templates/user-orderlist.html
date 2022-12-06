@@ -104,7 +104,7 @@
 										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退款</button>
 									</template>
 									<template v-if="order.status == '4'">
-										<button class="btn btn-success btn-xs" @click="gotoComment" :data-index="index">去评价</button>
+										<button class="btn btn-success btn-xs" @click="gotoComment(order)" :data-index="index">去评价</button>
 										<button class="btn btn-danger btn-xs" @click="returnApply(order.orderId)">退换货</button>
 									</template>
 									<template v-if="order.status == '5'">
@@ -267,9 +267,9 @@
 						});
 					},
 					gotoComment:function(event){
-						var index = event.srcElement.dataset.index;
-						var order = this.orders[index];
-						localStorage.setItem("order",JSON.stringify(order));
+						// var index = event.srcElement.dataset.index;
+						// var order = this.orders[index];
+						localStorage.setItem("order",JSON.stringify(event));
 						window.location.href = "user-commentadd.html";
 					},
 					doSubmit: function (obj) {

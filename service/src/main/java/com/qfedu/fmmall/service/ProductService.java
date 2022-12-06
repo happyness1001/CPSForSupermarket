@@ -10,7 +10,7 @@ public interface ProductService {
 
     public ResultVO getProductParamsById(String productId);
 
-    public ResultVO getProductsByCategoryId(int categoryId,int pageNum,int limit);
+    public ResultVO getProductsByCategoryId(String categoryId, int pageNum, int limit);
 
     public ResultVO listBrands(int categoryId);
 

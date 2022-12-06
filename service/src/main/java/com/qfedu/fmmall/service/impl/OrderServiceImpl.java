@@ -91,6 +91,7 @@ public class OrderServiceImpl implements OrderService {
             order.setUntitled(untitled);
             order.setCreateTime(new Date());
             order.setStatus("1");
+            order.setDeleteStatus(0);
             Date date = new Date();
             //设置交割时间
             if(order.getDueTime().before(date)){

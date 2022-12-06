@@ -69,5 +69,11 @@
     and c.is_show !=0
       limit #{start},#{limit}
   </select>
+  <select id="selectLastComment" resultType="java.lang.String">
+    select comm_id
+    from product_comments  order by sepc_name desc
+      limit 0,1
+  </select>
+
 
 </mapper>

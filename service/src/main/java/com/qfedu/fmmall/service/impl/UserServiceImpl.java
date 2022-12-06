@@ -124,18 +124,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResultVO updateUser(Users user) {
         Users users = usersMapper.selectByPrimaryKey(user.getUserId());
-        if(user.getPassword()!=""||user.getPassword()!=null){
+        if(user.getPassword()!=""&&user.getPassword()!=null){
             String md5Pwd = MD5Utils.md5(user.getPassword());
             users.setPassword(md5Pwd);
+        }else{
+            if(user.getUserImg()!=null&&!"".equals(user.getUserImg())){
+                users.setUserImg(user.getUserImg());
+            }
+            if(user.getNickname()!=null&&!"".equals(user.getNickname())){
+                users.setNickname(user.getNickname());
+            }
+            if(user.getRealname()!=null&&!"".equals(user.getRealname())){
+                users.setRealname(user.getRealname());
+            }
+            if(user.getUserBirth()!=null&&!"".equals(user.getUserBirth())){
+                users.setUserBirth(user.getUserBirth());
+            }
+            if(user.getUserEmail()!=null&&!"".equals(user.getUserEmail())){
+                users.setUserEmail(user.getUserEmail());
+            }
+            if(user.getUserSex()!=null&&!"".equals(user.getUserSex())){
+                users.setUserSex(user.getUserSex());
+            }
+            if(user.getUserMobile()!=null&&!"".equals(user.getUserMobile())){
+                users.setUserMobile(user.getUserMobile());
+            }
+
         }
-        users.setUserImg(user.getUserImg());
-        users.setNickname(user.getNickname());
-        users.setRealname(user.getRealname());
-        users.setUserBirth(user.getUserBirth());
-        System.out.println(users.getUserBirth());
-        users.setUserEmail(user.getUserEmail());
-        users.setUserSex(user.getUserSex());
-        users.setUserMobile(user.getUserMobile());
         int i = usersMapper.updateByPrimaryKeySelective(users);
         if(i==1){
             return new ResultVO(ResStatus.OK,"sucesss","");

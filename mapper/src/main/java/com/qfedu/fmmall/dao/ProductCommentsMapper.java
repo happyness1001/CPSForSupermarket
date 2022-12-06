@@ -23,4 +23,6 @@ public interface ProductCommentsMapper extends GeneralDAO<ProductComments> {
                                                              @Param("limit") int limit);
 
     public List<ProductCommentsVO> selectCommontsByUserId(String userId, int start, int limit);
+
+    public String selectLastComment();
 }

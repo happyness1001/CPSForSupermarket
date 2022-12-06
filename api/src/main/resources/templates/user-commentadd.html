@@ -1,59 +1,148 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body background="white">
-		<div id="container">
-			<h4>订单信息</h4>
-			<p>订单编号:{{order.orderId}}</p>
-			<hr>
-			<ul>
-				<li v-for="item in order.orderItems">
-					<div>
-						<div style="height: 60px; background:lightgoldenrodyellow; border: 1px darkgrey; width: 600px;">
-						<img :src="'static/pimgs/'+item.productImg" height="30">
-						{{item.productName}}
+<head>
+	<meta charset="UTF-8">
+	<title>评论</title>
+
+	<link href="static/css/amazeui.css" rel="stylesheet" type="text/css">
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<script type="text/javascript" src="static/js/jquery-3.4.1.min.js" ></script>
+	<script type="text/javascript" src="static/js/bootstrap.js" ></script>
+</head>
+<body>
+
+<div id="container">
+				<h4>订单信息</h4>
+				<p>订单编号:{{order.orderId}}</p>
+				<hr>
+				<ul>
+					<li v-for="item in order.orderItems">
+						<div>
+							<div style="height: 60px; background:lightgoldenrodyellow; border: 1px darkgrey; width: 600px;">
+							<img :src="item.productImg" height="30">
+							{{item.productName}}
+							</div>
 						</div>
+					</li>
+					<li>
 						<p>
-						评价类型：<input type="radio" value="1" name="comm_type"/>好评
-								<input type="radio" value="0" name="comm_type"/>中评
-								<input type="radio" value="-1" name="comm_type"/>差评
+							评价类型：<input type="radio" value="1" name="comm_type" @click="check('1')" checked/>好评
+							<input type="radio" value="0" name="comm_type" @click="check('0')"/>中评
+							<input type="radio" value="-1" name="comm_type" @click="check('-1')"/>差评
 						</p>
-						<p>
-						是否匿名：<input type="radio" value="1" name="is_anonymous"/>匿名
-								<input type="radio" value="0" name="is_anonymous"/>不匿名
-						</p>
-						评价内容：<textarea rows="4" cols="40" name="comm_content"></textarea>
-					</div>
-					
-				</li>
-				
-			</ul>
-			
-			<input type="button" value="提交" />
-		</div>
-		<script type="text/javascript" src="static/js/vue.js" ></script>
-		<script type="text/javascript" src="static/js/axios.min.js" ></script>
-		<script type="text/javascript" src="static/js/base.js" ></script>
-		<script type="text/javascript">
-			var vm = new Vue({
-				el:"#container",
-				data:{
-					order:{}
-				},
-				created:function(){
-					//获取到订单信息
-					var jsonstr = localStorage.getItem("order");
-					if(jsonstr != null){
-						localStorage.removeItem("order");
-						this.order = eval("("+jsonstr+")");
-						console.log(this.order);
-					}
-					
+	<!--					<p>-->
+	<!--						是否匿名：<input type="radio" value="1" name="is_anonymous"/>匿名-->
+	<!--						<input type="radio" value="0" name="is_anonymous"/>不匿名-->
+	<!--					</p>-->
+						评价内容：<textarea rows="4" cols="40" id="comm_content"></textarea>
+					</li>
+
+				</ul>
+	<div class="am-btn am-btn-danger" @click="submit()">提交</div>
+</div>
+
+
+
+</div>
+
+<script type="text/javascript" src="static/js/cookie_utils.js" ></script>
+<script type="text/javascript" src="static/js/axios.min.js" ></script>
+<script type="text/javascript" src="static/js/vue.js" ></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script type="text/javascript" src="static/js/base.js" ></script>
+<script type="text/javascript">
+	var v = new Vue({
+		el:"#container",
+		data:{
+			order:{},
+			productComments:{
+				"commLevel": 3,
+				"commContent": "",
+				// "commImgs": "",
+				// "isAnonymous": 0,
+				"isShow": 1,
+				"orderItemId": "",
+				"productId": "",
+				"productName": "",
+				// "replyContent": "",
+				// "replyStatus": 0,
+				// "replyTime": "",
+				// "sepcName": "",
+				"userId": "",
+				"commType": 1,
+			}
+		},
+		created:function(){
+			var jsonstr = localStorage.getItem("order");
+			if(jsonstr != null){
+				localStorage.removeItem("order");
+				this.order = eval("("+jsonstr+")");
+				console.log(this.order);
+			}
+		},
+		methods: {
+
+			check: function (value) {
+				this.productComments.commType = value;
+				if(value==1){
+					this.productComments.commLevel = 3;
+				}else if(value==0){
+					this.productComments.commLevel = 2;
+				}else {
+					this.productComments.commLevel = 1;
 				}
-			});
-		</script>
-	</body>
+			},
+			submit: function () {
+				var token = getCookieValue("token");
+				this.productComments.userId = getCookieValue("userId");
+				this.productComments.commContent = document.getElementById("comm_content").value;
+				// if(this.productComments.commContent==""){
+				// 	this.productComments.commContent = "无";
+				// }
+				for (var i = 0; i < this.order.orderItems.length; i++) {
+					this.productComments.orderItemId = this.order.orderItems[i].itemId;
+					this.productComments.productId = this.order.orderItems[i].productId;
+					this.productComments.productName = this.order.orderItems[i].productName;
+					console.log("2");
+					var url3 = baseUrl + "product/addComment";
+					axios({
+						url: url3,
+						method: "post",
+						headers: {
+							token: token
+						},
+						data: this.productComments,
+					}).then((res) => {
+						if (res.data.code == 10000) {
+							alert("评价成功！");
+							var status = "5";
+							var url1 = baseUrl+"order/status/"+this.order.orderId;
+							axios({
+								url:url1,
+								method:"put",
+								headers:{
+									token:getCookieValue("token")
+								},
+								params:{
+									status:status
+								}
+							}).then((res)=>{
+								console.log(res.data.data);
+								window.location.href = "user-orderlist.html";
+							});
+							window.history.back();
+						} else if (res.data.code == 20001 || res.data.code == 20002) {
+							window.location.href = "login.html";
+						}
+					});
+				}
+			}
+		}
+
+	});
+
+</script>
+</body>
 </html>

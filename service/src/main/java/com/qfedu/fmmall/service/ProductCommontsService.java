@@ -1,5 +1,6 @@
 package com.qfedu.fmmall.service;
 
+import com.qfedu.fmmall.entity.ProductComments;
 import com.qfedu.fmmall.vo.ResultVO;
 
 public interface ProductCommontsService {
@@ -21,4 +22,6 @@ public interface ProductCommontsService {
     public ResultVO getCommentsCountByProductId(String productId);
 
     public ResultVO deleteComment(String commId);
+
+    public ResultVO addComment(ProductComments productComments);
 }

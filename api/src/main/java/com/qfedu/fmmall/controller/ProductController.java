@@ -1,5 +1,7 @@
 package com.qfedu.fmmall.controller;
 
+import com.qfedu.fmmall.entity.ProductComments;
+import com.qfedu.fmmall.entity.ShoppingCart;
 import com.qfedu.fmmall.service.ProductCommontsService;
 import com.qfedu.fmmall.service.ProductService;
 import com.qfedu.fmmall.vo.ResultVO;
@@ -55,7 +57,7 @@ public class ProductController {
             @ApiImplicitParam(dataType = "int",name = "pageNum", value = "当前页码",required = true),
             @ApiImplicitParam(dataType = "int",name = "limit", value = "每页显示条数",required = true)
     })
-    public ResultVO getProductsByCategoryId(@PathVariable("cid") int cid,int pageNum,int limit){
+    public ResultVO getProductsByCategoryId(@PathVariable("cid") String cid,int pageNum,int limit){
         return productService.getProductsByCategoryId(cid,pageNum,limit);
     }
 
@@ -87,6 +89,13 @@ public class ProductController {
     @PutMapping("/deleteComment/{commId}")
     public ResultVO deleteOrder(@PathVariable("commId") String commId,@RequestHeader("token")String token){
         ResultVO resultVO = productCommontsService.deleteComment(commId);
+        return resultVO;
+    }
+
+    @ApiOperation("新增评论接口")
+    @PostMapping("/addComment")
+    public ResultVO addShoppingCart(@RequestBody ProductComments productComments, @RequestHeader("token")String token){
+        ResultVO resultVO = productCommontsService.addComment(productComments);
         return resultVO;
     }
 

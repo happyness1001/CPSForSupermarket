@@ -15,10 +15,10 @@ import java.util.List;
 @ToString
 public class CategoryVO {
 
-    private Integer categoryId;
+    private String categoryId;
     private String categoryName;
     private Integer categoryLevel;
-    private Integer parentId;
+    private String parentId;
     private String categoryIcon;
     private String categorySlogan;
     private String categoryPic;
